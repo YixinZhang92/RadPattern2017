@@ -379,6 +379,308 @@ return 0;
 }
 
 
+/*
+ *Gaussian function
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates a guassian function using total time and time steps
+ */
+
+double gaussian_function (double time[],double time_derivative[])
+{
+
+cout << "Running:gaussian_function\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *derivative_waveform_function
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function calculates the derivative of the input waveform using total time and time steps
+ */
+
+double derivative_waveform_function (double time[],double time_derivative[])
+{
+
+cout << "derivative_waveform_function\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *cartesian_to_spherical_function
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function converts the cartesian coordinates into spherical coordinates using location(x,y)
+ */
+
+double cartesian_to_spherical_function (double x[],double y[])
+{
+
+cout << "cartesian_to_spherical_function\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *spherical_to_cartesian_function
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function converts the spherical coordinates into cartesian coordinates using the values of theta,phi and distance (R)
+ */
+
+double spherical_to_cartesian_function (double theta,double phi,double R)
+{
+
+cout << "spherical_to_cartesian_function\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+
+/*
+ *Radiation_pattern_P_wave_single_couple_force
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates P-wave radiation pattern for single couple force using the values of theta and phi
+ */
+
+double radiation_pattern_P_wave_single_couple_force (double theta,double phi)
+{
+
+cout << "radiation_pattern_P_wave_single_couple_force\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *Radiation_pattern_SH_wave_single_couple_force
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates SH-wave radiation pattern for single couple force using the values of theta and phi
+ */
+
+double radiation_pattern_SH_wave_single_couple_force (double theta,double phi)
+{
+
+cout << "radiation_pattern_SH_wave_single_couple_force\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *Radiation_pattern_SV_wave_single_couple_force
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates SV-wave radiation pattern for single couple force using the values of theta and phi
+ */
+
+double radiation_pattern_SV_wave_single_couple_force (double theta,double phi)
+{
+
+cout << "radiation_pattern_SV_wave_single_couple_force\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *Radiation_pattern_P_wave_double_couple_force
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates P-wave radiation pattern for double couple force using the values of theta and phi
+ */
+
+double radiation_pattern_P_wave_double_couple_force (double theta,double phi)
+{
+
+cout << "radiation_pattern_SV_wave_double_couple_force\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *Radiation_pattern_SH_wave_single_couple_force
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates SH-wave radiation pattern for double couple force using the values of theta and phi
+ */
+
+double radiation_pattern_SH_wave_double_couple_force (double theta,double phi)
+{
+
+cout << "radiation_pattern_SH_wave_double_couple_force\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *Radiation_pattern_SV_wave_double_couple_force
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates SV-wave radiation pattern for double couple force using the values of theta and phi
+ */
+
+double radiation_pattern_SV_wave_double_couple_force (double theta,double phi)
+{
+
+cout << "radiation_pattern_SV_wave_double_couple_force\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *Radiation_pattern_P_wave_force_dipole
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates P-wave radiation pattern for force dipole using the values of theta and phi
+ */
+
+double radiation_pattern_P_wave_force_dipole (double theta,double phi)
+{
+
+cout << "radiation_pattern_P_wave_force_dipole\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *Radiation_pattern_SH_wave_force_dipole
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates SH-wave radiation pattern for force dipole using the values of theta and phi
+ */
+
+double radiation_pattern_SH_wave_force_dipole (double theta,double phi)
+{
+
+cout << "radiation_pattern_SH_wave_force_dipole\n";
+cout << endl;
+
+return 0;
+
+}
+
+/*
+ *Radiation_pattern_SV_wave_force_dipole
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates SV-wave radiation pattern for force dipole using the values of theta and phi
+ */
+
+double radiation_pattern_SV_wave_force_dipole (double theta,double phi)
+{
+
+cout << "radiation_pattern_SV_wave_force_dipole\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *Radiation_pattern_P_wave_point_force
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates P-wave radiation pattern for point force using the values of theta and phi
+ */
+
+double radiation_pattern_P_wave_point_force (double theta,double phi)
+{
+
+cout << "radiation_pattern_P_wave_point_force\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *Radiation_pattern_SH_wave_point_force
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates SH-wave radiation pattern for point force using the values of theta and phi
+ */
+
+double radiation_pattern_SH_wave_point_force (double theta,double phi)
+{
+
+cout << "radiation_pattern_SH_wave_point_force\n";
+cout << endl;
+
+return 0;
+
+}
+
+
+/*
+ *Radiation_pattern_SV_wave_point_force
+ *by Eric Jambo
+ *February 14,2017
+*
+ *This function generates SV-wave radiation pattern for point force using the values of theta and phi
+ */
+
+double radiation_pattern_SV_wave_point_force (double theta,double phi)
+{
+
+cout << "radiation_pattern_SV_wave_point_force\n";
+cout << endl;
+
+return 0;
+
+}
 
 
 
