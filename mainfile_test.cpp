@@ -28,8 +28,75 @@ int main()
 
 
 
+/*
+ * read input file
+ * by Yixin Zhang
+ * February 14, 2017
+ * 
+ * This function read variables on input file into program
+ */
+
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <fstream>
+
+int read_input_file ()
+{
+  
+  //load the text file and assign them into variables:
+  
+  std::ifstream in("input.txt");
+  std::stringstream buffer;
+  buffer << in.rdbuf();
+  std::string input = buffer.str();
+  std::cout << input << std::endl << std::endl;
+  
+  return 0;
+
+}
+
+/*
+ * generate the mesh for calculating the value of every grid
+ * by Yixin Zhang
+ * February 14, 2017
+ * 
+ * This function gives the x,y coordinates for every point and returns the spherical coordinates for each grid
+ */
+
+double mesh_generator (double x, double y, double dx, double dy)
+{
+
+  cout <<  "Running: mesh_generator\n";
+  cout << endl;
+  
+  return 0;
+
+}
 
 
+/*
+ * generate the mesh for calculating the value of every grid
+ * by Yixin Zhang
+ * February 14, 2017
+ * 
+ * This function read the input waveforms in the program
+ */
+
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <fstream>
+
+int read_wave_file ()
+{
+  
+  cout << "Running: read_wave_file\n";
+  cout << endl;
+  
+  return 0;
+  
+}
 
 
 
