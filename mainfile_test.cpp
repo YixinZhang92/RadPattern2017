@@ -107,7 +107,6 @@ int read_wave_file ()
  * displacement_point_force_P_wave
  * by Oluwaseun Fadugba
  * February 14, 2017
-* 
  * This function calculates the P-wave Displacement for single force using the values of theta, phi,  distance (R), moment (C1), P-wave velocity (alpha), density (rho), the input waveform (h) and the time series (time).
  */
 
@@ -124,8 +123,7 @@ return 0;
 /*
  * displacement_point_force_S_wave
  * by Oluwaseun Fadugba
- * February 14, 2017
-* 
+ * February 14, 2017 
  * This function calculates the S-wave Displacement for single force using the values of theta, phi,  distance (R), moment (C1), S-wave velocity (beta), density (rho), the input waveform (h) and the time series (time).
  */
 
@@ -142,8 +140,7 @@ return 0;
 /*
  * displacement_single_force_P_wave
  * by Oluwaseun Fadugba
- * February 14, 2017
-* 
+ * February 14, 2017 
  * This function calculates the P-wave Displacement for single force using the values of theta, phi,  distance (R), moment (C1), P-wave velocity (alpha), density (rho), derivative of the input waveform (h) and derivative of the time series (time).
  */
 
@@ -161,8 +158,7 @@ return 0;
 /*
  * displacement_single_force_SH_wave
  * by Oluwaseun Fadugba
- * February 14, 2017
-* 
+ * February 14, 2017 
  * This function calculates the SH-wave Displacement for single force using the values of theta, phi,  distance (R), moment (C1), S-wave velocity (beta), density (rho), derivative of the input waveform (h) and derivative of the time series (time).
  */
 
@@ -182,8 +178,7 @@ return 0;
 /*
  * displacement_single_force_SV_wave
  * by Oluwaseun Fadugba
- * February 14, 2017
-* 
+ * February 14, 2017 
  * This function calculates the SV-wave Displacement for single force using the values of theta, phi,  distance (R), moment (C1), S-wave velocity (beta), density (rho), derivative of the input waveform (h) and derivative of the time series (time).
  */
 
@@ -204,8 +199,7 @@ return 0;
 /*
  * displacement_double_couple_P_wave
  * by Oluwaseun Fadugba
- * February 14, 2017
-* 
+ * February 14, 2017 
  * This function calculates the P-wave Displacement for Double Couple using the values of theta, phi,  distance (R), moment (C1), P-wave velocity (alpha), density (rho), derivative of the input waveform (h) and derivative of the time series (time).
  */
 
@@ -245,7 +239,7 @@ return 0;
  * by Oluwaseun Fadugba
  * February 14, 2017
  *
- * This function calculates the SV-wave Displacement for Double Couple using the values of theta, phi,  distance (R), moment (C1), S-wave velocity (beta), density (rho), derivative of the input waveform (h) and derivative of the time series (time).
+ * This function calculates the SV-wave Displacement for Double Couple using the values of theta, phi,  distance (R), moment (C1), S-wave velocity      (beta), density (rho), derivative of the input waveform (h) and derivative of the time series (time).
  */
 
 double displacement_double_couple_SV_wave (double theta, double phi, double R, double moment, double beta, double rho, double h_derivative[], double time_derivative[])
@@ -283,9 +277,9 @@ return 0;
  * displacement_force_dipole_SH_wave
  * by Oluwaseun Fadugba
  * February 14, 2017
- *
- * This function calculates the SH-wave Displacement for Force Dipole using the values of theta, phi,  distance (R), moment (C1), S-wave velocity, density (rho), input waveform (h) and time series (time).
-*/
+ * This function calculates the SH-wave Displacement for Force Dipole using the values of theta, phi,  distance (R), moment (C1), S-wave velocity, 
+ * density (rho), input waveform (h) and time series (time).
+ */
 
 double displacement_force_dipole_SH_wave (double theta, double phi, double R, double moment, double beta, double rho, double h[], double time[])
 {
@@ -302,8 +296,8 @@ return 0;
  * displacement_force_dipole_SV_wave
  * by Oluwaseun Fadugba
  * February 14, 2017
- *
- * This function calculates the SV-wave Displacement for Force Dipole using the values of theta, phi,  distance (R), moment (C1), S-wave velocity, density (rho), input waveform (h) and time series (time).
+ * This function calculates the SV-wave Displacement for Force Dipole using the values of theta, phi,  distance (R), moment (C1), S-wave velocity,      
+ * density (rho), input waveform (h) and time series (time).
  */
 
 double displacement_force_dipole_SV_wave (double theta, double phi, double R, double moment, double beta, double rho, double h[], double time[])
@@ -383,7 +377,6 @@ return 0;
  *Gaussian function
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates a guassian function using total time and time steps
  */
 
@@ -402,7 +395,6 @@ return 0;
  *derivative_waveform_function
  *by Eric Jambo
  *February 14,2017
-*
  *This function calculates the derivative of the input waveform using total time and time steps
  */
 
@@ -421,7 +413,6 @@ return 0;
  *cartesian_to_spherical_function
  *by Eric Jambo
  *February 14,2017
-*
  *This function converts the cartesian coordinates into spherical coordinates using location(x,y)
  */
 
@@ -440,7 +431,6 @@ return 0;
  *spherical_to_cartesian_function
  *by Eric Jambo
  *February 14,2017
-*
  *This function converts the spherical coordinates into cartesian coordinates using the values of theta,phi and distance (R)
  */
 
@@ -460,7 +450,6 @@ return 0;
  *Radiation_pattern_P_wave_single_couple_force
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates P-wave radiation pattern for single couple force using the values of theta and phi
  */
 
@@ -479,7 +468,6 @@ return 0;
  *Radiation_pattern_SH_wave_single_couple_force
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates SH-wave radiation pattern for single couple force using the values of theta and phi
  */
 
@@ -498,7 +486,6 @@ return 0;
  *Radiation_pattern_SV_wave_single_couple_force
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates SV-wave radiation pattern for single couple force using the values of theta and phi
  */
 
@@ -517,7 +504,6 @@ return 0;
  *Radiation_pattern_P_wave_double_couple_force
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates P-wave radiation pattern for double couple force using the values of theta and phi
  */
 
@@ -536,7 +522,6 @@ return 0;
  *Radiation_pattern_SH_wave_single_couple_force
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates SH-wave radiation pattern for double couple force using the values of theta and phi
  */
 
@@ -555,7 +540,6 @@ return 0;
  *Radiation_pattern_SV_wave_double_couple_force
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates SV-wave radiation pattern for double couple force using the values of theta and phi
  */
 
@@ -574,7 +558,6 @@ return 0;
  *Radiation_pattern_P_wave_force_dipole
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates P-wave radiation pattern for force dipole using the values of theta and phi
  */
 
@@ -593,7 +576,6 @@ return 0;
  *Radiation_pattern_SH_wave_force_dipole
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates SH-wave radiation pattern for force dipole using the values of theta and phi
  */
 
@@ -611,7 +593,6 @@ return 0;
  *Radiation_pattern_SV_wave_force_dipole
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates SV-wave radiation pattern for force dipole using the values of theta and phi
  */
 
@@ -630,7 +611,6 @@ return 0;
  *Radiation_pattern_P_wave_point_force
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates P-wave radiation pattern for point force using the values of theta and phi
  */
 
@@ -649,7 +629,6 @@ return 0;
  *Radiation_pattern_SH_wave_point_force
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates SH-wave radiation pattern for point force using the values of theta and phi
  */
 
@@ -668,7 +647,6 @@ return 0;
  *Radiation_pattern_SV_wave_point_force
  *by Eric Jambo
  *February 14,2017
-*
  *This function generates SV-wave radiation pattern for point force using the values of theta and phi
  */
 
