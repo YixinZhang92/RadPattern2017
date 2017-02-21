@@ -8,34 +8,6 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-
-
-using namespace std;
-
-int main()
-{
-
-  // Print out of program message
-
-  cout << "\n"
-          "Hello,\n"
-          "I am your first test program\n";
-  cout << endl;
-
-  return 0;
-
-}
-
-
-
-/*
- * read input file
- * by Yixin Zhang
- * February 14, 2017
- * 
- * This function read variables on input file into program
- */
-
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -44,29 +16,46 @@ int main()
 #include <stdlib.h>
 #include <cstdlib>
 
+
+
 using namespace std;
-double open_file ()
-{
-    
-    ifstream file_("EQinfo1.txt");
+
+int main() {
+
+
+  // Print out of program message
+
+  cout << "\n"
+          "Hello,\n"
+          "I am your first test program\n";
+  cout << endl;
     std::string variable_name;
     int variable_value;
+    string   inputfilename;
+    ifstream inputfile;
     
-    if(file_.is_open()){
-        while(file_ >> variable_name >> variable_value){
-            std::cout<< variable_name <<"= " <<variable_value<<'\n';
-        }
-        file_.close();
+    // user for input file
+    cout << "Enter input filename: " ;
+    cin  >> inputfilename;
+
+    //checking on the file stream
+    inputfile.open(inputfilename.c_str());
+    if ( !inputfile.is_open() ) {
+        cout << "Cannot open the input file.\nThe file " 
+             << inputfilename << " is not located in the working directory. "
+             << endl;
+        return 1;
     }
-    else
-        std::cout<<"file is not open"<<'\n';
-    std::cin.get();
-    return 0;
-
-
-
+    
+    while(inputfile >> variable_name >> variable_value){
+         std::cout<< variable_name <<"= " <<variable_value<<'\n';
+    }
+        inputfile.close();
+        return 0;
 
 }
+
+
 
 /*
  * generate the mesh for calculating the value of every grid
@@ -95,10 +84,6 @@ double mesh_generator (double x, double y, double dx, double dy)
  * This function read the input waveforms in the program
  */
 
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <fstream>
 
 int read_wave_file ()
 {
@@ -109,10 +94,6 @@ int read_wave_file ()
   return 0;
   
 }
-
-
-
-
 
 
  /*
@@ -230,8 +211,6 @@ int read_wave_file ()
     return 0;
 
   }
-
-
 
 
  /*
