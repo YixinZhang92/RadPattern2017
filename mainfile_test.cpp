@@ -40,19 +40,31 @@ int main()
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <sstream>
+#include <stdlib.h>
+#include <cstdlib>
 
-int read_input_file ()
-{
-  
-  //load the text file and assign them into variables:
-  
-  std::ifstream in("input.txt");
-  std::stringstream buffer;
-  buffer << in.rdbuf();
-  std::string input = buffer.str();
-  std::cout << input << std::endl << std::endl;
-  
-  return 0;
+using namespace std;
+
+int main () {
+    
+    ifstream file_("EQinfo1.txt");
+    std::string variable_name;
+    int variable_value;
+    
+    if(file_.is_open()){
+        while(file_ >> variable_name >> variable_value){
+            std::cout<< variable_name <<"= " <<variable_value<<'\n';
+        }
+        file_.close();
+    }
+    else
+        std::cout<<"file is not open"<<'\n';
+    std::cin.get();
+    return 0;
+}
+
+
 
 }
 
