@@ -45,8 +45,8 @@ int main()
 #include <cstdlib>
 
 using namespace std;
-
-int main () {
+double open_file ()
+{
     
     ifstream file_("EQinfo1.txt");
     std::string variable_name;
@@ -62,7 +62,7 @@ int main () {
         std::cout<<"file is not open"<<'\n';
     std::cin.get();
     return 0;
-}
+
 
 
 
