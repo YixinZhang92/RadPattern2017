@@ -6,29 +6,33 @@
 
 using namespace std;
 
-//  output values in scientific form
-using std::scientific;
                
 //  purpose: read in the parameters from input file and write these values to a log file
 //  usage: ./rd_test EQinfo.txt logfile 
 
+int read_string(string str[], int i, string variable_name,
+                string &variable_value, ofstream &file);
+int read_float(string str[], int i, string variable_name,
+               float &variable_value, ofstream &file);
+
+
 int main(int argc, char* argv[])
 {
     
-    string s;
-//    string sentence[20];
+    string s, variable_name, string_value;
+   
+
     string str[100];
     string model_name, force_type, wave_type,waveform;
     float velocity, time_step, total_time, area_x, area_y, 
         grid_x, grid_y, moment;
 
     int i;
-    char* c;
     
     
-    if(argc < 3)
+    if(argc < 2)
     { 
-           cout << "Missing inputfile or logfile, please check\n";
+           cout << "Missing inputfile, please check\n";
            return EXIT_FAILURE;
      }
     
@@ -50,114 +54,100 @@ int main(int argc, char* argv[])
 //  open the log file, and wtite the input values in float format      
     ofstream logfile;
 
-    logfile.open(argv[2]);
+    logfile.open("login.txt");
+    string line;
       
     i = 0;
     while(str[i] != "")
     {
-         if(str[i] == "model_name")
-         {
-            // c = const_cast<char*>(str[i+1].c_str());
-            // sscanf(str[i+1], "%s", &model_name);
-             model_name = str[i+1];
-             logfile << model_name << endl;
-             logfile << "\n";
-             i++;
-         }
-         else if(str[i] == "force_type")
-         {
-             //c = const_cast<char*>(str[i+1].c_str());
-             //sscanf("%s", &force_type);
-             force_type = str[i+1];
-             logfile << force_type << endl;
-             logfile << "\n";
-             i++;
-         }    
-         else if(str[i] == "wave_type")
-         {
-             //c = const_cast<char*>(str[i+1].c_str());
-             //sscanf("%s", &wave_type);
-             wave_type = str[i+1];
-             logfile << wave_type << endl;
-             logfile << "\n";
-             i++;
-         }
-         else if(str[i] == "velocity")
-         {
-             c = const_cast<char*>(str[i+1].c_str());
-             sscanf(c,"%e", &velocity);
-             
-             logfile << velocity << endl;
-             logfile << "\n";
-             i++;
-         }    
-         else if(str[i] == "time_step")
-         {
-              c = const_cast<char*>(str[i+1].c_str());                                
-              sscanf(c,"%e", &time_step);
-              logfile << time_step << "\n";
-              logfile << "\n"; 
-              i++;     
-         }
-         else if(str[i] == "total_time")
-         {
-              c = const_cast<char*>(str[i+1].c_str());                                
-              sscanf(c,"%e", &total_time);
-              logfile << total_time << "\n";
-              logfile << "\n";
-              i++; 
-         }
-         else if(str[i] == "waveform")
-         {
-              //c = const_cast<char*>(str[i+1].c_str());
-              //sscanf("%s", &waveform);
-              waveform = str[i+1];
-              logfile << waveform << "\n";
-              logfile << "\n";
-              i++;
-         }
-         else if(str[i] == "area_x")
-         {
-              c = const_cast<char*>(str[i+1].c_str());
-              sscanf(c,"%e", &area_x);
-              logfile << area_x << "\n";
-              logfile << "\n";
-              i++;
-         }     
-         else if(str[i] == "area_y")
-         {
-              c = const_cast<char*>(str[i+1].c_str());
-              sscanf(c,"%e", &area_y);
-              logfile << area_y << "\n";
-              logfile << "\n";
-              i++;
-         }
-         else if(str[i] == "grid_x")
-         {
-              c = const_cast<char*>(str[i+1].c_str());
-              sscanf(c,"%e", &grid_x);
-              logfile << grid_x << "\n";
-              logfile << "\n";
-              i++;
-         }
-         else if(str[i] == "grid_y")
-         {
-              c = const_cast<char*>(str[i+1].c_str());
-              sscanf(c,"%e", &grid_y);
-              logfile << grid_y << "\n";
-              logfile << "\n";
-              i++;
-         }
-         else if(str[i] == "moment")
-         {
-              c = const_cast<char*>(str[i+1].c_str());
-              sscanf(c,"%e", &moment);
-              logfile << moment << "\n";
-              logfile << "\n";
-              i++;
-         }
+        if(str[i] == "model_name")
+            read_string(str, i, variable_name, model_name, logfile);
+         
+        if(str[i] == "force_type")
+            read_string(str, i, variable_name, force_type, logfile);
+        
+        if(str[i] == "wave_type")
+            read_string(str, i, variable_name, wave_type, logfile);
+        
+        if(str[i] == "waveform")
+            read_string(str, i, variable_name, string_value, logfile);
+        
+        
+        if(str[i] == "velocity")
+            read_float(str, i, variable_name, velocity, logfile);
+        
+        if(str[i] == "time_step")
+            read_float(str, i, variable_name, time_step, logfile);
+
+        if(str[i] == "total_time")
+            read_float(str, i, variable_name, total_time, logfile);
+
+        if(str[i] == "area_x")
+            read_float(str, i, variable_name, area_x, logfile);
+
+        if(str[i] == "area_y")
+            read_float(str, i, variable_name, area_y, logfile);
+        
+        if(str[i] == "grid_x")
+            read_float(str, i, variable_name, grid_x, logfile);
+
+        if(str[i] == "grid_y")
+            read_float(str, i, variable_name, grid_y, logfile);
+
+        if(str[i] == "moment")
+            read_float(str, i, variable_name, moment, logfile);
+
         i++;
     }
+    
+    logfile.close();
+    
+    return 0;
 }
+
+
+
+
+int read_string(string str[], int i, string variable_name,
+                string &variable_value, ofstream &file)
+{
+    variable_name = str[i];
+    file << variable_name << "=\t" << endl;
+    cout << variable_name << "=\t" << endl;
+    
+    variable_value = str[i+1];
+    file << variable_value << endl << "\n";
+    cout << variable_value << endl << "\n";
+    
+    return 0;
+}
+
+
+int read_float(string str[], int i, string variable_name,
+                float &variable_value, ofstream &file)
+{
+    char* c;
+    
+    variable_name = str[i];
+    file << variable_name << "=\t" << endl;
+    cout << variable_name << "=\t" << endl;
+    
+    c = const_cast<char*>(str[i+1].c_str());
+    sscanf(c,"%e", &variable_value);
+    file << variable_value << endl << "\n";
+    cout << variable_value << endl << "\n";
+    
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
 
 
