@@ -1,14 +1,13 @@
-CC = g++
+all: myprogram
 
-CFLAGS = -Wall
+myprogram: prototypes.o main.o
+	g++ -o myprogram prototypes.o main.o
 
-all: mainfile_test
+prototypes.o: prototypes.cpp
+	g++ -c prototypes.cpp
 
-mainfile_test:mainfile_test.o
-	${CC} ${CFLAGS} mainfile_test.o -o mainfile_test
-	
-mainfile_test.o: mainfile_test.cpp
-	${CC} ${CFLAGS} -c mainfile_test.cpp
+main.o: main.cpp
+	g++ -c main.cpp
 
-cleanall:
-	rm -rf mainfile_test *.o
+clean:
+	rm myprogram *.o
