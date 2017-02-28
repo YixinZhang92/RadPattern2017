@@ -56,21 +56,21 @@ int read_in_inputfile (int argc, char* argv[], string s, int i, string str[], if
 }
 
 int read_string(string str[], int i, string variable_name,
-                string &variable_value, ofstream &file)
+                string string_value, ofstream &file)
 {
     variable_name = str[i];
     file << variable_name << "=\t" << endl;
     cout << variable_name << "=\t" << endl;
     
-    variable_value = str[i+1];
-    file << variable_value << endl << "\n";
-    cout << variable_value << endl << "\n";
+    string_value = str[i+1];
+    file << string_value << endl << "\n";
+    cout << string_value << endl << "\n";
     
     return 0;
 }
 
 int read_float(string str[], int i, string variable_name,
-               float &variable_value, ofstream &file)
+               float float_value, ofstream &file)
 {
     char* c;
     
@@ -79,9 +79,9 @@ int read_float(string str[], int i, string variable_name,
     cout << variable_name << "=\t" << endl;
     
     c = const_cast<char*>(str[i+1].c_str());
-    sscanf(c,"%e", &variable_value);
-    file << variable_value << endl << "\n";
-    cout << variable_value << endl << "\n";
+    sscanf(c,"%e", float_value);
+    file << float_value << endl << "\n";
+    cout << float_value << endl << "\n";
     
     return 0;
 }
@@ -143,6 +143,7 @@ int write_login_file (string str[], int i, string variable_name, string model_na
     
     return 0;
 }
+
 //  End of test by Yixin Zhang
 
 
