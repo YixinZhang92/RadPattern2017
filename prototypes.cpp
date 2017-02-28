@@ -27,6 +27,125 @@
 using namespace std;
 
 
+/**
+ * Just test, try to add read in program
+ * made by Yixin Zhang
+ */
+int read_in_inputfile (int argc, char* argv[], string s, int i, string str[], ifstream &file)
+{
+    if(argc < 2)
+    {
+        cout << "Missing inputfile, please check\n";
+        return EXIT_FAILURE;
+    }
+    
+    //  open the input file and read the parameters in string format
+    ifstream infile;
+    infile.open(argv[1]);
+    
+    i = 0;
+    while( infile >> s )
+    {
+        str[i] = s;
+        i++;
+    }
+    
+    infile.close();
+    cout << "It is running\n";
+    return 0;
+}
+
+int read_string(string str[], int i, string variable_name,
+                string &variable_value, ofstream &file)
+{
+    variable_name = str[i];
+    file << variable_name << "=\t" << endl;
+    cout << variable_name << "=\t" << endl;
+    
+    variable_value = str[i+1];
+    file << variable_value << endl << "\n";
+    cout << variable_value << endl << "\n";
+    
+    return 0;
+}
+
+int read_float(string str[], int i, string variable_name,
+               float &variable_value, ofstream &file)
+{
+    char* c;
+    
+    variable_name = str[i];
+    file << variable_name << "=\t" << endl;
+    cout << variable_name << "=\t" << endl;
+    
+    c = const_cast<char*>(str[i+1].c_str());
+    sscanf(c,"%e", &variable_value);
+    file << variable_value << endl << "\n";
+    cout << variable_value << endl << "\n";
+    
+    return 0;
+}
+
+int write_login_file (string str[], int i, string variable_name, string model_name,
+                      string force_type, string wave_type, string waveform,
+                      float velocity, float time_step, float total_time, float area_x,
+                      float area_y, float grid_x, float grid_y, float moment, int read_string,
+                      int read_float, ofstream &file)
+{
+    //  Open the log file, and wtite variable values into login file
+    ofstream logfile;
+    logfile.open("login.txt");
+    
+    i = 0;
+    while(str[i] != "")
+    {
+        if(str[i] == "model_name")
+            ::read_string(str, i, variable_name, model_name, logfile);
+        
+        if(str[i] == "force_type")
+            ::read_string(str, i, variable_name, force_type, logfile);
+        
+        if(str[i] == "wave_type")
+            ::read_string(str, i, variable_name, wave_type, logfile);
+        
+        if(str[i] == "waveform")
+            ::read_string(str, i, variable_name, waveform, logfile);
+        
+        
+        if(str[i] == "velocity")
+            ::read_float(str, i, variable_name, velocity, logfile);
+        
+        if(str[i] == "time_step")
+            ::read_float(str, i, variable_name, time_step, logfile);
+        
+        if(str[i] == "total_time")
+            ::read_float(str, i, variable_name, total_time, logfile);
+        
+        if(str[i] == "area_x")
+            ::read_float(str, i, variable_name, area_x, logfile);
+        
+        if(str[i] == "area_y")
+            ::read_float(str, i, variable_name, area_y, logfile);
+        
+        if(str[i] == "grid_x")
+            ::read_float(str, i, variable_name, grid_x, logfile);
+        
+        if(str[i] == "grid_y")
+            ::read_float(str, i, variable_name, grid_y, logfile);
+        
+        if(str[i] == "moment")
+            ::read_float(str, i, variable_name, moment, logfile);
+        
+        i++;
+    }
+    
+    logfile.close();
+    
+    return 0;
+}
+//  End of test by Yixin Zhang
+
+
 
 /**
  * @short    Mesh_generator
