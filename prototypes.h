@@ -16,7 +16,7 @@ int read_string(string str[], int i, string variable_name,
 int read_float(string str[], int i, string variable_name,
                float float_value, ofstream &file);
 
-int read_in_inputfile (int argc, char* argv[], string s, int i, string str[], ifstream &infile);
+//int read_in_inputfile (int argc, char* argv[], string s, int i, string str[], ifstream &infile);
 
 
 int write_login_file (string str[], int i, string variable_name, string model_name,
