@@ -70,7 +70,7 @@ int read_string(string str[], int i, string variable_name,
 }
 
 int read_float(string str[], int i, string variable_name,
-               float float_value, ofstream &file)
+               float *float_value, ofstream &file)
 {
     char* c;
     
