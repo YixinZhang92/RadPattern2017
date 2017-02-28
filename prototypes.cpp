@@ -31,7 +31,9 @@ using namespace std;
  * Just test, try to add read in program
  * made by Yixin Zhang
  */
-int read_in_inputfile (int argc, char* argv[], string s, int i, string str[], ifstream &file)
+
+
+/**int read_in_inputfile (int argc, char* argv[], string s, int i, string str[], ifstream &file)
 {
     if(argc < 2)
     {
@@ -54,7 +56,7 @@ int read_in_inputfile (int argc, char* argv[], string s, int i, string str[], if
     cout << "It is running\n";
     return 0;
 }
-
+*/
 int read_string(string str[], int i, string variable_name,
                 string string_value, ofstream &file)
 {
