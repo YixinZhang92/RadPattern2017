@@ -46,7 +46,7 @@ int read_float(string str[], int i, string variable_name,
  * This is the main program that calls all the other functions and diplay a message for the user to know that are running.
  */
 
-int main() 
+int main(int argc, char* argv[]) 
 
 {
 //  Read in variables and write them into memory, login file, and print them to the screen
