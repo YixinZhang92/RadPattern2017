@@ -79,7 +79,7 @@ int main()
     ::read_string (str, i, variable_name, string_value, logfile);
     ::read_float (str, i, variable_name, float_value, logfile);
     
-    ::read_in_inputfile (argc, argv, s, i, str, infile);
+ //   ::read_in_inputfile (argc, argv, s, i, str, infile);
     
     ::write_login_file (str, i, variable_name, model_name, force_type,
                       wave_type, waveform, velocity, time_step, total_time,
