@@ -43,7 +43,36 @@ int main()
     
     ifstream infile;
     ofstream logfile;
+
+//Trying to make readin file works in the command line
+	
+    if(argc < 2)
+    {
+        cout << "Missing inputfile, please check\n";
+        return EXIT_FAILURE;
+    }
     
+    //  open the input file and read the parameters in string format
+//    ifstream infile;
+    infile.open(argv[1]);
+    
+    i = 0;
+    while( infile >> s )
+    {
+        str[i] = s;
+        i++;
+    }
+    
+    infile.close();
+    cout << "It is running\n";
+    
+//End of test
+	
+	
+	
+	
+	
+	
 //  Read in prototype test
     int read_in_inputfile, write_login_file, read_string, read_float;
     
