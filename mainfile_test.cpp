@@ -30,7 +30,10 @@
 #include <cstdlib>
 
 using namespace std;
-
+int read_string(string str[], int i, string variable_name,
+                string &variable_value, ofstream &file);
+int read_float(string str[], int i, string variable_name,
+               float &variable_value, ofstream &file);
 
 /**
  * @short   Main Program
@@ -46,45 +49,137 @@ using namespace std;
 int main() 
 
 {
-
-    // Print out of program message
-
-    cout << "\n"
-            "Hello,\n"
-            "I am your first test program\n";
-    cout << endl;
-        std::string variable_name;
+//  Read in variables and write them into memory, login file, and print them to the screen
+    string str[100];
+    string s, variable_name, string_value;
+    string model_name, force_type, wave_type,waveform;
+    float velocity, time_step, total_time, area_x, area_y, 
+        grid_x, grid_y, moment;
+    int i;
     
-    int      variable_value;
-    string   inputfilename;
-    ifstream inputfile;
+    if(argc < 2)
+    { 
+           cout << "Missing inputfile, please check\n";
+           return EXIT_FAILURE;
+     }
     
-    // user for input file
-    cout << "Enter input filename: " ;
-    cin  >> inputfilename;
+//  open the input file and read the parameters in string format    
+    ifstream infile;
+    infile.open(argv[1]);
 
-    //checking on the file stream
-    inputfile.open(inputfilename.c_str());
-
-    if ( !inputfile.is_open() ) {
-        cout << "Cannot open the input file.\nThe file " 
-             << inputfilename << " is not located in the working directory. "
-             << endl;
-
-    return 1;
+    i = 0;
+    while( infile >> s )
+    { 
+         str[i] = s;
+         i++;
+     }
     
-}
-    
-    while(inputfile >> variable_name >> variable_value)
-{
+    infile.close();
+
+//    if ( !inputfile.is_open() ) 
+//{
+//    cout << "Cannot open the input file.\nThe file " 
+//             << inputfilename << " is not located in the working directory. "
+//             << endl;
+
+//    return 1;  
+//}
+
+//  Open the log file, and wtite variable values into login file
+    ofstream logfile;
+    logfile.open("login.txt");
+    string line;
+      
+    i = 0;
+    while(str[i] != "")
+    {
+        if(str[i] == "model_name")
+            read_string(str, i, variable_name, model_name, logfile);
          
-}
-     
-    std::cout<< variable_name <<"= " <<variable_value<<'\n';
-    inputfile.close();
+        if(str[i] == "force_type")
+            read_string(str, i, variable_name, force_type, logfile);
         
-    return 0;
+        if(str[i] == "wave_type")
+            read_string(str, i, variable_name, wave_type, logfile);
+        
+        if(str[i] == "waveform")
+            read_string(str, i, variable_name, string_value, logfile);
+        
+        
+        if(str[i] == "velocity")
+            read_float(str, i, variable_name, velocity, logfile);
+        
+        if(str[i] == "time_step")
+            read_float(str, i, variable_name, time_step, logfile);
 
+        if(str[i] == "total_time")
+            read_float(str, i, variable_name, total_time, logfile);
+
+        if(str[i] == "area_x")
+            read_float(str, i, variable_name, area_x, logfile);
+
+        if(str[i] == "area_y")
+            read_float(str, i, variable_name, area_y, logfile);
+        
+        if(str[i] == "grid_x")
+            read_float(str, i, variable_name, grid_x, logfile);
+
+        if(str[i] == "grid_y")
+            read_float(str, i, variable_name, grid_y, logfile);
+
+        if(str[i] == "moment")
+            read_float(str, i, variable_name, moment, logfile);
+
+        i++;
+    }
+    
+    logfile.close();
+    
+    return 0;
+}
+
+
+/**
+ * @short    read_string
+ * @file     Mainfile_text.cpp
+ * @author   Yixin Zhang
+ * @param    string variable_name, string &variable_value, float &variable_value
+ * @display  displays the content of login file when running
+ * @return   0 on sucess
+ *
+ * This function gives the string/float virable values to each viriable, display them and write them into loginfile 
+ * latest created: February 27, 2017
+ */
+
+int read_string(string str[], int i, string variable_name,
+                string &variable_value, ofstream &file)
+{
+    variable_name = str[i];
+    file << variable_name << "=\t" << endl;
+    cout << variable_name << "=\t" << endl;
+    
+    variable_value = str[i+1];
+    file << variable_value << endl << "\n";
+    cout << variable_value << endl << "\n";
+    
+    return 0;
+}
+
+int read_float(string str[], int i, string variable_name,
+                float &variable_value, ofstream &file)
+{
+    char* c;
+    
+    variable_name = str[i];
+    file << variable_name << "=\t" << endl;
+    cout << variable_name << "=\t" << endl;
+    
+    c = const_cast<char*>(str[i+1].c_str());
+    sscanf(c,"%e", &variable_value);
+    file << variable_value << endl << "\n";
+    cout << variable_value << endl << "\n";
+    
+    return 0;
 }
 
 
