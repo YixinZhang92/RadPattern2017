@@ -30,6 +30,36 @@ int main()
 
 {
 
+//  Changed by Yixin Zhang, test for adding readin program
+    int argc, i;
+    char* argv[10]
+    string str[100];
+    string s, variable_name;
+    string model_name, force_type, wave_type,waveform;
+    
+    float velocity, time_step, total_time, area_x, area_y,
+        grid_x, grid_y, moment;
+    
+    ifstream infile;
+    ofstream logfile
+    
+//  Read in prototype test
+    int read_in_inputfile, write_login_file, read_string, read_float;
+    
+    read_string (str[], i, variable_name, &variable_value, &file);
+    read_float (str[], i, variable_name, &variable_value, &file);
+    
+    read_in_inputfile (argc, argv[], s, i, str, infile);
+    
+    write_login_file (str[], i, variable_name, model_name, force_type,
+                      wave_type, waveform, velocity, time_step, total_time,
+                      area_x, area_y, grid_x, grid_y, moment, read_string,
+                      read_float, logfile);
+//  End of test by Yixin Zhang
+    
+    
+
+
     // Print out of program message
 	double h[5], time[5];
 	double h_derivative[2],time_derivative[5];
