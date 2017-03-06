@@ -26,18 +26,15 @@
 #include "prototypes.h"
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 
 {
 
 //  Changed by Yixin Zhang, test for adding readin program
-    int argc, i;
-    char* argv[10];
+    int i;
     string str[100];
     string s, variable_name, string_value;
     string model_name, force_type, wave_type, waveform;
-    
-    
     float velocity, time_step, total_time, area_x, area_y,
         grid_x, grid_y, moment, float_value;
     
@@ -53,7 +50,7 @@ int main()
     }
     
     //  open the input file and read the parameters in string format
-//    ifstream infile;
+
     infile.open(argv[1]);
     
     i = 0;
@@ -64,27 +61,76 @@ int main()
     }
     
     infile.close();
-    cout << "It is running\n";
+    cout << "It is Reading info file\n";
     
-//End of test
-	
-	
+    //  Open the log file, and wtite variable values into login file
+    logfile.open("login.txt");
+    //    string line;
+    
+    i = 0;
+    while(str[i] != "")
+    {
+        if(str[i] == "model_name")
+            read_string(str, i, variable_name, model_name, logfile);
+        
+        if(str[i] == "force_type")
+            read_string(str, i, variable_name, force_type, logfile);
+        
+        if(str[i] == "wave_type")
+            read_string(str, i, variable_name, wave_type, logfile);
+        
+        if(str[i] == "waveform")
+            read_string(str, i, variable_name, waveform, logfile);
+        
+        
+        if(str[i] == "velocity")
+            read_float(str, i, variable_name, velocity, logfile);
+        
+        if(str[i] == "time_step")
+            read_float(str, i, variable_name, time_step, logfile);
+        
+        if(str[i] == "total_time")
+            read_float(str, i, variable_name, total_time, logfile);
+        
+        if(str[i] == "area_x")
+            read_float(str, i, variable_name, area_x, logfile);
+        
+        if(str[i] == "area_y")
+            read_float(str, i, variable_name, area_y, logfile);
+        
+        if(str[i] == "grid_x")
+            read_float(str, i, variable_name, grid_x, logfile);
+        
+        if(str[i] == "grid_y")
+            read_float(str, i, variable_name, grid_y, logfile);
+        
+        if(str[i] == "moment")
+            read_float(str, i, variable_name, moment, logfile);
+        
+        i++;
+    }
+    
+    logfile.close();
+    
+   cout << "login file has been written./n" ;
 	
 	
 	
 	
 //  Read in prototype test
-    int read_in_inputfile, write_login_file, read_string, read_float;
+//    int read_in_inputfile, write_login_file, read_string, read_float;
     
-    ::read_string (str, i, variable_name, string_value, logfile);
-    ::read_float (str, i, variable_name, float_value, logfile);
+
+
+
+    read_string (str, i, variable_name, string_value, logfile);
+
+    read_float (str, i, variable_name, float_value, logfile);
     
- //   ::read_in_inputfile (argc, argv, s, i, str, infile);
+
     
-    ::write_login_file (str, i, variable_name, model_name, force_type,
-                      wave_type, waveform, velocity, time_step, total_time,
-                      area_x, area_y, grid_x, grid_y, moment, read_string,
-                      read_float, logfile);
+    
+
 
 //  End of test by Yixin Zhang
     
