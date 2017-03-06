@@ -12,18 +12,21 @@ using namespace std;
  * start form here, Yixin Zhang is testing her read in prototypes
  */
 int read_string(string str[], int i, string variable_name,
-                string string_value, ofstream &file);
+                string &string_value, ofstream &file);
 int read_float(string str[], int i, string variable_name,
-               float float_value, ofstream &file);
+               float &float_value, ofstream &file);
+
 
 //int read_in_inputfile (int argc, char* argv[], string s, int i, string str[], ifstream &infile);
 
-
+/**
 int write_login_file (string str[], int i, string variable_name, string model_name,
                       string force_type, string wave_type, string waveform, float velocity,
                       float time_step, float total_time, float area_x, float area_y,
                       float grid_x, float grid_y, float moment, int read_string, int read_float,
                       ofstream &file);
+*/
+
 /**
  * End here, by Yixin Zhang
  */
