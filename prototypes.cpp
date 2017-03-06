@@ -58,7 +58,7 @@ using namespace std;
 }
 */
 int read_string(string str[], int i, string variable_name,
-                string string_value, ofstream &file)
+                string &string_value, ofstream &file)
 {
     variable_name = str[i];
     file << variable_name << "=\t" << endl;
@@ -72,7 +72,7 @@ int read_string(string str[], int i, string variable_name,
 }
 
 int read_float(string str[], int i, string variable_name,
-               float float_value, ofstream &file)
+               float &float_value, ofstream &file)
 {
     char* c;
     
@@ -81,12 +81,16 @@ int read_float(string str[], int i, string variable_name,
     cout << variable_name << "=\t" << endl;
     
     c = const_cast<char*>(str[i+1].c_str());
-    sscanf(c,"%e", float_value);
+    sscanf(c,"%e", &float_value);
     file << float_value << endl << "\n";
     cout << float_value << endl << "\n";
     
     return 0;
 }
+
+
+
+/**
 
 int write_login_file (string str[], int i, string variable_name, string model_name,
                       string force_type, string wave_type, string waveform,
@@ -145,7 +149,7 @@ int write_login_file (string str[], int i, string variable_name, string model_na
     
     return 0;
 }
-
+*/
 //  End of test by Yixin Zhang
 
 
