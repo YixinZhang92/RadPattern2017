@@ -188,18 +188,18 @@ double displacement_force_dipole_SV_wave (
 int write_P_waves_to_file (
     double displacement_point_force_P_wave_output[], double displacement_single_couple_P_wave_output[], 
     double displacement_double_couple_P_wave_output[], double displacement_force_dipole_P_wave_output[], 
-    double h[], double h_derivative[], double time[], double time_derivative[], double x[], 
-    double y[], string outputfilename );
+    double h[], double h_derivative[], double time[], double time_derivative[], float x, 
+    float y, string outputfilename );
 
 int write_SV_waves_to_file (
     double displacement_point_force_S_wave_output[], double displacement_single_couple_SV_wave_output[], 
     double displacement_double_couple_SV_wave_output[], double displacement_force_dipole_SV_wave_output[], 
-    double h[], double h_derivative[], double time[], double time_derivative[], double x[], 
-    double y[], string outputfilename );
+    double h[], double h_derivative[], double time[], double time_derivative[], float x, 
+    float y, string outputfilename );
 
 int write_SH_waves_to_file (
     double displacement_point_force_S_wave_output[], double displacement_single_couple_SH_wave_output[], 
     double displacement_double_couple_SH_wave_output[], double displacement_force_dipole_SH_wave_output[], 
-    double h[], double h_derivative[], double time[], double time_derivative[], double x[], 
-    double y[], string outputfilename );
+    double h[], double h_derivative[], double time[], double time_derivative[], float x, 
+    float y, string outputfilename );
 

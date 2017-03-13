@@ -305,17 +305,17 @@ displacement_force_dipole_SV_wave (3.0, 2.0, 5.9, 2.8, 2.5, 4, h, time );
 write_P_waves_to_file (
     displacement_point_force_P_wave_output, displacement_single_couple_P_wave_output,
     displacement_double_couple_P_wave_output, displacement_force_dipole_P_wave_output, h,
-    h_derivative, time, time_derivative, x, y, outputfilename );
+    h_derivative, time, time_derivative, 3.0, 4.0, outputfilename );
 	
 write_SV_waves_to_file (
     displacement_point_force_S_wave_output, displacement_single_couple_SV_wave_output,
     displacement_double_couple_SV_wave_output,displacement_force_dipole_SV_wave_output,h,
-    h_derivative,  time, time_derivative,  x, y, outputfilename );
+    h_derivative,  time, time_derivative,  3.0, 4.0, outputfilename );
 		
 write_SH_waves_to_file (
     displacement_point_force_S_wave_output, displacement_single_couple_SH_wave_output,
     displacement_double_couple_SH_wave_output, displacement_force_dipole_SH_wave_output, h,
-    h_derivative,  time, time_derivative,  x, y, outputfilename );
+    h_derivative,  time, time_derivative,  3.0, 4.0, outputfilename );
 
 		
 
