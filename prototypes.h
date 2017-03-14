@@ -11,9 +11,13 @@
 #include <fstream>
 #include <sstream>
 #include <stdlib.h>
+#include <cmath>
 #include <cstdlib>
 
 using namespace std;
+// defining the value of PI.
+
+#define PI 3.14159265
 
 
 //
@@ -76,7 +80,7 @@ double mesh_generator (double x, double y, double dx, double dy);
 //
 
 
-double cartesian_to_spherical_function (double x[],double y[]);
+double cartesian_to_spherical_function (double *x,double *y);
 
 
 //
@@ -127,49 +131,49 @@ double radiation_pattern_SV_wave_point_force (double theta,double phi);
 //	
 
 
-double displacement_point_force_P_wave (
+int displacement_point_force_P_wave (
     double theta, double R, double moment, double alpha, 
-    double rho, double h[], double time[] );
+    double rho, double *h, double *time, double *displacement_point_force_P_wave_output, int len );
 
 double displacement_point_force_S_wave (
     double theta, double phi, double R, double moment, double beta, 
-    double rho, double h[], double time[] );
+    double rho, double *h, double *time, double *displacement_point_force_S_wave_output, int len  );
 
 double displacement_single_force_P_wave (
     double theta, double phi, double R, double moment, double alpha, 
-    double rho, double h_derivative[], double time_derivative[] );
+    double rho, double *h_derivative, double *time_derivative, double *displacement_single_force_P_wave_output, int len  );
 
 double displacement_single_force_SH_wave (
     double theta, double phi, double R, double moment, double alpha, 
-    double rho, double h_derivative[], double time_derivative[] );
+    double rho, double *h_derivative, double *time_derivative, double *displacement_single_force_SH_wave_output, int len  );
 
 double displacement_single_force_SV_wave (
     double theta, double phi, double R, double moment, double beta, 
-    double rho, double h_derivative[], double time_derivative[] );
+    double rho, double *h_derivative, double *time_derivative, double *displacement_single_force_SV_wave_output, int len  );
 
 double displacement_double_couple_P_wave (
     double theta, double phi, double R, double moment, double alpha, 
-    double rho, double h_derivative[], double time_derivative[] );
+    double rho, double *h_derivative, double *time_derivative, double *displacement_double_couple_P_wave_output, int len  );
 
 double displacement_double_couple_SH_wave (
     double theta, double phi, double R, double moment, double alpha, 
-    double rho, double h_derivative[], double time_derivative[] );
+    double rho, double *h_derivative, double *time_derivative, double *displacement_double_couple_SH_wave_output, int len  );
 
 double displacement_double_couple_SV_wave (
     double theta, double phi, double R, double moment, double alpha, 
-    double rho, double h_derivative[], double time_derivative[] );
+    double rho, double *h_derivative, double *time_derivative, double *displacement_double_couple_SV_wave_output, int len  );
 
 double displacement_force_dipole_P_wave (
     double theta, double phi, double R, double moment, double alpha, 
-    double rho, double h[], double time[] );
+    double rho, double *h, double *time,  double *displacement_force_dipole_P_wave_output, int len  );
 
 double displacement_force_dipole_SH_wave (
     double theta, double phi, double R, double moment, double alpha, 
-    double rho, double h[], double time[] );
+    double rho, double *h, double *time,  double *displacement_force_dipole_SH_wave_output, int len   );
 
 double displacement_force_dipole_SV_wave (
     double theta, double phi, double R, double moment, double alpha, 
-    double rho, double h[], double time[] );
+    double rho, double *h, double *time,  double *displacement_force_dipole_SV_wave_output, int len   );
 
 		
 		
@@ -186,20 +190,20 @@ double displacement_force_dipole_SV_wave (
 		
 
 int write_P_waves_to_file (
-    double displacement_point_force_P_wave_output[], double displacement_single_couple_P_wave_output[], 
-    double displacement_double_couple_P_wave_output[], double displacement_force_dipole_P_wave_output[], 
-    double h[], double h_derivative[], double time[], double time_derivative[], float x, 
-    float y, string outputfilename );
+    double *displacement_point_force_P_wave_output, double *displacement_single_couple_P_wave_output, 
+    double *displacement_double_couple_P_wave_output, double *displacement_force_dipole_P_wave_output, 
+    double *h, double *h_derivative, double *time, double *time_derivative, double xx, 
+    double yy, string outputfilename , int len);
 
 int write_SV_waves_to_file (
-    double displacement_point_force_S_wave_output[], double displacement_single_couple_SV_wave_output[], 
-    double displacement_double_couple_SV_wave_output[], double displacement_force_dipole_SV_wave_output[], 
-    double h[], double h_derivative[], double time[], double time_derivative[], float x, 
-    float y, string outputfilename );
+    double *displacement_point_force_S_wave_output, double *displacement_single_couple_SV_wave_output, 
+    double *displacement_double_couple_SV_wave_output, double *displacement_force_dipole_SV_wave_output, 
+    double *h, double *h_derivative, double *time, double *time_derivative, double xx, 
+    double yy, string outputfilename, int len);
 
 int write_SH_waves_to_file (
-    double displacement_point_force_S_wave_output[], double displacement_single_couple_SH_wave_output[], 
-    double displacement_double_couple_SH_wave_output[], double displacement_force_dipole_SH_wave_output[], 
-    double h[], double h_derivative[], double time[], double time_derivative[], float x, 
-    float y, string outputfilename );
+    double *displacement_point_force_S_wave_output, double *displacement_single_couple_SH_wave_output, 
+    double *displacement_double_couple_SH_wave_output, double *displacement_force_dipole_SH_wave_output, 
+    double *h, double *h_derivative, double *time, double *time_derivative, double xy, 
+    double yy, string outputfilename, int len);
 

@@ -24,6 +24,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include <cstdlib>
+#include <cmath>
 #include "prototypes.h"
 using namespace std;
 
@@ -44,11 +45,18 @@ using namespace std;
  * Lastly, we also can display the waveform at a particular epicentral distance after incorporating the influence of radiation pattern for the particular waveform as input.
  *
  */
+
+
+// defining the value of PI.
+
+#define PI 3.14159265
  
 main(int argc, char* argv[])
 
 {
 	
+
+
 /** 
  * This function calls all the functions used in this program.
  */
@@ -157,28 +165,57 @@ read_float (str, i, variable_name, float_value, logfile);
 //  End of test by Yixin Zhang
     
     
+// ------------------------------------------------------------------------------------------------
+// These parameters (in this bracket) are supposed to be from the input file. I initialize them here to make things work. We will delete them when the everything is working.
 
-// Print out of program message
+int length = 9;
 
-double h[5], time[5];
+double *time;	              time = new double[length];
 
-double h_derivative[2],time_derivative[5];
- 
-double x[3],y[4];
+double *x;	              x = new double[100];
+double *y;	              y = new double[100];
 
-double dx[2],dy[4];
+double *h;	              h = new double[length];
+double *h_derivative;	      h_derivative = new double[length];
+double *time_derivative;      time_derivative = new double[length];
 
-double displacement_point_force_P_wave_output[9], displacement_single_couple_P_wave_output[3],
-       displacement_double_couple_P_wave_output[3], displacement_force_dipole_P_wave_output[3];
-	
-double displacement_point_force_S_wave_output[2], displacement_single_couple_SV_wave_output[3],
-       displacement_double_couple_SV_wave_output[3], displacement_force_dipole_SV_wave_output[3];
-	
-double displacement_single_couple_SH_wave_output[3], displacement_double_couple_SH_wave_output[3],
-       displacement_force_dipole_SH_wave_output[3]; string outputfilename;
+double *dx;	              dx = new double[1];
+double *dy;	              dy = new double[1];
 
+string outputfilename;
 		
-		
+// Initialize the old vector.
+for (int i=0; i<length; i++)
+{
+    h[i] = double(i);
+
+    h_derivative[i] = double(i);
+
+    time[i] = double(i);
+
+    time_derivative[i] = double(i);
+}
+
+// ----------------------------------------------------------------------------------------------
+
+
+
+double *displacement_point_force_P_wave_output;	        displacement_point_force_P_wave_output = new double[length];
+double *displacement_point_force_S_wave_output;	        displacement_point_force_S_wave_output = new double[length];
+double *displacement_single_couple_P_wave_output;	displacement_single_couple_P_wave_output = new double[length];
+double *displacement_single_couple_SV_wave_output;	displacement_single_couple_SV_wave_output = new double[length];
+double *displacement_single_couple_SH_wave_output;	displacement_single_couple_SH_wave_output = new double[length];
+double *displacement_double_couple_P_wave_output;	displacement_double_couple_P_wave_output = new double[length];
+double *displacement_double_couple_SV_wave_output;	displacement_double_couple_SV_wave_output = new double[length];
+double *displacement_double_couple_SH_wave_output;	displacement_double_couple_SH_wave_output = new double[length];
+double *displacement_force_dipole_P_wave_output;	displacement_force_dipole_P_wave_output = new double[length];
+double *displacement_force_dipole_SV_wave_output;	displacement_force_dipole_SV_wave_output = new double[length];
+double *displacement_force_dipole_SH_wave_output;	displacement_force_dipole_SH_wave_output = new double[length];
+
+
+
+
+
 /**
  * Function:          gaussian_function and its derivative
  * 
@@ -268,27 +305,38 @@ radiation_pattern_SV_wave_point_force (1.6, 1.0);
  */	
 	
 	
-displacement_point_force_P_wave (3.9, 3.5, 2.8, 3.5, 3.7, h, time );
+displacement_point_force_P_wave (3.9, 3.5, 2.8, 3.5, 3.7, h, time, 
+    displacement_point_force_P_wave_output, 9 );
 	
-displacement_point_force_S_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, time);
+displacement_point_force_S_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, time, 
+    displacement_point_force_P_wave_output, 9 );
 	
-displacement_single_force_P_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, time_derivative );
+displacement_single_force_P_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
+    time_derivative, displacement_point_force_P_wave_output, 9 );
 	
-displacement_single_force_SH_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, time_derivative );
+displacement_single_force_SH_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
+    time_derivative, displacement_point_force_P_wave_output, 9  );
 	
-displacement_single_force_SV_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, time_derivative );
+displacement_single_force_SV_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
+    time_derivative, displacement_point_force_P_wave_output, 9  );
 	
-displacement_double_couple_P_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, time_derivative );
+displacement_double_couple_P_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
+    time_derivative, displacement_point_force_P_wave_output, 9  );
 	
-displacement_double_couple_SH_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, time_derivative );
+displacement_double_couple_SH_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
+    time_derivative, displacement_point_force_P_wave_output, 9  );
 	
-displacement_double_couple_SV_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, time_derivative );
+displacement_double_couple_SV_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
+    time_derivative, displacement_point_force_P_wave_output, 9  );
 	
-displacement_force_dipole_P_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, time );
+displacement_force_dipole_P_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, time, 
+    displacement_point_force_P_wave_output, 9  );
 	
-displacement_force_dipole_SH_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, time );
+displacement_force_dipole_SH_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, time, 
+    displacement_point_force_P_wave_output, 9  );
 	
-displacement_force_dipole_SV_wave (3.0, 2.0, 5.9, 2.8, 2.5, 4, h, time );
+displacement_force_dipole_SV_wave (3.0, 2.0, 5.9, 2.8, 2.5, 4, h, time, 
+    displacement_point_force_P_wave_output, 9  );
 	
 	
 /**
@@ -302,22 +350,26 @@ displacement_force_dipole_SV_wave (3.0, 2.0, 5.9, 2.8, 2.5, 4, h, time );
  */	
   
 
+// it is not printing the correct answer. I will need to fix it.
+
+
 write_P_waves_to_file (
     displacement_point_force_P_wave_output, displacement_single_couple_P_wave_output,
     displacement_double_couple_P_wave_output, displacement_force_dipole_P_wave_output, h,
-    h_derivative, time, time_derivative, 3.0, 4.0, outputfilename );
+    h_derivative, time, time_derivative, 6.0, 7.0, "outputfilename.txt",length);
 	
 write_SV_waves_to_file (
     displacement_point_force_S_wave_output, displacement_single_couple_SV_wave_output,
     displacement_double_couple_SV_wave_output,displacement_force_dipole_SV_wave_output,h,
-    h_derivative,  time, time_derivative,  3.0, 4.0, outputfilename );
+    h_derivative,  time, time_derivative,  6.0, 7.0, "outputfilename.txt",length);
 		
 write_SH_waves_to_file (
     displacement_point_force_S_wave_output, displacement_single_couple_SH_wave_output,
     displacement_double_couple_SH_wave_output, displacement_force_dipole_SH_wave_output, h,
-    h_derivative,  time, time_derivative,  3.0, 4.0, outputfilename );
+    h_derivative,  time, time_derivative,  6.0, 7.0, "outputfilename.txt",length);
 
-		
+
+	
 
 cout << "\n"
     "I have completed running all the prototypes,\n";

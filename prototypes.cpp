@@ -12,8 +12,14 @@
 #include <sstream>
 #include <stdlib.h>
 #include <cstdlib>
+#include <cmath>
 #include "prototypes.h"
 using namespace std;
+
+// defining the value of PI.
+
+#define PI 3.14159265
+
 
 /**
  * Author:            Yixin Zhang
@@ -128,15 +134,32 @@ int read_wave_file ()
  *
  */
 
-double displacement_point_force_P_wave (
+int displacement_point_force_P_wave (
     double theta, double R, double moment, double alpha, 
-    double rho, double h[], double time[] )
+    double rho, double *h, double *time, double *displacement_point_force_P_wave_output, int len )
 
 {
-
     cout <<  "Running: displacement_point_force_P_wave\n";
     cout << endl;
 
+    // Perform operation.
+    
+    for (int i=0; i<len; i++)
+    {
+
+        displacement_point_force_P_wave_output[i] = (cos(theta * PI / 180.0) * h[i]) / 
+                                                    (4 * PI * rho * pow(alpha,2) * R);
+    
+    }
+
+    for (int i=0; i<len; i++)
+    {
+
+        cout << "displacement_point_force_P_wave_output = " << displacement_point_force_P_wave_output[i] << endl;
+
+    }
+    
+    
     return 0;
 
 }
@@ -153,12 +176,30 @@ double displacement_point_force_P_wave (
 
 double displacement_point_force_S_wave (
     double theta, double phi, double R, double moment, double beta, 
-    double rho, double h[], double time[] )
+    double rho, double *h, double *time , double *displacement_point_force_S_wave_output, int len )
 
 {
-	
+// Dont forget to apply time shift to the h and h derivatives	
     cout <<  "Running: displacement_point_force_S_wave\n";
     cout << endl;
+
+    // Perform operation.
+    
+    for (int i=0; i<len; i++)
+    {
+
+        displacement_point_force_S_wave_output[i] = (-sin(theta * PI / 180.0) * h[i]) / 
+                                                    (4 * PI * rho * pow(beta,2) * R);
+    }
+
+    for (int i=0; i<len; i++)
+    {
+
+        cout << "displacement_point_force_S_wave_output = " << displacement_point_force_S_wave_output[i] << endl;
+
+    }
+    
+
 
     return 0;
 
@@ -176,11 +217,29 @@ double displacement_point_force_S_wave (
  
 double displacement_single_force_P_wave (
     double theta, double phi, double R, double moment, double alpha, 
-    double rho, double h_derivative[], double time_derivative[] )
+    double rho, double *h_derivative, double *time_derivative , double *displacement_single_force_P_wave_output, int len )
 
 {
     cout <<  "Running: displacement_single_force_P_wave\n";
     cout << endl;
+
+    // Perform operation.
+    
+    for (int i=0; i<len; i++)
+    {
+
+        displacement_single_force_P_wave_output[i] = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0),2) *
+                                                     moment * h_derivative[i]) / 
+                                                     (8.0 * PI * rho * pow(alpha,3) * R);
+       
+    }
+    
+    
+    for (int i=0; i<len; i++)
+    {
+        cout << "displacement_single_force_P_wave_output = " << displacement_single_force_P_wave_output[i] << endl;
+    }
+
 
     return 0;
 
@@ -199,12 +258,27 @@ double displacement_single_force_P_wave (
 
 double displacement_single_force_SH_wave (
     double theta, double phi, double R, double moment, double beta, 
-    double rho, double h_derivative[], double time_derivative[] )
+    double rho, double *h_derivative, double *time_derivative, double *displacement_single_force_SH_wave_output, int len  )
 
 {
 	
     cout <<  "Running: displacement_single_force_SH_wave\n";
     cout << endl;
+
+    for (int i=0; i<len; i++)
+    {
+        displacement_single_force_SH_wave_output[i] = (sin(theta * PI / 180.0)*pow(sin(phi * PI / 180.0),2) *
+                                                      moment * h_derivative[i]) / 
+                                                      (8.0 * PI * rho * pow(beta,3) * R);
+        
+    }
+    
+    for (int i=0; i<len; i++)
+    {
+
+        cout << "displacement_single_force_SH_wave_output = " << displacement_single_force_SH_wave_output[i] << endl;
+
+    }
 
     return 0;
 
@@ -223,12 +297,27 @@ double displacement_single_force_SH_wave (
 
 double displacement_single_force_SV_wave (
     double theta, double phi, double R, double moment, double beta, 
-    double rho, double h_derivative[], double time_derivative[] )
+    double rho, double *h_derivative, double *time_derivative, double *displacement_single_force_SV_wave_output, int len )
 
 {
 
     cout <<  "Running: displacement_single_force_SV_wave\n";
     cout << endl;
+
+    for (int i=0; i<len; i++)
+    {
+        displacement_single_force_SV_wave_output[i] = (-sin(2.0*theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) * 
+                                                      moment * h_derivative[i]) / 
+                                                      (16.0 * PI * rho * pow(beta,3) * R);
+        
+    }
+    
+    for (int i=0; i<len; i++)
+    {
+
+        cout << "displacement_single_force_SV_wave_output = " << displacement_single_force_SV_wave_output[i] << endl;
+
+    }
 
     return 0;
 
@@ -248,12 +337,29 @@ double displacement_single_force_SV_wave (
 
 double displacement_double_couple_P_wave (
     double theta, double phi, double R, double moment, double alpha, 
-    double rho, double h_derivative[], double time_derivative[] )
+    double rho, double *h_derivative, double *time_derivative, double *displacement_double_couple_P_wave_output, int len  )
 
 {
 
     cout <<  "Running: displacement_double_couple_P_wave\n";
     cout << endl;
+
+    for (int i=0; i<len; i++)
+    {
+
+        displacement_double_couple_P_wave_output[i] = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0),2) *
+                                                      moment * h_derivative[i]) / 
+                                                      (4.0 * PI * rho * pow(alpha,3) * R);
+        
+    }
+    
+    for (int i=0; i<len; i++)
+    {
+
+        cout << "displacement_double_couple_P_wave_output = " << displacement_double_couple_P_wave_output[i] << endl;
+
+    }
+
 
     return 0;
 
@@ -272,12 +378,28 @@ double displacement_double_couple_P_wave (
  
 double displacement_double_couple_SH_wave (
     double theta, double phi, double R, double moment, double beta, 
-    double rho, double h_derivative[], double time_derivative[] )
+    double rho, double *h_derivative, double *time_derivative, double *displacement_double_couple_SH_wave_output, int len   )
 
 {
 
     cout <<  "Running: displacement_double_couple_SH_wave\n";
     cout << endl;
+
+    for (int i=0; i<len; i++)
+    {
+
+        displacement_double_couple_SH_wave_output[i] = (-sin(theta * PI / 180.0)*(cos(2.0*phi * PI / 180.0)) *
+                                                       moment * h_derivative[i]) / 
+                                                       (4.0 * PI * rho * pow(beta,3) * R);
+        
+    }
+
+    for (int i=0; i<len; i++)
+    {
+
+        cout << "displacement_double_couple_SH_wave_output = " << displacement_double_couple_SH_wave_output[i] << endl;
+
+    }
 
     return 0;
 
@@ -297,13 +419,28 @@ double displacement_double_couple_SH_wave (
 
 double displacement_double_couple_SV_wave (
     double theta, double phi, double R, double moment, double beta, 
-    double rho, double h_derivative[], double time_derivative[] )
+    double rho, double *h_derivative, double *time_derivative, double *displacement_double_couple_SV_wave_output, int len   )
 
 {
 
     cout <<  "Running: displacement_double_couple_SV_wave\n";
     cout << endl;
 
+    for (int i=0; i<len; i++)
+    {
+
+        displacement_double_couple_SV_wave_output[i] = (-sin(2.0*theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
+                                                       moment * h_derivative[i]) / 
+                                                       (8.0 * PI * rho * pow(beta,3) * R);
+       
+    }
+
+    for (int i=0; i<len; i++)
+    {
+
+         cout << "displacement_double_couple_SV_wave_output = " << displacement_double_couple_SV_wave_output[i] << endl;
+
+    }
     return 0;
 
 }
@@ -323,12 +460,29 @@ double displacement_double_couple_SV_wave (
 
 double displacement_force_dipole_P_wave (
     double theta, double phi, double R, double moment, double alpha, 
-    double rho, double h[], double time[] )
+    double rho, double *h, double *time, double *displacement_force_dipole_P_wave_output, int len   )
 
 {
 
     cout <<  "Running: displacement_force_dipole_P_wave\n";
     cout << endl;
+
+
+    for (int i=0; i<len; i++)
+    {
+
+        displacement_force_dipole_P_wave_output[i] = (pow(sin(theta * PI / 180.0),2)*pow(cos(phi * PI / 180.0),2) *
+                                                     moment * h[i]) / 
+                                                     (4.0 * PI * rho * pow(alpha,3) * R);
+        
+    }
+
+    for (int i=0; i<len; i++)
+    {
+
+        cout << "displacement_force_dipole_P_wave_output = " << displacement_force_dipole_P_wave_output[i] << endl;
+
+    }
 
     return 0;
 
@@ -347,12 +501,28 @@ double displacement_force_dipole_P_wave (
 
 double displacement_force_dipole_SH_wave (
     double theta, double phi, double R, double moment, double beta, 
-    double rho, double h[], double time[] )
+    double rho, double *h, double *time, double *displacement_force_dipole_SH_wave_output, int len  )
 
 {
 
     cout <<  "Running: displacement_force_dipole_SH_wave\n";
     cout << endl;
+
+    for (int i=0; i<len; i++)
+    {
+
+        displacement_force_dipole_SH_wave_output[i] = (-sin(theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
+                                                      moment * h[i]) / 
+                                                      (8.0 * PI * rho * pow(beta,3) * R);
+    }
+
+
+    for (int i=0; i<len; i++)
+    {
+
+        cout << "displacement_force_dipole_SH_wave_output = " << displacement_force_dipole_SH_wave_output[i] << endl;
+
+    }
 
     return 0;
 
@@ -372,12 +542,29 @@ double displacement_force_dipole_SH_wave (
 
 double displacement_force_dipole_SV_wave (
     double theta, double phi, double R, double moment, double beta, 
-    double rho, double h[], double time[] )
+    double rho, double *h, double *time, double *displacement_force_dipole_SV_wave_output, int len)
 
 {
 
     cout <<  "Running: displacement_force_dipole_SV_wave\n";
     cout << endl;
+
+    for (int i=0; i<len; i++)
+    {
+
+        displacement_force_dipole_SV_wave_output[i] = (cos(theta * PI / 180.0)*(cos(phi * PI / 180.0)) *
+                                                      moment * h[i]) / 
+                                                      (4.0 * PI * rho * pow(beta,3) * R);
+        
+    }
+
+    for (int i=0; i<len; i++)
+    {
+
+        cout << "displacement_force_dipole_SV_wave_output = " << displacement_force_dipole_SV_wave_output[i] << endl;
+
+    }
+
 
     return 0;
 
@@ -395,15 +582,96 @@ double displacement_force_dipole_SV_wave (
  */
 
 int write_P_waves_to_file (
-    double displacement_point_force_P_wave_output[], double displacement_single_couple_P_wave_output[], 
-    double displacement_double_couple_P_wave_output[], double displacement_force_dipole_P_wave_output[], 
-    double h[], double h_derivative[], double time[], double time_derivative[], float x, 
-    float y, string outputfilename )
+    double *displacement_point_force_P_wave_output, double *displacement_single_couple_P_wave_output, 
+    double *displacement_double_couple_P_wave_output, double *displacement_force_dipole_P_wave_output, 
+    double *h, double *h_derivative, double *time, double *time_derivative, double xx, 
+    double yy, string outputfilename, int len)
 
 {
 
     cout <<  "Running: write_P_waves_to_file\n";
     cout << endl;
+
+    ofstream fout(outputfilename.c_str(), ios::out);
+    if (!fout)
+    {
+
+        cout << "Cannot create output file!" << endl;
+        return 1;
+
+    }
+
+
+    int width = 10;
+ 
+    // Set precision.
+    //fout.precision(3);
+    //fout.setf(ios::fixed);  // fill by zeros if not enough number of digits after the decimal point
+
+    // Start writing.
+        
+    // writing xx
+    fout.width(width);		
+    fout << "x  = " << xx << "\n";
+
+    // writing yy
+    fout.width(width);		
+    fout << "y  = " << yy << "\n";
+
+    // writing displacement_point_force_P_wave_output
+       
+    fout << "displacement_point_force_P_wave_output" << "\n";
+
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+            
+        fout << displacement_point_force_P_wave_output[i] << "\t";
+		
+    }
+     
+    fout << endl;
+
+    // writing displacement_single_couple_P_wave_output
+
+    fout << "displacement_single_couple_P_wave_output"<< "\n";
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+        fout << displacement_single_couple_P_wave_output[i] << "\t";
+		
+    }
+   
+    fout << endl;
+
+    // writing displacement_double_couple_P_wave_output
+
+    fout << "displacement_double_couple_P_wave_output" << "\n";
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+        fout << displacement_double_couple_P_wave_output[i] << "\t";
+		
+    }
+    
+    fout << endl;
+
+    // writing displacement_force_dipole_P_wave_output
+    fout << "displacement_force_dipole_P_wave_output" <<  "\n";
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+        fout << displacement_force_dipole_P_wave_output[i] << "\t";
+		
+    }
+    
+    fout << endl;
+
+    fout.close();
 
     return 0;
 
@@ -421,12 +689,94 @@ int write_P_waves_to_file (
  */
 
 int write_SV_waves_to_file (
-    double displacement_point_force_S_wave_output[], double displacement_single_couple_SV_wave_output[], 
-    double displacement_double_couple_SV_wave_output[], double displacement_force_dipole_SV_wave_output[], 
-    double h[], double h_derivative[], double time[], double time_derivative[], float x, 
-    float y, string outputfilename )
+    double *displacement_point_force_S_wave_output, double *displacement_single_couple_SV_wave_output, 
+    double *displacement_double_couple_SV_wave_output, double *displacement_force_dipole_SV_wave_output, 
+    double *h, double *h_derivative, double *time, double *time_derivative, double xx, 
+    double yy, string outputfilename, int len)
   
 {
+
+    ofstream fout(outputfilename.c_str(), std::ios_base::app); // append to the fout file
+
+    if (!fout)
+    {
+
+        cout << "Cannot create output file!" << endl;
+        return 1;
+
+    }
+
+
+    int width = 10;
+ 
+    // Set precision.
+    //fout.precision(3);
+    //fout.setf(ios::fixed);  // fill by zeros if not enough number of digits after the decimal point
+
+    // Start writing.
+        
+    // writing xx
+    fout.width(width);		
+    fout << "x  = " << xx << "\n";
+
+    // writing yy
+    fout.width(width);		
+    fout << "y  = " << yy << "\n";
+
+    // writing displacement_point_force_S_wave_output
+       
+    fout << "displacement_point_force_S_wave_output" << "\n";
+
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+            
+        fout << displacement_point_force_S_wave_output[i] << "\t";
+		
+    }
+     
+    fout << endl;
+
+    // writing displacement_single_couple_SV_wave_output
+
+    fout << "displacement_single_couple_SV_wave_output"<< "\n";
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+        fout << displacement_single_couple_SV_wave_output[i] << "\t";
+		
+    }
+   
+    fout << endl;
+
+    // writing displacement_double_couple_SV_wave_output
+
+    fout << "displacement_double_couple_SV_wave_output" << "\n";
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+        fout << displacement_double_couple_SV_wave_output[i] << "\t";
+		
+    }
+    
+    fout << endl;
+
+    // writing displacement_force_dipole_SV_wave_output
+    fout << "displacement_force_dipole_SV_wave_output" <<  "\n";
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+        fout << displacement_force_dipole_SV_wave_output[i] << "\t";
+		
+    }
+    
+    fout << endl;
+
+    fout.close();
 
     cout <<  "Running: write_SV_waves_to_file\n";
     cout << endl;
@@ -447,15 +797,96 @@ int write_SV_waves_to_file (
  */
 
 int write_SH_waves_to_file (
-    double displacement_point_force_S_wave_output[], double displacement_single_couple_SH_wave_output[], 
-    double displacement_double_couple_SH_wave_output[], double displacement_force_dipole_SH_wave_output[], 
-    double h[], double h_derivative[], double time[], double time_derivative[], float x, 
-    float y, string outputfilename )
+    double *displacement_point_force_S_wave_output, double *displacement_single_couple_SH_wave_output, 
+    double *displacement_double_couple_SH_wave_output, double *displacement_force_dipole_SH_wave_output, 
+    double *h, double *h_derivative, double *time, double *time_derivative, double xx, 
+    double yy, string outputfilename, int len)
 
 {
 
     cout <<  "Running: write_SH_waves_to_file\n";
     cout << endl;
+
+    ofstream fout(outputfilename.c_str(), std::ios_base::app);
+    if (!fout)
+    {
+
+        cout << "Cannot create output file!" << endl;
+        return 1;
+
+    }
+
+
+    int width = 10;
+ 
+    // Set precision.
+    //fout.precision(3);
+    //fout.setf(ios::fixed);  // fill by zeros if not enough number of digits after the decimal point
+
+    // Start writing.
+        
+    // writing xx
+    fout.width(width);		
+    fout << "x  = " << xx << "\n";
+
+    // writing yy
+    fout.width(width);		
+    fout << "y  = " << yy << "\n";
+
+    // writing displacement_point_force_S_wave_output
+       
+    fout << "displacement_point_force_S_wave_output" << "\n";
+
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+            
+        fout << displacement_point_force_S_wave_output[i] << "\t";
+		
+    }
+     
+    fout << endl;
+
+    // writing displacement_single_couple_SH_wave_output
+
+    fout << "displacement_single_couple_SH_wave_output"<< "\n";
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+        fout << displacement_single_couple_SH_wave_output[i] << "\t";
+		
+    }
+   
+    fout << endl;
+
+    // writing displacement_double_couple_SH_wave_output
+
+    fout << "displacement_double_couple_SH_wave_output" << "\n";
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+        fout << displacement_double_couple_SH_wave_output[i] << "\t";
+		
+    }
+    
+    fout << endl;
+
+    // writing displacement_force_dipole_SH_wave_output
+    fout << "displacement_force_dipole_SH_wave_output" <<  "\n";
+    for (int i=0; i<len; i++)
+    {
+    
+        fout.width(width);		
+        fout << displacement_force_dipole_SH_wave_output[i] << "\t";
+		
+    }
+    
+    fout << endl;
+
+    fout.close();
 
     return 0;
 
@@ -514,7 +945,7 @@ double derivative_waveform_function (double time[],double time_derivative[])
  *
  */
 
-double cartesian_to_spherical_function (double x[],double y[])
+double cartesian_to_spherical_function (double *x,double *y)
 
 {
 
