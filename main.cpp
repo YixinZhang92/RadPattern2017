@@ -51,7 +51,7 @@ using namespace std;
 
 #define PI 3.14159265
  
-main(int argc, char* argv[])
+int main(int argc, char* argv[])
 
 {
 	
