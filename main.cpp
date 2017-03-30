@@ -46,15 +46,41 @@ using namespace std;
  *
  * Please find below some mnemonics used in this project:
  *
- * time          = t            displacement      = displ
- * point_force   = pt_fo        single_couple     = si_cpl
- * double_couple = do_cpl       force_dipole      = fo_dipo
- * output        = o            wave              = w
- * write         = wr           generator         = gen
- * spherical     = sph          cartessian        = cart
- * to            = 2            derivative        = der
- * waveform      = wavf         function          = func
- * gaussian      = gauss        Radiation_pattern = radp
+ * time              = t            
+ * 
+ * displacement      = displ
+ * 
+ * point_force       = pt_fo        
+ *  
+ * single_couple     = si_cpl
+ * 
+ * double_couple     = do_cpl       
+ * 
+ * force_dipole      = fo_dipo
+ * 
+ * output            = o            
+ * 
+ * wave              = w
+ *
+ * write             = wr           
+ * 
+ * generator         = gen
+ * 
+ * spherical         = sph          
+ * 
+ * cartessian        = cart
+ * 
+ * to                = 2            
+ * 
+ * derivative        = der
+ * 
+ * waveform          = wavf         
+ * 
+ * function          = func
+ *
+ * gaussian          = gauss        
+ *
+ * Radiation_pattern = radp
  *
  */
 
