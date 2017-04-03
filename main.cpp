@@ -28,6 +28,10 @@
 #include "prototypes.h"
 using namespace std;
 
+// defining the value of PI.
+#define PI 3.14159265
+
+
 /**
  * @short   Main program
  * @file    main.cpp
@@ -46,10 +50,6 @@ using namespace std;
  *
  */
 
-
-// defining the value of PI.
-
-#define PI 3.14159265
  
 int main(int argc, char* argv[])
 
