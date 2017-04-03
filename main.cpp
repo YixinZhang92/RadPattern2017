@@ -48,6 +48,44 @@ using namespace std;
  *
  * Lastly, we also can display the waveform at a particular epicentral distance after incorporating the influence of radiation pattern for the particular waveform as input.
  *
+ * Please find below some mnemonics used in this project:
+ *
+ * time              = t            
+ * 
+ * displacement      = displ
+ * 
+ * point_force       = pt_fo        
+ *  
+ * single_couple     = si_cpl
+ * 
+ * double_couple     = do_cpl       
+ * 
+ * force_dipole      = fo_dipo
+ * 
+ * output            = o            
+ * 
+ * wave              = w
+ *
+ * write             = wr           
+ * 
+ * generator         = gen
+ * 
+ * spherical         = sph          
+ * 
+ * cartessian        = cart
+ * 
+ * to                = 2            
+ * 
+ * derivative        = der
+ * 
+ * waveform          = wavf         
+ * 
+ * function          = func
+ *
+ * gaussian          = gauss        
+ *
+ * Radiation_pattern = radp
+ *
  */
 
  
@@ -55,19 +93,12 @@ int main(int argc, char* argv[])
 
 {
 	
-
-
-/** 
- * This function calls all the functions used in this program.
- */
  
-/**
- * Reading in the parameters from a file
- *
- * Read_in functions: This function read the input waveforms in the program
- *
- * -----------------------------------------------------------------------------------------------
- */
+// This function calls all the functions used in this program.
+ 
+// Reading in the parameters from a file
+// Read_in functions: This function read the input waveforms in the program
+// -----------------------------------------------------------------------------------------------
  
     //  Changed by Yixin Zhang, test for adding readin program
     int i;
@@ -80,7 +111,7 @@ int main(int argc, char* argv[])
     ifstream infile;
     ofstream logfile;
 
-    //Trying to make readin file works in the command line
+    // Trying to make readin file works in the command line
 	
     if(argc < 2)
     {
@@ -93,6 +124,7 @@ int main(int argc, char* argv[])
     infile.open(argv[1]);
     
     i = 0;
+    
     while( infile >> s )
     {
         str[i] = s;
@@ -154,226 +186,170 @@ int main(int argc, char* argv[])
     cout << "login file has been written./n" ;
 	
 
-//  Read in prototype test
-//    int read_in_inputfile, write_login_file, read_string, read_float;
+    //  Read in prototype test
+    //  int read_in_inputfile, write_login_file, read_string, read_float;
     
-read_string (str, i, variable_name, string_value, logfile);
+    read_string (str, i, variable_name, string_value, logfile);
 
-read_float (str, i, variable_name, float_value, logfile);
+    read_float (str, i, variable_name, float_value, logfile);
     
 
-//  End of test by Yixin Zhang
+    //  End of test by Yixin Zhang
     
     
-// ------------------------------------------------------------------------------------------------
-// These parameters (in this bracket) are supposed to be from the input file. I initialize them here to make things work. We will delete them when the everything is working.
+    // ------------------------------------------------------------------------------------------------
+    // These parameters (in this bracket) are supposed to be from the input file. I initialize them here to make things work. We will delete them when the everything is working.
+    //
+    // ----------------------------------------------------------------------------------------------
 
-int length = 9;
+    int len = 9;
 
-double *time;	              time = new double[length];
+    double *t;	                                t     = new double[len];
 
-double *x;	              x = new double[100];
-double *y;	              y = new double[100];
+    double *x;	                                x     = new double[100];
+    double *y;	                                y     = new double[100];
 
-double *h;	              h = new double[length];
-double *h_derivative;	      h_derivative = new double[length];
-double *time_derivative;      time_derivative = new double[length];
+    double *h;	                                h     = new double[len];
+    double *h_der;	                        h_der = new double[len];
+    double *t_der;                              t_der = new double[len];
 
-double *dx;	              dx = new double[1];
-double *dy;	              dy = new double[1];
+    double *dx;	                                dx    = new double[1];
+    double *dy;	                                dy    = new double[1];
 
-string outputfilename;
+    string outputfilename;
 		
-// Initialize the old vector.
-for (int i=0; i<length; i++)
-{
-    h[i] = double(i);
+    // Initialize the old vector.
+    for (int i=0; i<len; i++)
+    {
+         h[i]     = double(i);
 
-    h_derivative[i] = double(i);
+         h_der[i] = double(i);
 
-    time[i] = double(i);
+         t[i]     = double(i);
 
-    time_derivative[i] = double(i);
-}
+         t_der[i] = double(i);
+     }
 
-// ----------------------------------------------------------------------------------------------
-
-
-
-double *displacement_point_force_P_wave_output;	        displacement_point_force_P_wave_output = new double[length];
-double *displacement_point_force_S_wave_output;	        displacement_point_force_S_wave_output = new double[length];
-double *displacement_single_couple_P_wave_output;	displacement_single_couple_P_wave_output = new double[length];
-double *displacement_single_couple_SV_wave_output;	displacement_single_couple_SV_wave_output = new double[length];
-double *displacement_single_couple_SH_wave_output;	displacement_single_couple_SH_wave_output = new double[length];
-double *displacement_double_couple_P_wave_output;	displacement_double_couple_P_wave_output = new double[length];
-double *displacement_double_couple_SV_wave_output;	displacement_double_couple_SV_wave_output = new double[length];
-double *displacement_double_couple_SH_wave_output;	displacement_double_couple_SH_wave_output = new double[length];
-double *displacement_force_dipole_P_wave_output;	displacement_force_dipole_P_wave_output = new double[length];
-double *displacement_force_dipole_SV_wave_output;	displacement_force_dipole_SV_wave_output = new double[length];
-double *displacement_force_dipole_SH_wave_output;	displacement_force_dipole_SH_wave_output = new double[length];
+  
+    double *displ_pt_fo_Pw_o;	  displ_pt_fo_Pw_o    = new double[len];
+    double *displ_pt_fo_Sw_o;     displ_pt_fo_Sw_o    = new double[len];
+    double *displ_si_cpl_Pw_o;	  displ_si_cpl_Pw_o   = new double[len];
+    double *displ_si_cpl_SVw_o;	  displ_si_cpl_SVw_o  = new double[len];
+    double *displ_si_cpl_SHw_o;	  displ_si_cpl_SHw_o  = new double[len];
+    double *displ_do_cpl_Pw_o;	  displ_do_cpl_Pw_o   = new double[len];
+    double *displ_do_cpl_SVw_o;	  displ_do_cpl_SVw_o  = new double[len];
+    double *displ_do_cpl_SHw_o;	  displ_do_cpl_SHw_o  = new double[len];
+    double *displ_fo_dipo_Pw_o;	  displ_fo_dipo_Pw_o  = new double[len];
+    double *displ_fo_dipo_SVw_o;  displ_fo_dipo_SVw_o = new double[len];
+    double *displ_fo_dipo_SHw_o;  displ_fo_dipo_SHw_o = new double[len];
 
 
 
 
+    // These functions generates a guassian function and its derivative using total time and time steps
+    // -----------------------------------------------------------------------------------------------
 
-/**
- * Function:          gaussian_function and its derivative
- * 
- * Author:            Eric Jambo
- * 
- * Short description: These functions generates a guassian function and its derivative using total time and time steps
- *
- * -----------------------------------------------------------------------------------------------
- */
- 
-gaussian_function (time, time_derivative);
+    gauss_func (t, t_der);
 
-derivative_waveform_function (time, time_derivative);
+    der_wavf_func (t, t_der);
 	
 		
-/**
- * Function:          Mesh_generator
- *
- * Author:            Yixin Zhang
- *
- * Short description: This function gives the x,y coordinates for every point and returns the spherical coordinates for each grid
- *
- * -----------------------------------------------------------------------------------------------
- */
+    // This function gives the x,y coordinates for every point and returns the spherical coordinates for each grid
+    // -----------------------------------------------------------------------------------------------
  
-mesh_generator (3.0, 2.0, 0.7, 0.5);
+    mesh_gen (3.0, 2.0, 0.7, 0.5);
 		
-/**
- * Function:          cartesian_to_spherical_function
- *
- * Author:            Eric Jambo
- *
- * Short description: This function converts the cartesian coordinates into spherical coordinates using location(x,y)
- *
- * -----------------------------------------------------------------------------------------------
- */
-	
-cartesian_to_spherical_function (x, y);
+
+    // This function converts the cartesian coordinates into spherical coordinates using location(x,y)
+    // ---------------------------------------------------------------------------------------------------	
+
+    cart_2_sph (x, y);
 
 
-/**
- * Functions:         Radiation_pattern
- *
- * Author:            Eric Jambo
- *
- * Short description: This function generates P-, SH- and SV-wave radiation patterns for single couple force, double couple, 
- *                    force dipole and point forces using the values of theta and phi
- *
- * -----------------------------------------------------------------------------------------------
- */
+    // This function generates P-, SH- and SV-wave radiation patterns for single couple force, double couple, 
+    // force dipole and point forces using the values of theta and phi
+    // -----------------------------------------------------------------------------------------------
  
-radiation_pattern_P_wave_single_couple_force (4.0, 2.9);
+    radp_Pw_si_cpl (4.0, 2.9);
 
-radiation_pattern_SH_wave_single_couple_force (4.0, 2.9);
+    radp_SHw_si_cpl (4.0, 2.9);
 
-radiation_pattern_SV_wave_single_couple_force (4.0, 2.9);
+    radp_SVw_si_cpl (4.0, 2.9);
 
-radiation_pattern_P_wave_double_couple_force (4.0, 2.9);
+    radp_Pw_do_cpl (4.0, 2.9);
 
-radiation_pattern_SH_wave_double_couple_force (4.0, 2.9);
+    radp_SHw_do_cpl (4.0, 2.9);
 
-radiation_pattern_SV_wave_double_couple_force (4.0, 2.9);
+    radp_SVw_do_cpl (4.0, 2.9);
 
-radiation_pattern_P_wave_force_dipole (4.0, 2.9);
+    radp_Pw_fo_dipo (4.0, 2.9);
 
-radiation_pattern_SH_wave_force_dipole (4.0, 2.9);
+    radp_SHw_fo_dipo (4.0, 2.9);
 
-radiation_pattern_SV_wave_force_dipole (4.0, 2.9);
+    radp_SVw_fo_dipo (4.0, 2.9);
 
-radiation_pattern_P_wave_point_force (1.9, 1.0);
+    radp_Pw_pt_fo (1.9, 1.0);
 
-radiation_pattern_SH_wave_point_force (1.5, 1.0);
+    radp_SHw_pt_fo (1.5, 1.0);
 
-radiation_pattern_SV_wave_point_force (1.6, 1.0);
+    radp_SVw_pt_fo (1.6, 1.0);
 	
 	
 	
-/**
- * Functions:         displacement
- *
- * Author:            Oluwaseun Fadugba
- *
- * Short description: This function calculates the P-, SH- and SH-wave Displacements for single force, double couple, force dipole and point forces 
- *                    using the values of theta, phi, distance (R), moment (C1), S-wave velocity (beta), density (rho), the input waveform (h) and its derivative, and the time series (time) and its derivative.
- *
- * -----------------------------------------------------------------------------------------------
- */	
+    // Short description: This function calculates the P-, SH- and SH-wave Displacements for single force, double couple, force dipole 
+    // and point forces using the values of theta, phi, distance (R), moment (C1), S-wave velocity (beta), density (rho), the input 
+    // waveform (h) and its derivative, and the time series (time) and its derivative.
+    // -----------------------------------------------------------------------------------------------	
 	
 	
-displacement_point_force_P_wave (3.9, 3.5, 2.8, 3.5, 3.7, h, time, 
-    displacement_point_force_P_wave_output, 9 );
+    displ_pt_fo_Pw (3.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_pt_fo_Pw_o, 9 );
 	
-displacement_point_force_S_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, time, 
-    displacement_point_force_P_wave_output, 9 );
+    displ_pt_fo_Sw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_pt_fo_Pw_o, 9 );
 	
-displacement_single_force_P_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
-    time_derivative, displacement_point_force_P_wave_output, 9 );
+    displ_si_fo_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9 );
 	
-displacement_single_force_SH_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
-    time_derivative, displacement_point_force_P_wave_output, 9  );
+    displ_si_fo_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9  );
 	
-displacement_single_force_SV_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
-    time_derivative, displacement_point_force_P_wave_output, 9  );
+    displ_si_fo_SVw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9  );
 	
-displacement_double_couple_P_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
-    time_derivative, displacement_point_force_P_wave_output, 9  );
+    displ_do_cpl_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9  );
 	
-displacement_double_couple_SH_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
-    time_derivative, displacement_point_force_P_wave_output, 9  );
+    displ_do_cpl_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9  );
 	
-displacement_double_couple_SV_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_derivative, 
-    time_derivative, displacement_point_force_P_wave_output, 9  );
+    displ_do_cpl_SVw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9  );
 	
-displacement_force_dipole_P_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, time, 
-    displacement_point_force_P_wave_output, 9  );
+    displ_fo_dipo_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_pt_fo_Pw_o, 9  );
 	
-displacement_force_dipole_SH_wave (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, time, 
-    displacement_point_force_P_wave_output, 9  );
+    displ_fo_dipo_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_pt_fo_Pw_o, 9  );
 	
-displacement_force_dipole_SV_wave (3.0, 2.0, 5.9, 2.8, 2.5, 4, h, time, 
-    displacement_point_force_P_wave_output, 9  );
+    displ_fo_dipo_SVw (3.0, 2.0, 5.9, 2.8, 2.5, 4, h, t, displ_pt_fo_Pw_o, 9  );
 	
 	
-/**
- * Functions:         write_results_to_file
- *
- * Author:            Oluwaseun Fadugba
- *
- * Short description: This function writes the all the P-, SH- and SV-wave displacements, input waveform and its derivative and its location (x,y) into a file
- *
- * -----------------------------------------------------------------------------------------------
- */	
+    // This function writes the all the P-, SH- and SV-wave displacements, input waveform and its derivative and its location (x,y) into a file
+    // -----------------------------------------------------------------------------------------------	
   
 
-// it is not printing the correct answer. I will need to fix it.
+    // it is not printing the correct answer. I will need to fix it. I am still working on how to print to a binary file.
 
 
-write_P_waves_to_file (
-    displacement_point_force_P_wave_output, displacement_single_couple_P_wave_output,
-    displacement_double_couple_P_wave_output, displacement_force_dipole_P_wave_output, h,
-    h_derivative, time, time_derivative, 6.0, 7.0, "outputfilename.txt",length);
+    wr_Pw_2_file (
+        displ_pt_fo_Pw_o, displ_si_cpl_Pw_o, displ_do_cpl_Pw_o, displ_fo_dipo_Pw_o, h,
+        h_der, t, t_der, 6.0, 7.0, "outputfilename.txt",len);
 	
-write_SV_waves_to_file (
-    displacement_point_force_S_wave_output, displacement_single_couple_SV_wave_output,
-    displacement_double_couple_SV_wave_output,displacement_force_dipole_SV_wave_output,h,
-    h_derivative,  time, time_derivative,  6.0, 7.0, "outputfilename.txt",length);
+    wr_SVw_2_file (
+        displ_pt_fo_Sw_o, displ_si_cpl_SVw_o, displ_do_cpl_SVw_o,displ_fo_dipo_SVw_o,h,
+        h_der, t, t_der,  6.0, 7.0, "outputfilename.txt",len);
 		
-write_SH_waves_to_file (
-    displacement_point_force_S_wave_output, displacement_single_couple_SH_wave_output,
-    displacement_double_couple_SH_wave_output, displacement_force_dipole_SH_wave_output, h,
-    h_derivative,  time, time_derivative,  6.0, 7.0, "outputfilename.txt",length);
+    wr_SHw_2_file (
+        displ_pt_fo_Sw_o, displ_si_cpl_SHw_o, displ_do_cpl_SHw_o, displ_fo_dipo_SHw_o, h,
+        h_der,  t, t_der,  6.0, 7.0, "outputfilename.txt",len);
 
 
 	
 
-cout << "\n"
-    "I have completed running all the prototypes,\n";
-    "Goodbye.";
-cout << endl;
+    cout << "\n"
+        "I have completed running all the prototypes,\n";
+        "Goodbye.";
+    cout << endl;
 
 }
