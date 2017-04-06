@@ -263,7 +263,7 @@ int main(int argc, char* argv[])
     // -----------------------------------------------------------------------------------------------
     
     float X[n_x], Y[n_y];
-    mesh_gen_o (area_x, area_y, n_x, n_y);
+    mesh_gen_o (area_x, area_y, n_x, n_y, X, Y);
     
 		
 

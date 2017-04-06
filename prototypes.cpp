@@ -115,7 +115,7 @@ int read_int(string str[], int i, string variable_name,
  *
  */
  
-double mesh_gen_o (float area_x, float area_y, int n_x, int n_y)
+double mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y[])
 
 {
 	
@@ -123,8 +123,6 @@ double mesh_gen_o (float area_x, float area_y, int n_x, int n_y)
     cout << endl;
     
     // Perform operation.
-    
-    float X[n_x], Y[n_y];
     
     for (int i=0; i<n_x; i++)
     {
