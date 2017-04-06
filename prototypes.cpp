@@ -72,7 +72,7 @@ int read_float(string str[], int i, string variable_name,
     cout << variable_name << "=\t" << endl;
 
     c = const_cast<char*>(str[i+1].c_str());
-    sscanf(c,"%e", &float_value);
+    sscanf(c, "%e", &float_value);
     file << float_value << endl << "\n";
     cout << float_value << endl << "\n";
 
@@ -144,7 +144,7 @@ int displ_pt_fo_Pw (
     {
 
         displ_pt_fo_Pw_o[i] = (cos(theta * PI / 180.0) * h[i]) / 
-                              (4 * PI * rho * pow(alpha,2) * R);
+                              (4 * PI * rho * pow(alpha, 2) * R);
     }
     
     return 0;
@@ -177,7 +177,7 @@ double displ_pt_fo_Sw (
     {
 
         displ_pt_fo_Sw_o[i] = (-sin(theta * PI / 180.0) * h[i]) /
-                              (4 * PI * rho * pow(beta,2) * R);
+                              (4 * PI * rho * pow(beta, 2) * R);
     }
 
     return 0;
@@ -208,8 +208,8 @@ double displ_si_fo_Pw (
     for (int i=0; i<len; i++)
     {
 
-        displ_si_fo_Pw_o[i] = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0),2) *
-                              moment * h_der[i]) / (8.0 * PI * rho * pow(alpha,3) * R);
+        displ_si_fo_Pw_o[i] = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0), 2) *
+                              moment * h_der[i]) / (8.0 * PI * rho * pow(alpha, 3) * R);
        
     }
 
@@ -238,8 +238,8 @@ double displ_si_fo_SHw (
 
     for (int i=0; i<len; i++)
     {
-        displ_si_fo_SHw_o[i] = (sin(theta * PI / 180.0)*pow(sin(phi * PI / 180.0),2) * moment
-                               * h_der[i]) / (8.0 * PI * rho * pow(beta,3) * R);
+        displ_si_fo_SHw_o[i] = (sin(theta * PI / 180.0)*pow(sin(phi * PI / 180.0), 2) * moment
+                               * h_der[i]) / (8.0 * PI * rho * pow(beta, 3) * R);
     }
 
     return 0;
@@ -268,7 +268,7 @@ double displ_si_fo_SVw (
     for (int i=0; i<len; i++)
     {
         displ_si_fo_SVw_o[i] = (-sin(2.0*theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
-                               moment * h_der[i]) / (16.0 * PI * rho * pow(beta,3) * R);
+                               moment * h_der[i]) / (16.0 * PI * rho * pow(beta, 3) * R);
     }
 
     return 0;
@@ -297,8 +297,8 @@ double displ_do_cpl_Pw (
     for (int i=0; i<len; i++)
     {
 
-        displ_do_cpl_Pw_o[i] = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0),2) * 
-                               moment * h_der[i]) / (4.0 * PI * rho * pow(alpha,3) * R);
+        displ_do_cpl_Pw_o[i] = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0), 2) * 
+                               moment * h_der[i]) / (4.0 * PI * rho * pow(alpha, 3) * R);
         
     }
 
@@ -329,7 +329,7 @@ double displ_do_cpl_SHw (
     {
 
         displ_do_cpl_SHw_o[i] = (-sin(theta * PI / 180.0)*(cos(2.0*phi * PI / 180.0)) *
-                                 moment * h_der[i]) / (4.0 * PI * rho * pow(beta,3) * R);
+                                 moment * h_der[i]) / (4.0 * PI * rho * pow(beta, 3) * R);
         
     }
 
@@ -360,7 +360,7 @@ double displ_do_cpl_SVw (
     {
 
         displ_do_cpl_SVw_o[i] = (-sin(2.0*theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
-                                moment * h_der[i]) / (8.0 * PI * rho * pow(beta,3) * R);
+                                moment * h_der[i]) / (8.0 * PI * rho * pow(beta, 3) * R);
        
     }
 
@@ -389,8 +389,8 @@ double displ_fo_dipo_Pw (
     for (int i=0; i<len; i++)
     {
 
-        displ_fo_dipo_Pw_o[i] = (pow(sin(theta * PI / 180.0),2)*pow(cos(phi * PI / 180.0),2) *
-                                moment * h[i]) / (4.0 * PI * rho * pow(alpha,3) * R);
+        displ_fo_dipo_Pw_o[i] = (pow(sin(theta * PI / 180.0),2)*pow(cos(phi * PI / 180.0), 2) *
+                                moment * h[i]) / (4.0 * PI * rho * pow(alpha, 3) * R);
 
     }
 
@@ -420,7 +420,7 @@ double displ_fo_dipo_SHw (
     {
 
         displ_fo_dipo_SHw_o[i] = (-sin(theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
-                                 moment * h[i]) / (8.0 * PI * rho * pow(beta,3) * R);
+                                 moment * h[i]) / (8.0 * PI * rho * pow(beta, 3) * R);
     }
 
     return 0;
@@ -449,7 +449,7 @@ double displ_fo_dipo_SVw (
     {
 
         displ_fo_dipo_SVw_o[i] = (cos(theta * PI / 180.0)*(cos(phi * PI / 180.0)) *
-                                 moment * h[i]) / (4.0 * PI * rho * pow(beta,3) * R);
+                                 moment * h[i]) / (4.0 * PI * rho * pow(beta, 3) * R);
 
     }
 
@@ -783,7 +783,7 @@ int wr_SHw_2_file (
  *
  */
 
-double gauss_func (double t[],double t_der[])
+double gauss_func (double t[], double t_der[])
 {
 
     cout << "Running: gaussian_function\n";
@@ -802,7 +802,7 @@ double gauss_func (double t[],double t_der[])
  *
  */
 
-double der_wavf_func (double t[],double t_der[])
+double der_wavf_func (double t[], double t_der[])
 {
 
     cout << "Running: derivative_waveform_function\n";
@@ -821,7 +821,7 @@ double der_wavf_func (double t[],double t_der[])
  *
  */
 
-double cart_2_sph (double *x,double *y)
+double cart_2_sph (double *x, double *y)
 {
 
     cout << "Running: cartesian_to_spherical_function\n";
@@ -840,7 +840,7 @@ double cart_2_sph (double *x,double *y)
  *
  */
 
-double radp_Pw_si_cpl (double theta,double phi)
+double radp_Pw_si_cpl (double theta, double phi)
 {
 
     cout << "Running: radiation_pattern_P_wave_single_couple_force\n";
@@ -859,7 +859,7 @@ double radp_Pw_si_cpl (double theta,double phi)
  *
  */
 
-double radp_SHw_si_cpl (double theta,double phi)
+double radp_SHw_si_cpl (double theta, double phi)
 {
 
     cout << "radiation_pattern_SH_wave_single_couple_force\n";
@@ -878,7 +878,7 @@ double radp_SHw_si_cpl (double theta,double phi)
  *
  */
 
-double radp_SVw_si_cpl (double theta,double phi)
+double radp_SVw_si_cpl (double theta, double phi)
 {
 
     cout << "radiation_pattern_SV_wave_single_couple_force\n";
@@ -897,7 +897,7 @@ double radp_SVw_si_cpl (double theta,double phi)
  *
  */
 
-double radp_Pw_do_cpl (double theta,double phi)
+double radp_Pw_do_cpl (double theta, double phi)
 {
 
     cout << "Running: radiation_pattern_P_wave_double_couple_force\n";
@@ -916,7 +916,7 @@ double radp_Pw_do_cpl (double theta,double phi)
  *
  */
 
-double radp_SHw_do_cpl (double theta,double phi)
+double radp_SHw_do_cpl (double theta, double phi)
 {
 
     cout << "radiation_pattern_SH_wave_double_couple_force\n";
@@ -936,7 +936,7 @@ double radp_SHw_do_cpl (double theta,double phi)
  *
  */
 
-double radp_SVw_do_cpl (double theta,double phi)
+double radp_SVw_do_cpl (double theta, double phi)
 
 {
 
@@ -956,7 +956,7 @@ double radp_SVw_do_cpl (double theta,double phi)
  *
  */
 
-double radp_Pw_fo_dipo (double theta,double phi)
+double radp_Pw_fo_dipo (double theta, double phi)
 {
 
     cout << "Running: radiation_pattern_P_wave_force_dipole\n";
@@ -975,7 +975,7 @@ double radp_Pw_fo_dipo (double theta,double phi)
  *
  */
 
-double radp_SHw_fo_dipo (double theta,double phi)
+double radp_SHw_fo_dipo (double theta, double phi)
 
 {
 
@@ -995,7 +995,7 @@ double radp_SHw_fo_dipo (double theta,double phi)
  *
  */
 
-double radp_SVw_fo_dipo (double theta,double phi)
+double radp_SVw_fo_dipo (double theta, double phi)
 {
 
     cout << "radiation_pattern_SV_wave_force_dipole\n";
@@ -1014,7 +1014,7 @@ double radp_SVw_fo_dipo (double theta,double phi)
  *
  */
 
-double radp_Pw_pt_fo (double theta,double phi)
+double radp_Pw_pt_fo (double theta, double phi)
 {
 
     cout << "radiation_pattern_P_wave_point_force\n";
@@ -1033,7 +1033,7 @@ double radp_Pw_pt_fo (double theta,double phi)
  *
  */
 
-double radp_SHw_pt_fo (double theta,double phi)
+double radp_SHw_pt_fo (double theta, double phi)
 {
 
     cout << "radiation_pattern_SH_wave_point_force\n";
@@ -1052,7 +1052,7 @@ double radp_SHw_pt_fo (double theta,double phi)
  *
  */
 
-double radp_SVw_pt_fo (double theta,double phi)
+double radp_SVw_pt_fo (double theta, double phi)
 {
 
     cout << "radiation_pattern_SV_wave_point_force\n";

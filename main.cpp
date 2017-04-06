@@ -312,19 +312,18 @@ int main(int argc, char* argv[])
 
     wr_Pw_2_file (
         displ_pt_fo_Pw_o, displ_si_cpl_Pw_o, displ_do_cpl_Pw_o, displ_fo_dipo_Pw_o, h,
-        h_der, t, t_der, 6.0, 7.0, "outputfilename.txt",len);
+        h_der, t, t_der, 6.0, 7.0, "outputfilename.txt", len);
 
     wr_SVw_2_file (
         displ_pt_fo_Sw_o, displ_si_cpl_SVw_o, displ_do_cpl_SVw_o,displ_fo_dipo_SVw_o,h,
-        h_der, t, t_der, 6.0, 7.0, "outputfilename.txt",len);
+        h_der, t, t_der, 6.0, 7.0, "outputfilename.txt", len);
 
     wr_SHw_2_file (
         displ_pt_fo_Sw_o, displ_si_cpl_SHw_o, displ_do_cpl_SHw_o, displ_fo_dipo_SHw_o, h,
-        h_der, t, t_der, 6.0, 7.0, "outputfilename.txt",len);
+        h_der, t, t_der, 6.0, 7.0, "outputfilename.txt", len);
 
     cout << "\n"
         "I have completed running all the prototypes,\n";
         "Goodbye.";
     cout << endl;
-
 }

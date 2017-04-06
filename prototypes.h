@@ -35,9 +35,9 @@ int read_wave_file ();
 // using total time and time steps
 // ------------------------------------------------------------------------------------
 
-double gauss_func (double t[],double t_der[]);
+double gauss_func (double t[], double t_der[]);
 
-double der_wavf_func (double t[],double t_der[]);
+double der_wavf_func (double t[], double t_der[]);
 
 // Short description: This function gives the x,y coordinates for every point and returns
 // the spherical coordinates for each grid
@@ -49,36 +49,36 @@ double mesh_gen (double x, double y, double dx, double dy);
 // coordinates using location(x,y)
 // ----------------------------------------------------------------------------------
 
-double cart_2_sph (double *x,double *y);
+double cart_2_sph (double *x, double *y);
 
 // Short description: This function generates P-, SH- and SV-wave radiation patterns for 
 // single couple force, double couple, force dipole and point forces using the values of 
 // theta and phi
 // -------------------------------------------------------------------------------------
 
-double radp_Pw_si_cpl (double theta,double phi);
+double radp_Pw_si_cpl (double theta, double phi);
 
-double radp_SHw_si_cpl (double theta,double phi);
+double radp_SHw_si_cpl (double theta, double phi);
 
-double radp_SVw_si_cpl (double theta,double phi);
+double radp_SVw_si_cpl (double theta, double phi);
 
-double radp_Pw_do_cpl (double theta,double phi);
+double radp_Pw_do_cpl (double theta, double phi);
 
-double radp_SHw_do_cpl (double theta,double phi);
+double radp_SHw_do_cpl (double theta, double phi);
 
-double radp_SVw_do_cpl (double theta,double phi);
+double radp_SVw_do_cpl (double theta, double phi);
 
-double radp_Pw_fo_dipo (double theta,double phi);
+double radp_Pw_fo_dipo (double theta, double phi);
 
-double radp_SHw_fo_dipo (double theta,double phi);
+double radp_SHw_fo_dipo (double theta, double phi);
 
-double radp_SVw_fo_dipo (double theta,double phi);
+double radp_SVw_fo_dipo (double theta, double phi);
 
-double radp_Pw_pt_fo (double theta,double phi);
+double radp_Pw_pt_fo (double theta, double phi);
 
-double radp_SHw_pt_fo (double theta,double phi);
+double radp_SHw_pt_fo (double theta, double phi);
 
-double radp_SVw_pt_fo (double theta,double phi);
+double radp_SVw_pt_fo (double theta, double phi);
 
 // Short description: This function calculates the P-, SH- and SH-wave Displacements for 
 // single force, double couple, force dipole and point forces using the values of theta,
@@ -138,7 +138,7 @@ int wr_Pw_2_file (
     double *displ_pt_fo_Pw_o, double *displ_si_cpl_Pw_o,
     double *displ_do_cpl_Pw_o, double *displ_fo_dipo_Pw_o,
     double *h, double *h_der, double *t, double *t_der, double xx,
-    double yy, string outputfilename , int len);
+    double yy, string outputfilename, int len);
 
 int wr_SVw_2_file (
     double *displ_pt_fo_Sw_o, double *displ_si_cpl_SVw_o,
