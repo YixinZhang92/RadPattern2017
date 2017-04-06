@@ -11,3 +11,7 @@ main.o: main.cpp
 
 clean:
 	rm myprogram *.o
+
+cleanall:
+	rm myprogram *.o login.txt outputfilename.txt
+	rm -r html/ latex/ 
