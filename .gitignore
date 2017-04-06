@@ -1,3 +1,5 @@
 prototypes.o
 main.o
 myprogram
+html/
+latex/
