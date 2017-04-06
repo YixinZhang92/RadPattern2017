@@ -212,13 +212,12 @@ int main(int argc, char* argv[])
 
     double *x;	                                x     = new double[100];
     double *y;	                                y     = new double[100];
+    double *dx;	                                dx    = new double[1];
+    double *dy;	                                dy    = new double[1];
 
     double *h;	                                h     = new double[len];
     double *h_der;	                        h_der = new double[len];
     double *t_der;                              t_der = new double[len];
-
-    double *dx;	                                dx    = new double[1];
-    double *dy;	                                dy    = new double[1];
 
     string outputfilename;
 
@@ -226,11 +225,8 @@ int main(int argc, char* argv[])
     for (int i=0; i<len; i++)
     {
          h[i]     = double(i);
-
          h_der[i] = double(i);
-
          t[i]     = double(i);
-
          t_der[i] = double(i);
      }
 
@@ -271,27 +267,19 @@ int main(int argc, char* argv[])
     // --------------------------------------------------------------------------------------
 
     radp_Pw_si_cpl (4.0, 2.9);
-
     radp_SHw_si_cpl (4.0, 2.9);
-
     radp_SVw_si_cpl (4.0, 2.9);
 
     radp_Pw_do_cpl (4.0, 2.9);
-
     radp_SHw_do_cpl (4.0, 2.9);
-
     radp_SVw_do_cpl (4.0, 2.9);
 
     radp_Pw_fo_dipo (4.0, 2.9);
-
     radp_SHw_fo_dipo (4.0, 2.9);
-
     radp_SVw_fo_dipo (4.0, 2.9);
 
     radp_Pw_pt_fo (1.9, 1.0);
-
     radp_SHw_pt_fo (1.5, 1.0);
-
     radp_SVw_pt_fo (1.6, 1.0);
 
     // Short description: This function calculates the P-, SH- and SH-wave Displacements for
@@ -301,26 +289,19 @@ int main(int argc, char* argv[])
     // -------------------------------------------------------------------------------------
 
     displ_pt_fo_Pw (3.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_pt_fo_Pw_o, 9);
-
     displ_pt_fo_Sw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_pt_fo_Pw_o, 9);
 
-    displ_si_fo_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9);
+    displ_si_fo_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_si_fo_Pw_o, 9);
+    displ_si_fo_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_si_fo_SHw_o, 9);
+    displ_si_fo_SVw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_si_fo_SVw_o, 9);
 
-    displ_si_fo_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9);
+    displ_do_cpl_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_do_cpl_Pw_o, 9);
+    displ_do_cpl_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_do_cpl_SHw_o, 9);
+    displ_do_cpl_SVw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_do_cpl_SVw_o, 9);
 
-    displ_si_fo_SVw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9);
-
-    displ_do_cpl_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9);
-
-    displ_do_cpl_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9);
-
-    displ_do_cpl_SVw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_pt_fo_Pw_o, 9);
-
-    displ_fo_dipo_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_pt_fo_Pw_o, 9);
-
-    displ_fo_dipo_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_pt_fo_Pw_o, 9);
-
-    displ_fo_dipo_SVw (3.0, 2.0, 5.9, 2.8, 2.5, 4, h, t, displ_pt_fo_Pw_o, 9);
+    displ_fo_dipo_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_fo_dipo_Pw_o, 9);
+    displ_fo_dipo_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_fo_dipo_SHw_o, 9);
+    displ_fo_dipo_SVw (3.0, 2.0, 5.9, 2.8, 2.5, 4, h, t, displ_fo_dipo_SVw_o, 9);
 
     // This function writes the all the P-, SH- and SV-wave displacements, input waveform
     // and its derivative and its location (x,y) into a file.
