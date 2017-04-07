@@ -195,9 +195,9 @@ double displ_pt_fo_Sw (
  *
  */
  
-double displ_si_fo_Pw (
+double displ_si_cpl_Pw (
     double theta, double phi, double R, double moment, double alpha,
-    double rho, double *h_der, double *t_der , double *displ_si_fo_Pw_o, int len)
+    double rho, double *h_der, double *t_der , double *displ_si_cpl_Pw_o, int len)
 {
 
     cout <<  "Running: displacement_single_force_P_wave\n";
@@ -208,7 +208,7 @@ double displ_si_fo_Pw (
     for (int i=0; i<len; i++)
     {
 
-        displ_si_fo_Pw_o[i] = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0), 2) *
+        displ_si_cpl_Pw_o[i] = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0), 2) *
                               moment * h_der[i]) / (8.0 * PI * rho * pow(alpha, 3) * R);
        
     }
@@ -228,9 +228,9 @@ double displ_si_fo_Pw (
  *
  */
 
-double displ_si_fo_SHw (
+double displ_si_cpl_SHw (
     double theta, double phi, double R, double moment, double beta,
-    double rho, double *h_der, double *t_der, double *displ_si_fo_SHw_o, int len)
+    double rho, double *h_der, double *t_der, double *displ_si_cpl_SHw_o, int len)
 {
 
     cout <<  "Running: displacement_single_force_SH_wave\n";
@@ -238,7 +238,7 @@ double displ_si_fo_SHw (
 
     for (int i=0; i<len; i++)
     {
-        displ_si_fo_SHw_o[i] = (sin(theta * PI / 180.0)*pow(sin(phi * PI / 180.0), 2) * moment
+        displ_si_cpl_SHw_o[i] = (sin(theta * PI / 180.0)*pow(sin(phi * PI / 180.0), 2) * moment
                                * h_der[i]) / (8.0 * PI * rho * pow(beta, 3) * R);
     }
 
@@ -257,9 +257,9 @@ double displ_si_fo_SHw (
  *
  */
 
-double displ_si_fo_SVw (
+double displ_si_cpl_SVw (
     double theta, double phi, double R, double moment, double beta,
-    double rho, double *h_der, double *t_der, double *displ_si_fo_SVw_o, int len)
+    double rho, double *h_der, double *t_der, double *displ_si_cpl_SVw_o, int len)
 {
 
     cout <<  "Running: displacement_single_force_SV_wave\n";
@@ -267,7 +267,7 @@ double displ_si_fo_SVw (
 
     for (int i=0; i<len; i++)
     {
-        displ_si_fo_SVw_o[i] = (-sin(2.0*theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
+        displ_si_cpl_SVw_o[i] = (-sin(2.0*theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
                                moment * h_der[i]) / (16.0 * PI * rho * pow(beta, 3) * R);
     }
 

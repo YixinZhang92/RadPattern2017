@@ -291,9 +291,9 @@ int main(int argc, char* argv[])
     displ_pt_fo_Pw (3.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_pt_fo_Pw_o, 9);
     displ_pt_fo_Sw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h, t, displ_pt_fo_Pw_o, 9);
 
-    displ_si_fo_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_si_fo_Pw_o, 9);
-    displ_si_fo_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_si_fo_SHw_o, 9);
-    displ_si_fo_SVw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_si_fo_SVw_o, 9);
+    displ_si_cpl_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_si_cpl_Pw_o, 9);
+    displ_si_cpl_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_si_cpl_SHw_o, 9);
+    displ_si_cpl_SVw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_si_cpl_SVw_o, 9);
 
     displ_do_cpl_Pw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_do_cpl_Pw_o, 9);
     displ_do_cpl_SHw (3.7, 2.9, 3.5, 2.8, 3.5, 3.7, h_der, t_der, displ_do_cpl_SHw_o, 9);
