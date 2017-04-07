@@ -6,7 +6,6 @@
  * This file contains the prototypes and a short description of all the functions used
  * in the RadPattern101 program.
  */
- 
 #include <iostream>
 #include <string>
 #include <fstream>

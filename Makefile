@@ -21,6 +21,5 @@ main.o: main.cpp
 	g++ -c main.cpp -lstdc++
 
 cleanall:
-	rm myprogram prototypes.o main.o displacement.o 
-	rm -r html/ latex/ 
-	rm radiation.o writing.o login.txt outputfilename.txt
+	rm myprogram *.o login.txt outputfilename.txt 
+	rm -r html/ latex/

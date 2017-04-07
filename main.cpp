@@ -326,7 +326,7 @@ int main(int argc, char* argv[])
         h_der, t, t_der, 6.0, 7.0, "outputfilename.txt", len);
 
     cout << "\n"
-        "I have completed running all the prototypes,\n";
+        "I have completed running all the functions,\n";
         "Goodbye.";
     cout << endl;
 }
