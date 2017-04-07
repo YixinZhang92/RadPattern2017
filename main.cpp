@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
+#include <vector>
 #include "prototypes.h"
 using namespace std;
 
@@ -102,7 +103,7 @@ int main(int argc, char* argv[])
     
  
     //  Changed by Yixin Zhang, test for adding readin program
-    int i, n_x, n_y, int_value;
+    int i=0, n_x, n_y, int_value;
     string str[100];
     string s, variable_name, string_value;
     string model_name, force_type, wave_type, waveform;
@@ -262,9 +263,9 @@ int main(int argc, char* argv[])
     // This function gives the x,y coordinates for every point and returns the spherical coordinates for each grid
     // -----------------------------------------------------------------------------------------------
     
-    float X[n_x], Y[n_y];
+    float* X = new float[n_x];
+    float* Y = new float[n_y];
     mesh_gen_o (area_x, area_y, n_x, n_y, X, Y);
-    
 		
 
     // This function converts the cartesian coordinates into spherical coordinates using location(x,y)

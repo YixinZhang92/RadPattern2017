@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
+#include <vector>
 #include "prototypes.h"
 using namespace std;
 
@@ -114,8 +115,10 @@ int read_int(string str[], int i, string variable_name,
  * Return             0 on sucess
  *
  */
- 
-double mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y[])
+
+
+
+int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y[])
 
 {
 	
@@ -124,10 +127,13 @@ double mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], floa
     
     // Perform operation.
     
+    //float temp;
+    
     for (int i=0; i<n_x; i++)
     {
         
         X[i] = i * area_x / (n_x-1);
+ 
         cout << X[i] << "  ";
         
     }
@@ -138,6 +144,7 @@ double mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], floa
     {
         
         Y[j] = j * area_y / (n_y-1);
+
         cout << Y[j] << "  ";
         
     }
