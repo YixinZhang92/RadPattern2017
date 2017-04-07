@@ -29,10 +29,12 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
-#include "prototypes.h"
+#include "mesh_gen.h"
 #include "displacement.h"
 #include "radiation.h"
 #include "writing.h"
+#include "gaussian.h"
+#include "read_wave.h"
 using namespace std;
 
 // defining the value of PI.

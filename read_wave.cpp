@@ -1,10 +1,10 @@
 /**
  * @short   Prototypes
- * @file    prototypes.cpp
- * @author  Oluwaseun Fadugba, Yixin Zhang and Eric Jambo
+ * @file    read_wave.cpp
+ * @author  Yixin Zhang
  *
  * This file contains the prototypes and a short description of all the functions used
- * in the RadPattern101 program.
+ * to read the input waveform.
  */
 
 #include <iostream>
@@ -14,13 +14,9 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
-#include "prototypes.h"
+#include "read_wave.h"
 
 using namespace std;
-
-// defining the value of PI.
-
-#define PI 3.14159265
 
 /**
  * Author:            Yixin Zhang
@@ -81,24 +77,6 @@ int read_float(string str[], int i, string variable_name,
 
 //  End of test by Yixin Zhang
 
-/**
- * Author:            Yixin Zhang
- *
- * Short description: This function gives the x,y coordinates for every point
- *                    and returns the spherical coordinates for each grid
- *
- * Return             0 on sucess
- *
- */
- 
-double mesh_gen (double x, double y, double dx, double dy)
-{
-
-    cout <<  "Running: mesh_generator\n";
-    cout << endl;
-
-    return 0;
-}
 
 /**
  * Author:            Yixin Zhang
@@ -118,59 +96,4 @@ int read_wave_file ()
     return 0;
 }
 
-/**
- * Author:            Eric Jambo
- *
- * Short description: This function generates a guassian function using total time and time steps
- *
- * Return             0 on sucess
- *
- */
-
-double gauss_func (double t[], double t_der[])
-{
-
-    cout << "Running: gaussian_function\n";
-    cout << endl;
-
-    return 0;
-}
-
-/**
- * Author:            Eric Jambo
- *
- * Short description: This function calculates the derivative of the input waveform using total
- *                    time and time steps
- *
- * Return             0 on sucess
- *
- */
-
-double der_wavf_func (double t[], double t_der[])
-{
-
-    cout << "Running: derivative_waveform_function\n";
-    cout << endl;
-
-    return 0;
-}
-
-/**
- * Author:            Eric Jambo
- *
- * Short description: This function converts the cartesian coordinates into spherical coordinates
- *                    using location(x,y)
- *
- * Return             0 on sucess
- *
- */
-
-double cart_2_sph (double *x, double *y)
-{
-
-    cout << "Running: cartesian_to_spherical_function\n";
-    cout << endl;
-
-    return 0;
-}
 
