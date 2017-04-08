@@ -71,7 +71,7 @@ double der_wavf_func (double t[],double t_der[]);
 //
 
 
-int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y[]);
+int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y[], ofstream &file);
 
 
 //

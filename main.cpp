@@ -104,26 +104,19 @@ int main(int argc, char* argv[])
  
     //  Changed by Yixin Zhang, test for adding readin program
     int i=0, n_x, n_y, int_value;
-    string str[100];
-    string s, variable_name, string_value;
-    string model_name, force_type, wave_type, waveform;
+    string str[100], s, variable_name, string_value, model_name, force_type,
+           wave_type, waveform;
     float velocity, time_step, total_time, area_x, area_y, moment,
           float_value;
-    
+    //float* X = new float[n_x];
+    //float* Y = new float[n_y];
     ifstream infile;
-    ofstream logfile;
-    
-    read_string (str, i, variable_name, string_value, logfile);
-    
-    read_float (str, i, variable_name, float_value, logfile);
-    
-    read_int (str, i, variable_name, int_value, logfile);
+    ofstream logfile, outfile;
 
-    // Trying to make readin file works in the command line
 	
-    if(argc < 2)
+    if(argc != 2)
     {
-        cout << "Missing inputfile, please check\n";
+        cout << "Redunant inputfile(s) or Missing inputfile, please check\n";
         return EXIT_FAILURE;
     }
     
@@ -150,41 +143,64 @@ int main(int argc, char* argv[])
     while(str[i] != "")
     {
         if(str[i] == "model_name")
+        {
             read_string(str, i, variable_name, model_name, logfile);
+        }
         
         if(str[i] == "force_type")
+        {
             read_string(str, i, variable_name, force_type, logfile);
+        }
         
         if(str[i] == "wave_type")
+        {
             read_string(str, i, variable_name, wave_type, logfile);
+        }
         
         if(str[i] == "waveform")
+        {
             read_string(str, i, variable_name, waveform, logfile);
-        
+        }
         
         if(str[i] == "velocity")
+        {
             read_float(str, i, variable_name, velocity, logfile);
+        }
         
         if(str[i] == "time_step")
+        {
             read_float(str, i, variable_name, time_step, logfile);
+        }
         
         if(str[i] == "total_time")
+        {
             read_float(str, i, variable_name, total_time, logfile);
+        }
         
         if(str[i] == "area_x")
+        {
             read_float(str, i, variable_name, area_x, logfile);
+        }
         
         if(str[i] == "area_y")
+        {
             read_float(str, i, variable_name, area_y, logfile);
+        }
         
         if(str[i] == "n_x")
+        {
             read_int(str, i, variable_name, n_x, logfile);
+        }
         
         if(str[i] == "n_y")
+        {
             read_int(str, i, variable_name, n_y, logfile);
+        }
         
         if(str[i] == "moment")
+        {
             read_float(str, i, variable_name, moment, logfile);
+        }
         
         i++;
     }
@@ -263,9 +279,14 @@ int main(int argc, char* argv[])
     // This function gives the x,y coordinates for every point and returns the spherical coordinates for each grid
     // -----------------------------------------------------------------------------------------------
     
+
+    
+    // Output file open
+    outfile.open("output.txt");
     float* X = new float[n_x];
     float* Y = new float[n_y];
-    mesh_gen_o (area_x, area_y, n_x, n_y, X, Y);
+    mesh_gen_o (area_x, area_y, n_x, n_y, X, Y, outfile);
+    
 		
 
     // This function converts the cartesian coordinates into spherical coordinates using location(x,y)
@@ -352,6 +373,9 @@ int main(int argc, char* argv[])
     wr_SHw_2_file (
         displ_pt_fo_Sw_o, displ_si_cpl_SHw_o, displ_do_cpl_SHw_o, displ_fo_dipo_SHw_o, h,
         h_der,  t, t_der,  6.0, 7.0, "outputfilename.txt",len);
+    
+    // Output file close
+    outfile.close();
 
 
 	

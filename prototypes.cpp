@@ -118,7 +118,7 @@ int read_int(string str[], int i, string variable_name,
 
 
 
-int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y[])
+int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y[], ofstream &file)
 
 {
 	
@@ -133,24 +133,19 @@ int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y
     {
         
         X[i] = i * area_x / (n_x-1);
- 
-        cout << X[i] << "  ";
         
-    }
-    
-    cout << "\n";
-    
-    for (int j=0; j<n_y; j++)
-    {
-        
-        Y[j] = j * area_y / (n_y-1);
+        for (int j=0; j<n_y; j++)
+        {
+            
+            Y[j] = j * area_y / (n_y-1);
 
-        cout << Y[j] << "  ";
+            file << X[i] << ", " << Y[j] << " \n";
+            cout << X[i] << ", " << Y[j] << " \n";
+            
+        }
         
     }
-    
-    cout << "\n";
-  
+ 
     return 0;
 
 }
