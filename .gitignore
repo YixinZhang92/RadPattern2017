@@ -1,7 +1,9 @@
-prototypes.o 
+prototypes.o
 main.o
 myprogram
 login.txt
 outputfilename.txt
 output.txt
-
+html/
+latex/
+*~
