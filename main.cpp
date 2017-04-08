@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
+#include <vector>
 #include "prototypes.h"
 using namespace std;
 
@@ -102,25 +103,27 @@ int main(int argc, char* argv[])
 
 // Reading in the parameters from a file
 // Read_in functions: This function read the input waveforms in the program
-// ------------------------------------------------------------------------
 
-    //  Changed by Yixin Zhang, test for adding readin program
-
-    int i;
-    string str[100];
-    string s, variable_name, string_value;
-    string model_name, force_type, wave_type, waveform;
-    float velocity, time_step, total_time, area_x, area_y,
-        grid_x, grid_y, moment, float_value;
+// -----------------------------------------------------------------------------------------------
     
+ 
+    //  Changed by Yixin Zhang, test for adding readin program
+    int i=0, n_x, n_y, int_value;
+    string str[100], s, variable_name, string_value, model_name, force_type,
+           wave_type, waveform;
+    float velocity, time_step, total_time, area_x, area_y, moment,
+          float_value;
+    //float* X = new float[n_x];
+    //float* Y = new float[n_y];
+
     ifstream infile;
-    ofstream logfile;
+    ofstream logfile, outfile;
 
-    // Trying to make readin file works in the command line
 
-    if (argc < 2)
+	
+    if(argc != 2)
     {
-        cout << "Missing inputfile, please check\n";
+        cout << "Redunant inputfile(s) or Missing inputfile, please check\n";
         return EXIT_FAILURE;
     }
 
@@ -148,43 +151,68 @@ int main(int argc, char* argv[])
     while (str[i] != "")
     {
 
-        if (str[i] == "model_name")
+        if(str[i] == "model_name")
+        {
             read_string(str, i, variable_name, model_name, logfile);
-
-        if (str[i] == "force_type")
-            read_string(str, i, variable_name, force_type, logfile);
-
-        if (str[i] == "wave_type")
-            read_string(str, i, variable_name, wave_type, logfile);
-
-        if (str[i] == "waveform")
-            read_string(str, i, variable_name, waveform, logfile);
+        }
         
-        if (str[i] == "velocity")
+        if(str[i] == "force_type")
+        {
+            read_string(str, i, variable_name, force_type, logfile);
+        }
+        
+        if(str[i] == "wave_type")
+        {
+            read_string(str, i, variable_name, wave_type, logfile);
+        }
+        
+        if(str[i] == "waveform")
+        {
+            read_string(str, i, variable_name, waveform, logfile);
+        }
+        
+        if(str[i] == "velocity")
+        {
             read_float(str, i, variable_name, velocity, logfile);
-
-        if (str[i] == "time_step")
+        }
+        
+        if(str[i] == "time_step")
+        {
             read_float(str, i, variable_name, time_step, logfile);
-
-        if (str[i] == "total_time")
+        }
+        
+        if(str[i] == "total_time")
+        {
             read_float(str, i, variable_name, total_time, logfile);
-
-        if (str[i] == "area_x")
+        }
+        
+        if(str[i] == "area_x")
+        {
             read_float(str, i, variable_name, area_x, logfile);
-
-        if (str[i] == "area_y")
+        }
+        
+        if(str[i] == "area_y")
+        {
             read_float(str, i, variable_name, area_y, logfile);
-
-        if (str[i] == "grid_x")
-            read_float(str, i, variable_name, grid_x, logfile);
-
-        if (str[i] == "grid_y")
-            read_float(str, i, variable_name, grid_y, logfile);
-
-        if (str[i] == "moment")
+        }
+        
+        if(str[i] == "n_x")
+        {
+            read_int(str, i, variable_name, n_x, logfile);
+        }
+        
+        if(str[i] == "n_y")
+        {
+            read_int(str, i, variable_name, n_y, logfile);
+        }
+        
+        if(str[i] == "moment")
+        {
             read_float(str, i, variable_name, moment, logfile);
-
+        }
+        
         i++;
+      
     }
 
     logfile.close();
@@ -193,10 +221,6 @@ int main(int argc, char* argv[])
 
     //  Read in prototype test
     //  int read_in_inputfile, write_login_file, read_string, read_float;
-    
-    read_string (str, i, variable_name, string_value, logfile);
-
-    read_float (str, i, variable_name, float_value, logfile);
 
     //  End of test by Yixin Zhang
     
@@ -216,7 +240,7 @@ int main(int argc, char* argv[])
     double *dy;	                                dy    = new double[1];
 
     double *h;	                                h     = new double[len];
-    double *h_der;	                        h_der = new double[len];
+    double *h_der;                              h_der = new double[len];
     double *t_der;                              t_der = new double[len];
 
     string outputfilename;
@@ -250,17 +274,26 @@ int main(int argc, char* argv[])
 
     der_wavf_func (t, t_der);
 
-    // This function gives the x,y coordinates for every point and returns the spherical
-    // coordinates for each grid.
-    // ----------------------------------------------------------------------------------
+		
+    // This function gives the x,y coordinates for every point and returns the spherical coordinates for each grid
+    // -----------------------------------------------------------------------------------------------
+    
 
-    mesh_gen (3.0, 2.0, 0.7, 0.5);
+    
+    // Output file open
+    outfile.open("output.txt");
+    float* X = new float[n_x];
+    float* Y = new float[n_y];
+    mesh_gen_o (area_x, area_y, n_x, n_y, X, Y, outfile);
+    
+
 
     // This function converts the cartesian coordinates into spherical coordinates
     // using location(x,y)
     // ----------------------------------------------------------------------------------	
 
     cart_2_sph (x, y);
+    cout << n_x << endl << "\n";
 
     // This function generates P-, SH- and SV-wave radiation patterns for single couple force,
     // double couple, force dipole and point forces using the values of theta and phi.
@@ -320,7 +353,11 @@ int main(int argc, char* argv[])
 
     wr_SHw_2_file (
         displ_pt_fo_Sw_o, displ_si_cpl_SHw_o, displ_do_cpl_SHw_o, displ_fo_dipo_SHw_o, h,
-        h_der, t, t_der, 6.0, 7.0, "outputfilename.txt", len);
+        h_der,  t, t_der,  6.0, 7.0, "outputfilename.txt",len);
+    
+    // Output file close
+    outfile.close();
+
 
     cout << "\n"
         "I have completed running all the prototypes,\n";

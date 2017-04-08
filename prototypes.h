@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <cmath>
 #include <cstdlib>
+#include <vector>
 
 using namespace std;
 
@@ -29,6 +30,9 @@ int read_string(string str[], int i, string variable_name,
 int read_float(string str[], int i, string variable_name,
     float &float_value, ofstream &file);
 
+int read_int(string str[], int i, string variable_name,
+             int &int_value, ofstream &file);
+
 int read_wave_file ();
 
 // Short description: These functions generates a guassian function and its derivative 
@@ -43,7 +47,8 @@ double der_wavf_func (double t[], double t_der[]);
 // the spherical coordinates for each grid
 // -------------------------------------------------------------------------------------
 
-double mesh_gen (double x, double y, double dx, double dy);
+
+int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y[], ofstream &file);
 
 // Short description: This function converts the cartesian coordinates into spherical
 // coordinates using location(x,y)

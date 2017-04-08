@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
+#include <vector>
 #include "prototypes.h"
 
 using namespace std;
@@ -79,6 +80,29 @@ int read_float(string str[], int i, string variable_name,
     return 0;
 }
 
+// read variables in as int
+
+int read_int(string str[], int i, string variable_name,
+               int &int_value, ofstream &file)
+
+{
+    
+    char* c;
+    
+    variable_name = str[i];
+    file << variable_name << "=\t" << endl;
+    cout << variable_name << "=\t" << endl;
+    
+    c = const_cast<char*>(str[i+1].c_str());
+    sscanf(c,"%d", &int_value);
+    file << int_value << endl << "\n";
+    cout << int_value << endl << "\n";
+    
+    return 0;
+    
+}
+
+
 //  End of test by Yixin Zhang
 
 /**
@@ -90,15 +114,38 @@ int read_float(string str[], int i, string variable_name,
  * Return             0 on sucess
  *
  */
- 
-double mesh_gen (double x, double y, double dx, double dy)
+
+int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y[], ofstream &file)
 {
 
     cout <<  "Running: mesh_generator\n";
     cout << endl;
+    
+    // Perform operation.
+    
+    //float temp;
+    
+    for (int i=0; i<n_x; i++)
+    {
+        
+        X[i] = i * area_x / (n_x-1);
+        
+        for (int j=0; j<n_y; j++)
+        {
+            
+            Y[j] = j * area_y / (n_y-1);
+
+            file << X[i] << ", " << Y[j] << " \n";
+            cout << X[i] << ", " << Y[j] << " \n";
+            
+        }
+        
+    }
 
     return 0;
 }
+
+
 
 /**
  * Author:            Yixin Zhang
