@@ -29,7 +29,6 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
-#include <vector>
 #include "prototypes.h"
 using namespace std;
 
@@ -115,10 +114,11 @@ int main(int argc, char* argv[])
     ofstream logfile, outfile;
     
     // read_in function
-    read_in_parameters(argc, argv, model_name, force_type, wave_type, velocity,
-                       time_step, total_time, waveform, area_x, area_y, n_x, n_y,
-                       moment, infile, logfile, outfile);
-    
+    read_in_parameters(argc, argv, &model_name, &force_type, &wave_type, &velocity,
+                       &time_step, &total_time, &waveform, &area_x, &area_y, &n_x, &n_y,
+                       &moment, infile, logfile);
+    cout << velocity << endl;
+    cout << model_name << endl;
     //  End of test by Yixin Zhang
     
     // -------------------------------------------------------------------------
@@ -190,7 +190,7 @@ int main(int argc, char* argv[])
     // ----------------------------------------------------------------------------------	
 
     cart_2_sph (x, y);
-    cout << n_x << endl << "\n";
+    
 
     // This function generates P-, SH- and SV-wave radiation patterns for single couple force,
     // double couple, force dipole and point forces using the values of theta and phi.

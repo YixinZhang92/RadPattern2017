@@ -36,10 +36,10 @@ using namespace std;
 // made by Yixin Zhang
 //
 
-int read_in_parameters(int argc, char* argv[], string model_name, string force_type,
-                      string wave_type, float velocity, float time_step, float total_time,
-                      string waveform, float area_x, float area_y, int n_x, int n_y,
-                      float moment, ifstream &infile, ofstream &logfile, ofstream &outfile)
+int read_in_parameters(int argc, char* argv[], string *model_name, string *force_type,
+                      string *wave_type, float *velocity, float *time_step, float *total_time,
+                      string *waveform, float *area_x, float *area_y, int *n_x, int *n_y,
+                      float *moment, ifstream &infile, ofstream &logfile)
 {
     
     int i=0, int_value;
@@ -76,65 +76,63 @@ int read_in_parameters(int argc, char* argv[], string model_name, string force_t
     {
         if(str[i] == "model_name")
         {
-            read_string(str, i, variable_name, model_name, logfile);
-            cout << typeid(variable_name).name() << "\n";
+            read_string(str, i, variable_name, *model_name, logfile);
         }
         
         if(str[i] == "force_type")
         {
-            read_string(str, i, variable_name, force_type, logfile);
+            read_string(str, i, variable_name, *force_type, logfile);
         }
         
         if(str[i] == "wave_type")
         {
-            read_string(str, i, variable_name, wave_type, logfile);
+            read_string(str, i, variable_name, *wave_type, logfile);
         }
         
         if(str[i] == "waveform")
         {
-            read_string(str, i, variable_name, waveform, logfile);
+            read_string(str, i, variable_name, *waveform, logfile);
         }
         
         if(str[i] == "velocity")
         {
-            read_float(str, i, variable_name, velocity, logfile);
-            cout << typeid(velocity).name() << "\n";
+            read_float(str, i, variable_name, *velocity, logfile);
         }
         
         
         if(str[i] == "time_step")
         {
-            read_float(str, i, variable_name, time_step, logfile);
+            read_float(str, i, variable_name, *time_step, logfile);
         }
         
         if(str[i] == "total_time")
         {
-            read_float(str, i, variable_name, total_time, logfile);
+            read_float(str, i, variable_name, *total_time, logfile);
         }
         
         if(str[i] == "area_x")
         {
-            read_float(str, i, variable_name, area_x, logfile);
+            read_float(str, i, variable_name, *area_x, logfile);
         }
         
         if(str[i] == "area_y")
         {
-            read_float(str, i, variable_name, area_y, logfile);
+            read_float(str, i, variable_name, *area_y, logfile);
         }
         
         if(str[i] == "n_x")
         {
-            read_int(str, i, variable_name, n_x, logfile);
+            read_int(str, i, variable_name, *n_x, logfile);
         }
         
         if(str[i] == "n_y")
         {
-            read_int(str, i, variable_name, n_y, logfile);
+            read_int(str, i, variable_name, *n_y, logfile);
         }
         
         if(str[i] == "moment")
         {
-            read_float(str, i, variable_name, moment, logfile);
+            read_float(str, i, variable_name, *moment, logfile);
         }
         
         i++;
@@ -142,7 +140,7 @@ int read_in_parameters(int argc, char* argv[], string model_name, string force_t
     
     logfile.close();
     
-    cout << "login file has been written./n" ;
+    cout << "login file has been written.\n" <<endl;
     
     return 0;
     
