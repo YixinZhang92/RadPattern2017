@@ -257,7 +257,10 @@ int main(int argc, char* argv[])
 
 
     cout << "\n"
-        "I have completed running all the prototypes,\n";
-        "Goodbye.";
+    "I have completed running all the prototypes,\n"
+    "Goodbye.\n";
     cout << endl;
+    
+    return 0;
+    
 }
