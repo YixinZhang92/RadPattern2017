@@ -29,7 +29,6 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
-#include <vector>
 #include "prototypes.h"
 using namespace std;
 
@@ -108,120 +107,18 @@ int main(int argc, char* argv[])
     
  
     //  Changed by Yixin Zhang, test for adding readin program
-    int i=0, n_x, n_y, int_value;
-    string str[100], s, variable_name, string_value, model_name, force_type,
-           wave_type, waveform;
-    float velocity, time_step, total_time, area_x, area_y, moment,
-          float_value;
-    //float* X = new float[n_x];
-    //float* Y = new float[n_y];
-
+    int n_x, n_y;
+    string model_name, force_type, wave_type, waveform;
+    float velocity, time_step, total_time, area_x, area_y, moment;
     ifstream infile;
     ofstream logfile, outfile;
-
-
-	
-    if(argc != 2)
-    {
-        cout << "Redunant inputfile(s) or Missing inputfile, please check\n";
-        return EXIT_FAILURE;
-    }
-
-    //  open the input file and read the parameters in string format
-
-    infile.open(argv[1]);
-
-    i = 0;
-
-    while (infile >> s)
-    {
-        str[i] = s;
-        i++;
-    }
-
-    infile.close();
-    cout << "It is Reading info file\n";
-
-    //  Open the log file, and wtite variable values into login file
-    logfile.open("login.txt");
-
-    //    string line;    
-    i = 0;
-
-    while (str[i] != "")
-    {
-
-        if(str[i] == "model_name")
-        {
-            read_string(str, i, variable_name, model_name, logfile);
-        }
-        
-        if(str[i] == "force_type")
-        {
-            read_string(str, i, variable_name, force_type, logfile);
-        }
-        
-        if(str[i] == "wave_type")
-        {
-            read_string(str, i, variable_name, wave_type, logfile);
-        }
-        
-        if(str[i] == "waveform")
-        {
-            read_string(str, i, variable_name, waveform, logfile);
-        }
-        
-        if(str[i] == "velocity")
-        {
-            read_float(str, i, variable_name, velocity, logfile);
-        }
-        
-        if(str[i] == "time_step")
-        {
-            read_float(str, i, variable_name, time_step, logfile);
-        }
-        
-        if(str[i] == "total_time")
-        {
-            read_float(str, i, variable_name, total_time, logfile);
-        }
-        
-        if(str[i] == "area_x")
-        {
-            read_float(str, i, variable_name, area_x, logfile);
-        }
-        
-        if(str[i] == "area_y")
-        {
-            read_float(str, i, variable_name, area_y, logfile);
-        }
-        
-        if(str[i] == "n_x")
-        {
-            read_int(str, i, variable_name, n_x, logfile);
-        }
-        
-        if(str[i] == "n_y")
-        {
-            read_int(str, i, variable_name, n_y, logfile);
-        }
-        
-        if(str[i] == "moment")
-        {
-            read_float(str, i, variable_name, moment, logfile);
-        }
-        
-        i++;
-      
-    }
-
-    logfile.close();
     
-    cout << "login file has been written./n" ;
-
-    //  Read in prototype test
-    //  int read_in_inputfile, write_login_file, read_string, read_float;
-
+    // read_in function
+    read_in_parameters(argc, argv, &model_name, &force_type, &wave_type, &velocity,
+                       &time_step, &total_time, &waveform, &area_x, &area_y, &n_x, &n_y,
+                       &moment, infile, logfile);
+    cout << velocity << endl;
+    cout << model_name << endl;
     //  End of test by Yixin Zhang
     
     // -------------------------------------------------------------------------
@@ -293,7 +190,7 @@ int main(int argc, char* argv[])
     // ----------------------------------------------------------------------------------	
 
     cart_2_sph (x, y);
-    cout << n_x << endl << "\n";
+    
 
     // This function generates P-, SH- and SV-wave radiation patterns for single couple force,
     // double couple, force dipole and point forces using the values of theta and phi.
@@ -360,7 +257,10 @@ int main(int argc, char* argv[])
 
 
     cout << "\n"
-        "I have completed running all the prototypes,\n";
-        "Goodbye.";
+    "I have completed running all the prototypes,\n"
+    "Goodbye.\n";
     cout << endl;
+    
+    return 0;
+    
 }

@@ -1,13 +1,20 @@
+CC = g++
+
+CFLAGS = -Wall
+
 all: myprogram
 
-myprogram: prototypes.o main.o
-	g++ -o myprogram -lstdc++ prototypes.o main.o
-
 prototypes.o: prototypes.cpp
-	g++ -c prototypes.cpp -lstdc++
+	${CC} ${CFLAGS} -c prototypes.cpp 
 
-main.o: main.cpp
-	g++ -c main.cpp -lstdc++
+read_in.o: read_in.cpp
+	${CC} ${CFLAGS} -c read_in.cpp 
+
+mesh_gen_o.o: mesh_gen_o.cpp
+	${CC} ${CFLAGS} -c mesh_gen_o.cpp
+
+myprogram: prototypes.o read_in.o mesh_gen_o.o
+	${CC} ${CFLAGS} main.cpp mesh_gen_o.o read_in.o prototypes.o -o myprogram
 
 clean:
 	rm myprogram *.o

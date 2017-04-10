@@ -3,8 +3,7 @@
  * @file    prototypes.cpp
  * @author  Oluwaseun Fadugba, Yixin Zhang and Eric Jambo
  *
- * This file contains the prototypes and a short description of all the functions used
- * in the RadPattern101 program.
+ * This file contains the prototypes and a short description of all the functions used in the RadPattern101 program.
  */
 
 #include <iostream>
@@ -14,7 +13,6 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
-#include <vector>
 #include "prototypes.h"
 
 using namespace std;
@@ -22,129 +20,6 @@ using namespace std;
 // defining the value of PI.
 
 #define PI 3.14159265
-
-/**
- * Author:            Yixin Zhang
- *
- * Short description: This function float inputs
- *
- * Return             0 on sucess
- *
- * Return             EXIT_FAILURE when the input file is missing
- */
-
-// Just test, try to add read in program
-// made by Yixin Zhang
-//
-
-int read_string(string str[], int i, string variable_name,
-    string &string_value, ofstream &file)
-{
-
-    variable_name = str[i];
-    file << variable_name << "=\t" << endl;
-    cout << variable_name << "=\t" << endl;
-
-    string_value = str[i+1];
-    file << string_value << endl << "\n";
-    cout << string_value << endl << "\n";
-    
-    return 0;
-
-}
-
-/**
- * Author:            Yixin Zhang
- *
- * Short description: This function float inputs
- *
- * Return             0 on sucess
- *
- */
-
-int read_float(string str[], int i, string variable_name,
-    float &float_value, ofstream &file)
-{
-
-    char* c;
-    
-    variable_name = str[i];
-    file << variable_name << "=\t" << endl;
-    cout << variable_name << "=\t" << endl;
-
-    c = const_cast<char*>(str[i+1].c_str());
-    sscanf(c, "%e", &float_value);
-    file << float_value << endl << "\n";
-    cout << float_value << endl << "\n";
-
-    return 0;
-}
-
-// read variables in as int
-
-int read_int(string str[], int i, string variable_name,
-               int &int_value, ofstream &file)
-
-{
-    
-    char* c;
-    
-    variable_name = str[i];
-    file << variable_name << "=\t" << endl;
-    cout << variable_name << "=\t" << endl;
-    
-    c = const_cast<char*>(str[i+1].c_str());
-    sscanf(c,"%d", &int_value);
-    file << int_value << endl << "\n";
-    cout << int_value << endl << "\n";
-    
-    return 0;
-    
-}
-
-
-//  End of test by Yixin Zhang
-
-/**
- * Author:            Yixin Zhang
- *
- * Short description: This function gives the x,y coordinates for every point
- *                    and returns the spherical coordinates for each grid
- *
- * Return             0 on sucess
- *
- */
-
-int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y[], ofstream &file)
-{
-
-    cout <<  "Running: mesh_generator\n";
-    cout << endl;
-    
-    // Perform operation.
-    
-    //float temp;
-    
-    for (int i=0; i<n_x; i++)
-    {
-        
-        X[i] = i * area_x / (n_x-1);
-        
-        for (int j=0; j<n_y; j++)
-        {
-            
-            Y[j] = j * area_y / (n_y-1);
-
-            file << X[i] << ", " << Y[j] << " \n";
-            cout << X[i] << ", " << Y[j] << " \n";
-            
-        }
-        
-    }
-
-    return 0;
-}
-
 
 
 /**
