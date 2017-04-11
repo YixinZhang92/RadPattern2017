@@ -39,8 +39,8 @@ int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y
             
             Y[j] = j * area_y / (n_y-1);
 
-            file << X[i] << ", " << Y[j] << " \n";
-            //cout << X[i] << ", " << Y[j] << ";  "; //commented out for too much space used
+            file << X[i] << "  " << Y[j] << " \n";
+            // cout << X[i] << ", " << Y[j] << ";  "; //commented out for too much space used
             
         }
         
@@ -48,6 +48,3 @@ int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y
 
     return 0;
 }
-
-
-
