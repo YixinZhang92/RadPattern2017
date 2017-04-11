@@ -23,11 +23,12 @@ int read_in_parameters(int argc, char* argv[], string *model_name, string *force
                       float *alpha, float *beta, float *time_step, float *total_time,
                       string *waveform, float *area_x, float *area_y, int *n_x, int *n_y,
                       float *moment, ifstream &infile, int flag)
-{
+
     int i = 0, flag1 = 0, flag2 = 0;
     string str[1000], s, variable_name;
 
     // Open the input file and prepare to read parameters in
+
     infile.open(argv[1]);
     
     // Check if file is successfully open

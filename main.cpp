@@ -141,11 +141,11 @@ int main(int argc, char* argv[])
     
     der_wavf_func (t, t_der);
     
-    
-    // This function gives the x,y coordinates for every point and returns the spherical coordinates for each grid
-    // -----------------------------------------------------------------------------------------------
-    
-    // Now we want to iterate over the grid centers and determine the radiation
+ 
+    // Output file close
+    outfile.close();
+
+    // Now we want to iterate over the grid centers and determine the radiation 
     // pattern and displacement based on the type of force specified
     
     double xx;
@@ -156,10 +156,21 @@ int main(int argc, char* argv[])
     
     cout <<  "Running: radiation pattern and displacement, and write to file \n";
     cout << endl;
-    
+
+    int tmp = 0;
+
     while (grid_centers >> xx >> yy)
     {
-        
+        tmp += 1;
+        cout << "line number: " << tmp << endl;
+        cout << xx << "\t" << yy << "\n";
+
+        if (xx < 0 || xx > area_x || yy < 0 || yy > area_y)
+        {
+             cout << "Invalid grid centers!" << endl;
+             exit(EXIT_FAILURE);
+        }      
+         
         // This function converts the cartesian coordinates into spherical coordinates
         // using location(x,y)
         // ----------------------------------------------------------------------------------
