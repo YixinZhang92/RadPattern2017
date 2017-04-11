@@ -72,8 +72,8 @@ int check_variables(float *alpha, float *beta, float *time_step, float *total_ti
                     float *area_x, float *area_y, int *n_x, int *n_y, float *moment,
                     int flag2)
 {
-    if(*alpha > 0 && *beta > 0 && *alpha > *beta && *time_step >0 && *total_time >0
-       && *area_x > 0 && *area_y > 0 && *n_x > 0 && *n_y > 0 && *moment > 0)
+    if(alpha > 0 && beta > 0 && alpha > beta && time_step >0 && total_time >0
+       && area_x > 0 && area_y > 0 && n_x > 0 && n_y > 0 && moment > 0)
     {
         flag2 = 0;
     }

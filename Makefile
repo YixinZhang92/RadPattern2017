@@ -22,8 +22,8 @@ displ_calc.o: displ_calc.cpp
 write2file.o: write2file.cpp
 	${CC} ${CFLAGS} -c write2file.cpp
 
-myprogram: prototypes.o read_in.o mesh_gen_o.o displ_calc.o write2file.o
-	${CC} ${CFLAGS} main.cpp mesh_gen_o.o read_in.o prototypes.o displ_calc.o write2file.o -o myprogram
+myprogram: prototypes.o read_in.o mesh_gen_o.o displ_calc.o write2file.o error_check.o
+	${CC} ${CFLAGS} main.cpp mesh_gen_o.o read_in.o prototypes.o displ_calc.o write2file.o error_check.o -o myprogram
 
 clean:
 	rm myprogram *.o
