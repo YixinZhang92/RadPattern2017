@@ -7,6 +7,9 @@ all: myprogram
 prototypes.o: prototypes.cpp
 	${CC} ${CFLAGS} -c prototypes.cpp 
 
+error_check.o: error_check.cpp
+	${CC} ${CFLAGS} -c error_check.cpp
+
 read_in.o: read_in.cpp
 	${CC} ${CFLAGS} -c read_in.cpp 
 
