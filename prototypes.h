@@ -24,20 +24,28 @@ using namespace std;
 // Short description: These functions read the input waveforms in the program
 // -------------------------------------------------------------------------------------
 
+int check_file_num(int argc, int flag);
+
+int check_file_open(ifstream &infile, int flag1);
+
+int check_variables(float *alpha, float *beta, float *time_step, float *total_time,
+                    float *area_x, float *area_y, int *n_x, int *n_y, float *moment,
+                    int flag2);
+
 int read_in_parameters(int argc, char* argv[], string *model_name, string *force_type,
-                       string *wave_type, float *velocity, float *time_step, float *total_time,
+                       float *alpha, float *beta, float *time_step, float *total_time,
                        string *waveform, float *area_x, float *area_y, int *n_x, int *n_y,
-                       float *moment, ifstream &infile, ofstream &logfile);
+                       float *moment, ifstream &infile, int flag);
 
-int read_string(string str[], int i, string variable_name,
-    string &string_value, ofstream &file);
+int read_string(string str[], int i, string variable_name, string &string_value);
 
-int read_float(string str[], int i, string variable_name,
-    float &float_value, ofstream &file);
+int read_float(string str[], int i, string variable_name, float &float_value);
 
-int read_int(string str[], int i, string variable_name,
-             int &int_value, ofstream &file);
+int read_int(string str[], int i, string variable_name, int &int_value);
 
+int out_login(string *model_name, string *force_type, float *alpha, float *beta, float *time_step,
+              float *total_time, string *waveform, float *area_x, float *area_y, int *n_x,
+              int *n_y, float *moment, ofstream &file);
 
 
 int read_wave_file ();

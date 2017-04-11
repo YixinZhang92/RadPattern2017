@@ -9,158 +9,136 @@
 
 using namespace std;
 
-// defining the value of PI.
-
-#define PI 3.14159265
-
 /**
  * Author:            Yixin Zhang
  *
- * Short description: This function float inputs
+ * Short description: This function read all parameters in from parameter.in, check the reasonability, and then store them into login file, out to the screen as well as to the program memory.
  *
  * Return             0 on sucess
  *
- * Return             EXIT_FAILURE when the input file is missing
+ * Return             EXIT_FAILURE when parameter.in is wrong.
  */
 
-// Just test, try to add read in program
-// made by Yixin Zhang
-//
-
 int read_in_parameters(int argc, char* argv[], string *model_name, string *force_type,
-                      string *wave_type, float *velocity, float *time_step, float *total_time,
+                      float *alpha, float *beta, float *time_step, float *total_time,
                       string *waveform, float *area_x, float *area_y, int *n_x, int *n_y,
-                      float *moment, ifstream &infile, ofstream &logfile)
-{
-    
-    int i=0;
-    string str[100], s, variable_name;
-    
-    
-    // Check the number of input files
-    if(argc != 2)
-    {
-        cout << "Redunant inputfile(s) or Missing inputfile, please check\n";
-        exit(EXIT_FAILURE);
-        // return EXIT_FAILURE;
-    }
-        
-    //  open the input file and read the parameters in string format
+                      float *moment, ifstream &infile, int flag)
+
+    int i = 0, flag1 = 0, flag2 = 0;
+    string str[1000], s, variable_name;
+
+    // Open the input file and prepare to read parameters in
+
     infile.open(argv[1]);
-        
-    i = 0;
-        
+    
+    // Check if file is successfully open
+    check_file_open(infile, flag1);
+
+    // Read variables as strings from infile
     while( infile >> s )
     {
         str[i] = s;
         i++;
     }
-        
-    infile.close();
-    cout << "It is Reading info file\n";
     
-    //  Open the log file, and wtite variable values into login file
-    logfile.open("login.txt");
-        
+    // Finish reading, infile closed.
+    infile.close();
+
+    cout << "Start reading variables to memory\n";
+  
     i = 0;
-        
+
     while(str[i] != "")
     {
         if(str[i] == "model_name")
         {
-            read_string(str, i, variable_name, *model_name, logfile);
+            read_string(str, i, variable_name, *model_name);
         }
         
         if(str[i] == "force_type")
         {
-            read_string(str, i, variable_name, *force_type, logfile);
+            read_string(str, i, variable_name, *force_type);
         }
         
-        if(str[i] == "wave_type")
+        if(str[i] == "alpha")
         {
-            read_string(str, i, variable_name, *wave_type, logfile);
+            read_float(str, i, variable_name, *alpha);
         }
         
         if(str[i] == "waveform")
         {
-            read_string(str, i, variable_name, *waveform, logfile);
+            read_string(str, i, variable_name, *waveform);
         }
         
-        if(str[i] == "velocity")
+        if(str[i] == "beta")
         {
-            read_float(str, i, variable_name, *velocity, logfile);
+            read_float(str, i, variable_name, *beta);
         }
-        
-        
+
         if(str[i] == "time_step")
         {
-            read_float(str, i, variable_name, *time_step, logfile);
+            read_float(str, i, variable_name, *time_step);
         }
         
         if(str[i] == "total_time")
         {
-            read_float(str, i, variable_name, *total_time, logfile);
+            read_float(str, i, variable_name, *total_time);
         }
         
         if(str[i] == "area_x")
         {
-            read_float(str, i, variable_name, *area_x, logfile);
+            read_float(str, i, variable_name, *area_x);
         }
         
         if(str[i] == "area_y")
         {
-            read_float(str, i, variable_name, *area_y, logfile);
+            read_float(str, i, variable_name, *area_y);
         }
         
         if(str[i] == "n_x")
         {
-            read_int(str, i, variable_name, *n_x, logfile);
+            read_int(str, i, variable_name, *n_x);
         }
         
         if(str[i] == "n_y")
         {
-            read_int(str, i, variable_name, *n_y, logfile);
+            read_int(str, i, variable_name, *n_y);
         }
         
         if(str[i] == "moment")
         {
-            read_float(str, i, variable_name, *moment, logfile);
+            read_float(str, i, variable_name, *moment);
         }
         
         i++;
     }
     
-    logfile.close();
+    check_variables(alpha, beta, time_step, total_time, area_x, area_y, n_x, n_y, moment, flag2);
     
-    cout << "login file has been written.\n" <<endl;
+    flag = flag1 + flag2;
     
-    return 0;
-    
+    return flag;
 }
 
 /**
  * Author:            Yixin Zhang
  *
- * Short description: This function float inputs
+ * Short description: This function used for reading variables in memory, print to screen
  *
  * Return             0 on sucess
  *
  */
 
-int read_string(string str[], int i, string variable_name,
-    string &string_value, ofstream &file)
+int read_string(string str[], int i, string variable_name, string &string_value)
 {
 
     variable_name = str[i];
-    file << variable_name << "=\t" << endl;
     cout << variable_name << "=\t" << endl;
 
     string_value = str[i+1];
-    file << string_value << endl << "\n";
     cout << string_value << endl << "\n";
     
     return 0;
-
 }
 
 /**
@@ -172,44 +150,53 @@ int read_string(string str[], int i, string variable_name,
  *
  */
 
-int read_float(string str[], int i, string variable_name,
-    float &float_value, ofstream &file)
+int read_float(string str[], int i, string variable_name, float &float_value)
 {
 
     char* c;
-    
     variable_name = str[i];
-    file << variable_name << "=\t" << endl;
     cout << variable_name << "=\t" << endl;
 
     c = const_cast<char*>(str[i+1].c_str());
     sscanf(c, "%e", &float_value);
-    file << float_value << endl << "\n";
     cout << float_value << endl << "\n";
-
     return 0;
 }
 
 // read variables in as int
 
-int read_int(string str[], int i, string variable_name,
-               int &int_value, ofstream &file)
+int read_int(string str[], int i, string variable_name, int &int_value)
 
 {
     
     char* c;
-    
     variable_name = str[i];
-    file << variable_name << "=\t" << endl;
     cout << variable_name << "=\t" << endl;
     
     c = const_cast<char*>(str[i+1].c_str());
     sscanf(c,"%d", &int_value);
-    file << int_value << endl << "\n";
     cout << int_value << endl << "\n";
     
     return 0;
     
 }
 
+int out_login(string *model_name, string *force_type, float *alpha, float *beta, float *time_step,
+              float *total_time, string *waveform, float *area_x, float *area_y, int *n_x,
+              int *n_y, float *moment, ofstream &file)
+{
+    file << "model_name =\t" << model_name << endl;
+    file << "force_type =\t" << force_type << endl;
+    file << "alpha =\t" << alpha << endl;
+    file << "beta =\t" << beta << endl;
+    file << "time_step =\t" << time_step << endl;
+    file << "total_time =\t" << total_time << endl;
+    file << "waveform =\t" << waveform << endl;
+    file << "area_x =\t" << area_x << endl;
+    file << "area_y =\t" << area_y << endl;
+    file << "n_x =\t" << n_x << endl;
+    file << "n_y =\t" << n_y << endl;
+    file << "moment =\t" << moment << endl;
 
+    return 0;
+}
