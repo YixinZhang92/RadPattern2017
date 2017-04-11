@@ -24,18 +24,17 @@ using namespace std;
 // Short description: These functions read the input waveforms in the program
 // -------------------------------------------------------------------------------------
 
-int check_file_num(int argc, int flag);
+int check_file_num(int argc);
 
-int check_file_open(ifstream &infile, int flag1);
+int check_file_open(ifstream &infile);
 
 int check_variables(float *alpha, float *beta, float *time_step, float *total_time,
-                    float *area_x, float *area_y, int *n_x, int *n_y, float *moment,
-                    int flag2);
+                    float *area_x, float *area_y, int *n_x, int *n_y, float *moment);
 
 int read_in_parameters(int argc, char* argv[], string *model_name, string *force_type,
                        float *alpha, float *beta, float *time_step, float *total_time,
                        string *waveform, float *area_x, float *area_y, int *n_x, int *n_y,
-                       float *moment, ifstream &infile, int flag);
+                       float *moment, ifstream &infile);
 
 int read_string(string str[], int i, string variable_name, string &string_value);
 

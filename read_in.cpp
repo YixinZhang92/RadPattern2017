@@ -1,3 +1,11 @@
+/**
+ * @short   read in parameters
+ * @file    read_in.cpp
+ * @author  Yixin Zhang
+ *
+ * This file contains the prototypes for reading parameters from the input file and write into memory and login file.
+ */
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -22,29 +30,33 @@ using namespace std;
 int read_in_parameters(int argc, char* argv[], string *model_name, string *force_type,
                       float *alpha, float *beta, float *time_step, float *total_time,
                       string *waveform, float *area_x, float *area_y, int *n_x, int *n_y,
-                      float *moment, ifstream &infile, int flag)
+                      float *moment, ifstream &infile)
 {
-    int i = 0, flag1 = 0, flag2 = 0;
-    string str[1000], s, variable_name;
+    int i = 0;
+    string str[100], s, variable_name;
 
     // Open the input file and prepare to read parameters in
     infile.open(argv[1]);
     
     // Check if file is successfully open
-    check_file_open(infile, flag1);
-
+    if ( check_file_open(infile) != 0)
+    {
+        exit(EXIT_FAILURE);
+    }
+    
     // Read variables as strings from infile
     while( infile >> s )
     {
         str[i] = s;
         i++;
     }
-    
+
     // Finish reading, infile closed.
     infile.close();
 
-    cout << "Start reading variables to memory\n";
+    cout << "Start reading variables to memory\n" << endl;
 
+    i = 0;
     while(str[i] != "")
     {
         if(str[i] == "model_name")
@@ -110,17 +122,16 @@ int read_in_parameters(int argc, char* argv[], string *model_name, string *force
         i++;
     }
     
-    check_variables(alpha, beta, time_step, total_time, area_x, area_y, n_x, n_y, moment, flag2);
+    cout << "Finish reading parameters.\n" << endl;
     
-    flag = flag1 + flag2;
-    
-    return flag;
+    return 0;
+
 }
 
 /**
  * Author:            Yixin Zhang
  *
- * Short description: This function used for reading variables in memory, print to screen
+ * Short description: This function used for reading string variables in memory, print to screen
  *
  * Return             0 on sucess
  *
@@ -141,7 +152,7 @@ int read_string(string str[], int i, string variable_name, string &string_value)
 /**
  * Author:            Yixin Zhang
  *
- * Short description: This function float inputs
+ * Short description: This function used for reading float variables in memory, print to screen
  *
  * Return             0 on sucess
  *
@@ -160,7 +171,14 @@ int read_float(string str[], int i, string variable_name, float &float_value)
     return 0;
 }
 
-// read variables in as int
+/**
+ * Author:            Yixin Zhang
+ *
+ * Short description: This function used for reading int variables in memory, print to screen
+ *
+ * Return             0 on sucess
+ *
+ */
 
 int read_int(string str[], int i, string variable_name, int &int_value)
 
@@ -177,6 +195,15 @@ int read_int(string str[], int i, string variable_name, int &int_value)
     return 0;
     
 }
+
+/**
+ * Author:            Yixin Zhang
+ *
+ * Short description: This function used for writing values into login file
+ *
+ * Return             0 on sucess
+ *
+ */
 
 int out_login(string *model_name, string *force_type, float *alpha, float *beta, float *time_step,
               float *total_time, string *waveform, float *area_x, float *area_y, int *n_x,

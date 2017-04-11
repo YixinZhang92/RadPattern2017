@@ -1,3 +1,11 @@
+/**
+ * @short   error checking
+ * @file    error_check.cpp
+ * @author  Yixin Zhang
+ *
+ * This file contains the prototypes and a short description of functions used for checking errors.
+ */
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -12,77 +20,75 @@ using namespace std;
 /**
  * Author:            Yixin Zhang
  *
- * Short description: This function read all parameters in from parameter.in, check the reasonability, and then store them into login file, out to the screen as well as to the program memory.
+ * Short description: This function checks the number of input file(s).
  *
  * Return             0 on sucess
  *
- * Return             EXIT_FAILURE when parameter.in is wrong.
+ * Return             1 on fail
  */
 
-int check_file_num(int argc, int flag)
+int check_file_num(int argc)
 {
-    if(argc != 2)
+    if(argc == 2)
     {
-        cout << "Redunant inputfile(s) or Missing inputfile, please check\n";
-        flag = 1;
+        cout << "//***My program is initializing***// \n" << endl;
+        return 0;
     }
     else
     {
-        flag =0;
+        cout << "Redunant inputfile(s) or Missing inputfile, please check\n" << endl;
+        return 1;
     }
-    return flag;
 }
 
 /**
  * Author:            Yixin Zhang
  *
- * Short description: This function read all parameters in from parameter.in, check the reasonability, and then store them into login file, out to the screen as well as to the program memory.
+ * Short description: This function checks if the input file can be open.
  *
  * Return             0 on sucess
  *
- * Return             EXIT_FAILURE when parameter.in is wrong.
+ * Return             1 on fail
  */
 
-int check_file_open(ifstream &infile, int flag1)
+int check_file_open(ifstream &infile)
 {
     if (infile.is_open())
     {
-        cout << "File successfully open";
-        flag1 = 0;
+        cout << "File successfully opened \n" << endl;
+        return 0;
     }
     else
     {
-        cout << "Error opening input file";
-        flag1 = 1;
+        cout << "Error opening input file\n" << endl;
+        return 1;
     }
-    return flag1;
 }
 
 /**
  * Author:            Yixin Zhang
  *
- * Short description: This function read all parameters in from parameter.in, check the reasonability, and then store them into login file, out to the screen as well as to the program memory.
+ * Short description: This function checks the reasonability of readin values.
  *
  * Return             0 on sucess
  *
- * Return             EXIT_FAILURE when parameter.in is wrong.
+ * Return             1 on fail
  */
 
 int check_variables(float *alpha, float *beta, float *time_step, float *total_time,
-                    float *area_x, float *area_y, int *n_x, int *n_y, float *moment,
-                    int flag2)
+                    float *area_x, float *area_y, int *n_x, int *n_y, float *moment)
 {
-    if(alpha > 0 && beta > 0 && alpha > beta && time_step >0 && total_time >0
-       && area_x > 0 && area_y > 0 && n_x > 0 && n_y > 0 && moment > 0)
+    if( (*alpha > 0) && (*beta > 0) && (*alpha > *beta) && (*time_step >0) && (*total_time >0)
+       && (*area_x > 0) && (*area_y > 0) && (*n_x > 0) && (*n_y > 0) && (*moment > 0) )
     {
-        flag2 = 0;
+        cout << "Variables have been checked.\n" << endl;
+        return 0;
     }
     else
     {
-        cout << "Input file contains illegal variable(s), please check.";
-        flag2 = 1;
+        cout << "Input file contains illegal variable(s), please check.\n" << endl;
+        return 1;
     }
-    return flag2;
 }
 
 

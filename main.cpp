@@ -48,44 +48,32 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-
-// This function calls all the functions used in this program.
-
-// Reading in the parameters from a file
-// Read_in functions: This function read the input waveforms in the program
-
-// -----------------------------------------------------------------------------------------------
-    
- 
-    //  Changed by Yixin Zhang, test for adding readin program
-
-
-    int n_x, n_y, flag1 = 0, flag2 = 0;
+    // Declare all parameters and files
+    int n_x, n_y;
     string model_name, force_type, waveform;
     float alpha, beta, time_step, total_time, area_x, area_y, moment;
     
     ifstream infile;
     ofstream logfile, outfile;
 
-    // Check the number of input files
-    check_file_num(argc, flag1);
-    
-    // Exit program if check fialed
-    if (flag1 != 0)
+    // Check the number of input files, exit program if check failed
+    if (check_file_num(argc) != 0)
     {
-        return EXIT_FAILURE;
+        exit(EXIT_FAILURE);
     }
-    
-    // read_in function
+
+    // Reading parameters from infile and convert them to setup types
     read_in_parameters(argc, argv, &model_name, &force_type, &alpha, &beta,
                        &time_step, &total_time, &waveform, &area_x, &area_y,
-                       &n_x, &n_y, &moment, infile, flag2);
+                       &n_x, &n_y, &moment, infile);
     
-    // Exit program if check fialed
-    if(flag2 != 0)
+    // Check the reasonability of variables
+    if (check_variables(&alpha, &beta, &time_step, &total_time, &area_x, &area_y, &n_x, &n_y, &moment) != 0 )
     {
-        return EXIT_FAILURE;
+        exit(EXIT_FAILURE);
     }
+    
+    cout << "Parameters are good to use\n" << endl;
     
     // Open logfile, prepare to write memory in login file.
     logfile.open("login.txt");
@@ -111,6 +99,10 @@ int main(int argc, char* argv[])
     float* Y = new float[n_y];
     
     mesh_gen_o (area_x, area_y, n_x, n_y, X, Y, outfile);
+    
+    // Output file close
+    outfile.close();
+
     
     // -------------------------------------------------------------------------
     // These parameters (in this bracket) are supposed to be from the input file.
@@ -191,9 +183,6 @@ int main(int argc, char* argv[])
                    "outputfilename.txt", len);
         
     }
-    
-    // Output file close
-    outfile.close();
     
     cout << "\n"
     "I have completed running all the prototypes,\n"
