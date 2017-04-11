@@ -44,6 +44,8 @@ int read_in_parameters(int argc, char* argv[], string *model_name, string *force
     infile.close();
 
     cout << "Start reading variables to memory\n";
+  
+    i = 0;
 
     while(str[i] != "")
     {
