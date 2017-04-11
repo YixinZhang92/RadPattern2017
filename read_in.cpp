@@ -41,7 +41,8 @@ int read_in_parameters(int argc, char* argv[], string *model_name, string *force
     if(argc != 2)
     {
         cout << "Redunant inputfile(s) or Missing inputfile, please check\n";
-        return EXIT_FAILURE;
+        exit(EXIT_FAILURE);
+        // return EXIT_FAILURE;
     }
         
     //  open the input file and read the parameters in string format
