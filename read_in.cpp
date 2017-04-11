@@ -36,6 +36,7 @@ int read_in_parameters(int argc, char* argv[], string *model_name, string *force
     string str[100], s, variable_name;
 
     // Open the input file and prepare to read parameters in
+
     infile.open(argv[1]);
     
     // Check if file is successfully open
