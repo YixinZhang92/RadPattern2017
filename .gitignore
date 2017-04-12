@@ -1,6 +1,14 @@
 prototypes.o
+read_in.o
+mesh_gen_o.o
 main.o
+error_check.o
+displ_calc.o
+write2file.o
 myprogram
+login.txt
+outputfilename.txt
+output.txt
 html/
 latex/
 *~

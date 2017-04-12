@@ -23,5 +23,4 @@ using namespace std;
 
 // Short description: The function to read the input waveforms in the program
 // -------------------------------------------------------------------------------------
-
 int read_wave_file ();

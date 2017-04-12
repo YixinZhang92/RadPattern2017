@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
+
 #include "read_in.h"
 
 using namespace std;
@@ -222,6 +223,5 @@ int out_login(string *model_name, string *force_type, float *alpha, float *beta,
     file << "n_x =\t" << *n_x << endl;
     file << "n_y =\t" << *n_y << endl;
     file << "moment =\t" << *moment << endl;
-
     return 0;
 }
