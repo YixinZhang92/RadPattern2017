@@ -22,8 +22,17 @@ displ_calc.o: displ_calc.cpp
 write2file.o: write2file.cpp
 	${CC} ${CFLAGS} -c write2file.cpp
 
-myprogram: prototypes.o read_in.o mesh_gen_o.o displ_calc.o write2file.o error_check.o
-	${CC} ${CFLAGS} main.cpp mesh_gen_o.o read_in.o prototypes.o displ_calc.o write2file.o error_check.o -o myprogram
+radiation.o: radiation.cpp
+	${CC} ${CFLAGS} -c radiation.cpp
+
+cart2sph.o: cart2sph.cpp
+	${CC} ${CFLAGS} -c cart2sph.cpp
+
+gaussian.o: gaussian.cpp
+	${CC} ${CFLAGS} -c gaussian.cpp
+
+myprogram: prototypes.o read_in.o mesh_gen_o.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o
+	${CC} ${CFLAGS} main.cpp mesh_gen_o.o read_in.o prototypes.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o -o myprogram
 
 clean:
 	rm myprogram *.o

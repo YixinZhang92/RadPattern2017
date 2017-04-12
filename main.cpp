@@ -29,11 +29,18 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
+#include <time.h>
 
 #include "prototypes.h"
 #include "displ_calc.h"
 #include "write2file.h"
 #include "read_in.h"
+
+#include "gaussian.h"
+#include "radiation.h"
+#include "cart2sph.h"
+#include "mesh_gen_o.h"
+
 using namespace std;
 
 // defining the value of PI.
@@ -50,6 +57,9 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+
+    clock_t t1 = clock(); //beginning time
+  
     // Declare all parameters and files
     int n_x, n_y;
     string model_name, force_type, waveform;
@@ -121,6 +131,10 @@ int main(int argc, char* argv[])
     double *displ_P;	  displ_P  = new double[len];
     double *displ_SH;     displ_SH = new double[len];
     double *displ_SV;	  displ_SV = new double[len];
+
+    double *rad_P;	  rad_P  = new double[len];
+    double *rad_SH;       rad_SH = new double[len];
+    double *rad_SV;	  rad_SV = new double[len];
     
     string outputfilename;
     
@@ -129,10 +143,7 @@ int main(int argc, char* argv[])
     // total time and time steps
     // ------------------------------------------------------------------------
     
-    gauss_func (t, t_der);
-    
-    der_wavf_func (t, t_der);
-    
+    gauss_func (total_time, time_step, 6.0,3.5);
  
     // Output file close
     outfile.close();
@@ -143,7 +154,8 @@ int main(int argc, char* argv[])
     double xx;
     double yy;
     
-    // open the file containing teh grid centers
+
+    // open the file containing the grid centers
     std::ifstream grid_centers("output.txt", std::ios_base::in);
     
     cout <<  "Running: radiation pattern and displacement, and write to file \n";
@@ -154,8 +166,8 @@ int main(int argc, char* argv[])
     while (grid_centers >> xx >> yy)
     {
         tmp += 1;
-        cout << "line number: " << tmp << endl;
-        cout << xx << "\t" << yy << "\n";
+        //cout << "line number: " << tmp << endl; commented out. Taking too much space.
+        //cout << xx << "\t" << yy << "\n";
 
         if (xx < 0 || xx > area_x || yy < 0 || yy > area_y)
         {
@@ -167,13 +179,13 @@ int main(int argc, char* argv[])
         // using location(x,y)
         // ----------------------------------------------------------------------------------
         
-        cart_2_sph (xx, yy);
+        cart_2_sph (xx, yy, 4.0, 5.6,3.0);
         
         // This function generates P-, SH- and SV-wave radiation patterns for single couple force,
         // double couple, force dipole and point forces using the values of theta and phi.
         // --------------------------------------------------------------------------------------
         
-        radp (4.0, 2.9);
+        radp (4.0, 2.9, rad_P, rad_SH, rad_SV, len, force_type);
         
         // Short description: This function calculates the P-, SH- and SH-wave Displacements for
         // single force, double couple, force dipole and point forces using the values of theta,
@@ -196,10 +208,10 @@ int main(int argc, char* argv[])
     }
     
     cout << "\n"
-    "I have completed running all the prototypes,\n"
-    "Goodbye.\n";
+    "I have completed running all the functions.\n"
+    "Good bye.\n"<< endl;
+    std::cout << "Execution time : "<<float( clock () - t1 ) / CLOCKS_PER_SEC<< endl;
     cout << endl;
-    
     return 0;
 
 }
