@@ -23,15 +23,15 @@ using namespace std;
 // defining the value of PI.
 
 #define PI 3.14159265
-const double Degres = 180.0/PI; // Radians to Degrees
+const double Degrees = 180.0/PI; // Radians to Degrees
 
 double cart_2_sph(double xx, double yy, double R, double theta, double phi)
 {
     double z = 0.0;
     if (xx !=0){
     	R = sqrt((pow(xx,2))+(pow(yy,2))+(pow(z,2))); // distance
-	theta = acos(z/R)* Degres;
-    	phi = atan2(yy, xx) * Degres;
+	theta = acos(z/R)* Degrees;
+    	phi = atan2(yy, xx) * Degrees;
         //cout<< R <<":"<< theta << ":" << phi<<endl; commented out for using too much space
         return 0;
    }

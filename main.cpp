@@ -57,8 +57,6 @@ int main(int argc, char* argv[])
 {
 
     clock_t t1 = clock(); //beginning time
-    // do something
-    //std::cout << "Execution time : "<<float( clock () - t1 ) / CLOCKS_PER_SEC;
 
     // Declare all parameters and files
     int n_x, n_y;
