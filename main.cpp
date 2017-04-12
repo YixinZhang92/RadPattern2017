@@ -31,7 +31,6 @@
 #include <cmath>
 #include <time.h>
 
-#include "prototypes.h"
 #include "displ_calc.h"
 #include "write2file.h"
 #include "read_in.h"
