@@ -31,7 +31,7 @@ using namespace std;
 int read_in_parameters(int argc, char* argv[], string *model_name, string *force_type,
                       float *alpha, float *beta, float *time_step, float *total_time,
                       string *waveform, float *area_x, float *area_y, int *n_x, int *n_y,
-                      float *moment, ifstream &infile)
+                      float *moment, float *density, ifstream &infile)
 {
     int i = 0;
     string str[100], s, variable_name;
@@ -119,6 +119,11 @@ int read_in_parameters(int argc, char* argv[], string *model_name, string *force
         if(str[i] == "moment")
         {
             read_float(str, i, variable_name, *moment);
+        }
+        
+        if(str[i] == "density")
+        {
+            read_float(str, i, variable_name, *density);
         }
         
         i++;
@@ -209,19 +214,21 @@ int read_int(string str[], int i, string variable_name, int &int_value)
 
 int out_login(string *model_name, string *force_type, float *alpha, float *beta, float *time_step,
               float *total_time, string *waveform, float *area_x, float *area_y, int *n_x,
-              int *n_y, float *moment, ofstream &file)
+              int *n_y, float *moment, float *density, ofstream &file)
 {
-    file << "model_name =\t" << *model_name << endl;
-    file << "force_type =\t" << *force_type << endl;
-    file << "alpha =\t" << *alpha << endl;
-    file << "beta =\t" << *beta << endl;
-    file << "time_step =\t" << *time_step << endl;
-    file << "total_time =\t" << *total_time << endl;
-    file << "waveform =\t" << *waveform << endl;
-    file << "area_x =\t" << *area_x << endl;
-    file << "area_y =\t" << *area_y << endl;
-    file << "n_x =\t" << *n_x << endl;
-    file << "n_y =\t" << *n_y << endl;
-    file << "moment =\t" << *moment << endl;
+    file << "model_name =\t" << model_name << endl;
+    file << "force_type =\t" << force_type << endl;
+    file << "alpha =\t" << alpha << endl;
+    file << "beta =\t" << beta << endl;
+    file << "time_step =\t" << time_step << endl;
+    file << "total_time =\t" << total_time << endl;
+    file << "waveform =\t" << waveform << endl;
+    file << "area_x =\t" << area_x << endl;
+    file << "area_y =\t" << area_y << endl;
+    file << "n_x =\t" << n_x << endl;
+    file << "n_y =\t" << n_y << endl;
+    file << "moment =\t" << moment << endl;
+    file << "density =\t" << density << endl;
+
     return 0;
 }

@@ -28,13 +28,14 @@ int check_file_num(int argc);
 
 int check_file_open(ifstream &infile);
 
-int check_variables(float *alpha, float *beta, float *time_step, float *total_time,
-                    float *area_x, float *area_y, int *n_x, int *n_y, float *moment);
+int check_variables(float *alpha, float *beta, float *time_step, float *total_time, float *area_x,
+                    float *area_y, int *n_x, int *n_y, float *moment, float *density);
 
 int read_in_parameters(int argc, char* argv[], string *model_name, string *force_type,
                        float *alpha, float *beta, float *time_step, float *total_time,
                        string *waveform, float *area_x, float *area_y, int *n_x, int *n_y,
-                       float *moment, ifstream &infile);
+                       float *moment, float *density, ifstream &infile);
+
 
 int read_string(string str[], int i, string variable_name, string &string_value);
 
@@ -44,6 +45,6 @@ int read_int(string str[], int i, string variable_name, int &int_value);
 
 int out_login(string *model_name, string *force_type, float *alpha, float *beta, float *time_step,
               float *total_time, string *waveform, float *area_x, float *area_y, int *n_x,
-              int *n_y, float *moment, ofstream &file);
+              int *n_y, float *moment, float *density, ofstream &file);
 
 

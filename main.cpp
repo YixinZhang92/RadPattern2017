@@ -35,6 +35,7 @@
 #include "displ_calc.h"
 #include "write2file.h"
 #include "read_in.h"
+
 #include "gaussian.h"
 #include "radiation.h"
 #include "cart2sph.h"
@@ -62,7 +63,7 @@ int main(int argc, char* argv[])
     // Declare all parameters and files
     int n_x, n_y;
     string model_name, force_type, waveform;
-    float alpha, beta, time_step, total_time, area_x, area_y, moment;
+    float alpha, beta, time_step, total_time, area_x, area_y, moment, density;
     
     ifstream infile;
     ofstream logfile, outfile;
@@ -76,10 +77,11 @@ int main(int argc, char* argv[])
     // Reading parameters from infile and convert them to setup types
     read_in_parameters(argc, argv, &model_name, &force_type, &alpha, &beta,
                        &time_step, &total_time, &waveform, &area_x, &area_y,
-                       &n_x, &n_y, &moment, infile);
+                       &n_x, &n_y, &moment, &density, infile);
     
     // Check the reasonability of variables
-    if (check_variables(&alpha, &beta, &time_step, &total_time, &area_x, &area_y, &n_x, &n_y, &moment) != 0 )
+    if (check_variables(&alpha, &beta, &time_step, &total_time, &area_x, &area_y, &n_x, &n_y,
+                        &moment, &density) != 0 )
     {
         exit(EXIT_FAILURE);
     }
@@ -90,14 +92,11 @@ int main(int argc, char* argv[])
     logfile.open("login.txt");
         
     out_login(&model_name, &force_type, &alpha, &beta, &time_step, &total_time,
-              &waveform, &area_x, &area_y, &n_x, &n_y, &moment, logfile);
+              &waveform, &area_x, &area_y, &n_x, &n_y, &moment, &density, logfile);
         
     logfile.close();
         
     cout << "login file has been written.\n" <<endl;
-        
-    cout << alpha << endl;
-    cout << model_name << endl;
 
 
     // This function gives the x,y coordinates for every point and returns the
