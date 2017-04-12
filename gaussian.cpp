@@ -40,7 +40,6 @@ double gauss_func (double total_time, double time_step, double value, double gau
     {
 	    value = (1/sqrt(PI * s))*(exp(-(pow(t-a,2))/s));
             gauss_der = -(t-a)/(pow(s,3)*sqrt(2.0*PI))*(exp(-(pow(t-a,2))/s));
-	    cout << t << "<<" <<value << "::" <<gauss_der<<endl;
     }
 
  return 0;
