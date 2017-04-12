@@ -13,7 +13,8 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
-#include "prototypes.h"
+
+#include "read_in.h"
 
 using namespace std;
 
@@ -210,18 +211,17 @@ int out_login(string *model_name, string *force_type, float *alpha, float *beta,
               float *total_time, string *waveform, float *area_x, float *area_y, int *n_x,
               int *n_y, float *moment, ofstream &file)
 {
-    file << "model_name =\t" << model_name << endl;
-    file << "force_type =\t" << force_type << endl;
-    file << "alpha =\t" << alpha << endl;
-    file << "beta =\t" << beta << endl;
-    file << "time_step =\t" << time_step << endl;
-    file << "total_time =\t" << total_time << endl;
-    file << "waveform =\t" << waveform << endl;
-    file << "area_x =\t" << area_x << endl;
-    file << "area_y =\t" << area_y << endl;
-    file << "n_x =\t" << n_x << endl;
-    file << "n_y =\t" << n_y << endl;
-    file << "moment =\t" << moment << endl;
-
+    file << "model_name =\t" << *model_name << endl;
+    file << "force_type =\t" << *force_type << endl;
+    file << "alpha =\t" << *alpha << endl;
+    file << "beta =\t" << *beta << endl;
+    file << "time_step =\t" << *time_step << endl;
+    file << "total_time =\t" << *total_time << endl;
+    file << "waveform =\t" << *waveform << endl;
+    file << "area_x =\t" << *area_x << endl;
+    file << "area_y =\t" << *area_y << endl;
+    file << "n_x =\t" << *n_x << endl;
+    file << "n_y =\t" << *n_y << endl;
+    file << "moment =\t" << *moment << endl;
     return 0;
 }

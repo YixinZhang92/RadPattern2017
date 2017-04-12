@@ -1,12 +1,11 @@
 /**
- * @short   Prototype Headers
- * @file    prototypes.h
- * @author  Oluwaseun Fadugba, Yixin Zhang and Eric Jambo
+ * @short   mesh generation Headers
+ * @file    mesh_gen_o.h
+ * @author  Yixin Zhang
  *
  * This file contains the prototypes and a short description of all the functions used
- * in the RadPattern101 program.
+ * generate mesh grid and then convert every point in it into spherical coordinates.
  */
- 
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -21,6 +20,8 @@ using namespace std;
 // defining the value of PI.
 #define PI 3.14159265
 
-// Short description: The function to read the input waveforms in the program
+// Short description: This function takes x,y coordinates for every point and returns
+// the spherical coordinates for each grid
 // -------------------------------------------------------------------------------------
-int read_wave_file ();
+
+int mesh_gen_o (float area_x, float area_y, int n_x, int n_y, float X[], float Y[], ofstream &file);
