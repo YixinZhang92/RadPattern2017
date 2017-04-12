@@ -187,7 +187,6 @@ int main(int argc, char* argv[])
         // --------------------------------------------------------------------------------------
         
         radp (4.0, 2.9, rad_P, rad_SH, rad_SV, len, force_type);
-        radp (4.0, 2.9);
         
         // Short description: This function calculates the P-, SH- and SH-wave Displacements for
         // single force, double couple, force dipole and point forces using the values of theta,
@@ -213,9 +212,6 @@ int main(int argc, char* argv[])
     "I have completed running all the functions.\n"
     "Good bye.\n"<< endl;
     std::cout << "Execution time : "<<float( clock () - t1 ) / CLOCKS_PER_SEC<< endl;
-
-    "I have completed running all the prototypes,\n"
-    "Goodbye.\n";
     cout << endl;
     return 0;
 

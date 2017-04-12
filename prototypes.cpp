@@ -38,3 +38,4 @@ int read_wave_file ()
     cout << endl;
 
     return 0;
+}
