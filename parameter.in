@@ -1,0 +1,14 @@
+model_name     model1
+force_type     point_force
+alpha          5.7
+beta           3.5
+time_step      0.01
+total_time     600
+waveform       wavelet.f
+area_x         20
+area_y         20
+n_x            101
+n_y            101
+moment         7.8
+
+
