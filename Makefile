@@ -28,7 +28,7 @@ cart2sph.o: cart2sph.cpp
 gaussian.o: gaussian.cpp
 	${CC} ${CFLAGS} -c gaussian.cpp
 
-myprogram: prototypes.o read_in.o mesh_gen_o.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o
+myprogram: read_in.o mesh_gen_o.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o
 	${CC} ${CFLAGS} main.cpp mesh_gen_o.o read_in.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o -o myprogram
 
 clean:
