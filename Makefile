@@ -39,4 +39,4 @@ clean:
 
 cleanall:
 	rm myprogram *.o login.txt outputfilename.txt output.txt
-	rm -r html/ latex/ 
+	rm -rf html/ latex/
