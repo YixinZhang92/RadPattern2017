@@ -1,3 +1,5 @@
+.cproject
+.project
 prototypes.o
 read_in.o
 mesh_gen_o.o
