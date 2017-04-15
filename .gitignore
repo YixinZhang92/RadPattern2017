@@ -1,5 +1,8 @@
 .cproject
 .project
+cart2sph.o
+gaussian.o
+radiation.o
 prototypes.o
 read_in.o
 mesh_gen_o.o

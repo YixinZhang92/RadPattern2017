@@ -31,19 +31,18 @@
 #include <cmath>
 #include <time.h>
 
-#include "prototypes.h"
+#include "read_in.h"
+#include "error_check.h"
 #include "displ_calc.h"
 #include "write2file.h"
-#include "read_in.h"
-
 #include "gaussian.h"
 #include "radiation.h"
 #include "cart2sph.h"
+//will be deleted after Fri's meeting
 #include "mesh_gen_o.h"
 
 using namespace std;
 
-// defining the value of PI.
 #define PI 3.14159265
 
 /**
@@ -59,50 +58,24 @@ int main(int argc, char* argv[])
 {
 
     clock_t t1 = clock(); //beginning time
-  
+    
     // Declare all parameters and files
     int n_x, n_y;
     string model_name, force_type, waveform;
-    float alpha, beta, time_step, total_time, area_x, area_y, moment, density;
-    
-    ifstream infile;
-    ofstream logfile, outfile;
+    float alpha, beta, time_step, total_time, area_x, area_y, moment, rho;
 
-    // Check the number of input files, exit program if check failed
-    if (check_file_num(argc) != 0)
-    {
-        exit(EXIT_FAILURE);
-    }
-
-    // Reading parameters from infile and convert them to setup types
-    read_in_parameters(argc, argv, &model_name, &force_type, &alpha, &beta,
-                       &time_step, &total_time, &waveform, &area_x, &area_y,
-                       &n_x, &n_y, &moment, &density, infile);
+    // Parameters will be read from input file, ckecked  for their reasonability, stored into memory,
+    // and then written into login file
+    process_parameter(argc, argv, &model_name, &force_type, &alpha, &beta,
+                      &time_step, &total_time, &waveform, &area_x, &area_y,
+                      &n_x, &n_y, &moment, &rho);
     
-    // Check the reasonability of variables
-    if (check_variables(&alpha, &beta, &time_step, &total_time, &area_x, &area_y, &n_x, &n_y,
-                        &moment, &density) != 0 )
-    {
-        exit(EXIT_FAILURE);
-    }
-    
-    cout << "Parameters are good to use\n" << endl;
-    
-    // Open logfile, prepare to write memory in login file.
-    logfile.open("login.txt");
-        
-    out_login(&model_name, &force_type, &alpha, &beta, &time_step, &total_time,
-              &waveform, &area_x, &area_y, &n_x, &n_y, &moment, &density, logfile);
-        
-    logfile.close();
-        
-    cout << "login file has been written.\n" <<endl;
-
-
     // This function gives the x,y coordinates for every point and returns the
     // spherical coordinates for each grid
     // -----------------------------------------------------------------------
 
+    //will be deleted after Fri's meeting
+    ofstream outfile;
     // Output file open
     outfile.open("output.txt");
     float* X = new float[n_x];
