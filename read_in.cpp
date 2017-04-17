@@ -74,6 +74,9 @@ int read_infile(int argc, char* argv[], string str[])
     
     infile.open(argv[1]);
     
+    
+    
+    
     check_file_open(infile);
     
     // Read variables as strings from infile
@@ -256,13 +259,13 @@ int read_int(string str[], int i, string variable_name, int &int_value)
  *
  */
 
-int out_logfile(string *model_name, string *force_type, float *alpha, float *beta, float *time_step,
-              float *total_time, string *waveform, float *area_x, float *area_y, int *n_x,
-              int *n_y, float *moment, float *rho)
+int out_logfile(string *model_name, string *force_type, float *alpha, float *beta,
+                float *time_step, float *total_time, string *waveform, float *area_x, float *area_y,
+                int *n_x, int *n_y, float *moment, float *rho)
 {
     ofstream logfile;
     
-    logfile.open("login.txt");
+    logfile.open("filename");
     
     logfile << "model_name =\t" << model_name << endl;
     logfile << "force_type =\t" << force_type << endl;

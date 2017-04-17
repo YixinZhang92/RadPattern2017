@@ -38,6 +38,7 @@
 #include "gaussian.h"
 #include "radiation.h"
 #include "cart2sph.h"
+#include "rename_outfile.h"
 //will be deleted after Fri's meeting
 #include "mesh_gen_o.h"
 
@@ -56,8 +57,12 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-
+    
     clock_t t1 = clock(); //beginning time
+
+    // Get the name of input file as FILENAME, so that we can use it for further naming activities
+    // An example has been given at the location of mesh generator (which should be deleted in this week).
+    string filename = argv[1];
     
     // Declare all parameters and files
     int n_x, n_y;
@@ -76,8 +81,12 @@ int main(int argc, char* argv[])
 
     //will be deleted after Fri's meeting
     ofstream outfile;
+    
+    // Using RENAME_FILE to rename the "inputfile.in" to "inputfile.what_you_want"
+    rename_file(filename, ".in", "_outfile.txt");
+    
     // Output file open
-    outfile.open("output.txt");
+    outfile.open(filename); // "filename" at this point has been renamed to ..._outfile.txt already
     float* X = new float[n_x];
     float* Y = new float[n_y];
     

@@ -1,5 +1,6 @@
 .cproject
 .project
+rename_outfile.o
 cart2sph.o
 gaussian.o
 radiation.o

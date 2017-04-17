@@ -6,6 +6,9 @@ CPPFLAGS = -Wall
 
 all: myprogram
 
+rename_outfile.o: rename_outfile.cpp
+	${CC} ${CPPFLAGS} -c rename_outfile.cpp
+
 error_check.o: error_check.cpp
 	${CC} ${CPPFLAGS} -c error_check.cpp
 
@@ -30,12 +33,12 @@ cart2sph.o: cart2sph.cpp
 gaussian.o: gaussian.cpp
 	${CC} ${CPPFLAGS} -c gaussian.cpp
 
-myprogram: read_in.o mesh_gen_o.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o
-	${CC} ${CPPFLAGS} main.cpp mesh_gen_o.o read_in.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o -o myprogram
+myprogram: read_in.o mesh_gen_o.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o rename_outfile.o
+	${CC} ${CPPFLAGS} main.cpp mesh_gen_o.o read_in.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o rename_outfile.o -o myprogram
 
 clean:
 	rm -f myprogram *.o
 
 cleanall:
-	rm -f myprogram *.o login.txt outputfilename.txt output.txt
+	rm -f myprogram *.o login.txt outputfilename.txt output.txt parameter_outfile.txt
 	rm -rf html/ latex/
