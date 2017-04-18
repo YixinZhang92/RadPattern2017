@@ -31,6 +31,7 @@
 #include <cmath>
 #include <time.h>
 
+#include "struct.h"
 #include "read_in.h"
 #include "error_check.h"
 #include "displ_calc.h"
@@ -38,7 +39,6 @@
 #include "gaussian.h"
 #include "radiation.h"
 #include "cart2sph.h"
-#include "rename_outfile.h"
 //will be deleted after Fri's meeting
 #include "mesh_gen_o.h"
 
@@ -59,42 +59,36 @@ int main(int argc, char* argv[])
 {
     
     clock_t t1 = clock(); //beginning time
-
-    // Get the name of input file as FILENAME, so that we can use it for further naming activities
-    // An example has been given at the location of mesh generator (which should be deleted in this week).
-    string filename = argv[1];
     
     // Declare all parameters and files
-    int n_x, n_y;
-    string model_name, force_type, waveform;
-    float alpha, beta, time_step, total_time, area_x, area_y, moment, rho;
+    Parameters params;
 
     // Parameters will be read from input file, ckecked  for their reasonability, stored into memory,
     // and then written into login file
-    process_parameter(argc, argv, &model_name, &force_type, &alpha, &beta,
-                      &time_step, &total_time, &waveform, &area_x, &area_y,
-                      &n_x, &n_y, &moment, &rho);
+    process_parameter(argc, argv, &params);
     
-    // This function gives the x,y coordinates for every point and returns the
-    // spherical coordinates for each grid
-    // -----------------------------------------------------------------------
-
-    //will be deleted after Fri's meeting
-    ofstream outfile;
     
-    // Using RENAME_FILE to rename the "inputfile.in" to "inputfile.what_you_want"
-    rename_file(filename, ".in", "_outfile.txt");
     
-    // Output file open
-    outfile.open(filename); // "filename" at this point has been renamed to ..._outfile.txt already
-    float* X = new float[n_x];
-    float* Y = new float[n_y];
     
-    mesh_gen_o (area_x, area_y, n_x, n_y, X, Y, outfile);
+    // /************************  ATTENTION  ***********************/
+    // /*** An Example for Outputfile (will be deleted later)  *****/
+    const char *path = const_cast<char*>(params.outputfile_path.c_str());
     
-    // Output file close
-    outfile.close();
-
+    //params.outputfile_path contains the information of where data should go and stored.
+    
+    ofstream file(path);
+    // There is no need to open or close the file.
+    
+    float* X = new float[params.n_x];
+    float* Y = new float[params.n_y];
+    
+    mesh_gen_o (params.length_x, params.length_y, params.n_x, params.n_y, X, Y, file);
+    
+    // /************ Example Finished  *************/
+    
+    
+    
+    
     
     // -------------------------------------------------------------------------
     // These parameters (in this bracket) are supposed to be from the input file.
@@ -125,10 +119,9 @@ int main(int argc, char* argv[])
     // total time and time steps
     // ------------------------------------------------------------------------
     
-    gauss_func (total_time, time_step, 6.0,3.5);
+    gauss_func (params.total_time, params.time_step, 6.0,3.5);
  
-    // Output file close
-    outfile.close();
+
 
     // Now we want to iterate over the grid centers and determine the radiation 
     // pattern and displacement based on the type of force specified
@@ -151,7 +144,7 @@ int main(int argc, char* argv[])
         //cout << "line number: " << tmp << endl; commented out. Taking too much space.
         //cout << xx << "\t" << yy << "\n";
 
-        if (xx < 0 || xx > area_x || yy < 0 || yy > area_y)
+        if (xx < 0 || xx > params.length_x || yy < 0 || yy > params.length_y)
         {
              cout << "Invalid grid centers!" << endl;
              exit(EXIT_FAILURE);
@@ -167,7 +160,7 @@ int main(int argc, char* argv[])
         // double couple, force dipole and point forces using the values of theta and phi.
         // --------------------------------------------------------------------------------------
         
-        radp (4.0, 2.9, rad_P, rad_SH, rad_SV, len, force_type);
+        radp (4.0, 2.9, rad_P, rad_SH, rad_SV, len, params.force_type);
         
         // Short description: This function calculates the P-, SH- and SH-wave Displacements for
         // single force, double couple, force dipole and point forces using the values of theta,
@@ -176,7 +169,7 @@ int main(int argc, char* argv[])
         // -------------------------------------------------------------------------------------
         
         displ (3.9, 3.5, 2.8, 3.5, 3.7,3.9, 3.5, h, t, h_der, t_der, displ_P, displ_SH, displ_SV,
-               len, force_type);
+               len, params.force_type);
         
         // This function writes the all the P-, SH- and SV-wave displacements, input waveform
         // and its derivative and its location (x,y) into a file.

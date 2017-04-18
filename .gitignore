@@ -15,6 +15,8 @@ myprogram
 login.txt
 outputfilename.txt
 output.txt
+data/logfile.txt
+data/outputfile.txt
 html/
 latex/
 *~

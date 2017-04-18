@@ -24,7 +24,6 @@ int check_file_num(int argc);
 
 int check_file_open(ifstream &infile);
 
-int check_variables(float *alpha, float *beta, float *time_step, float *total_time, float *area_x,
-                    float *area_y, int *n_x, int *n_y, float *moment, float *density);
+int check_variables(Parameters *params);
 
 
