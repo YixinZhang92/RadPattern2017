@@ -31,6 +31,12 @@
 #include <cmath>
 #include <time.h>
 
+struct param {
+    int n_x; n_y;
+    string model_name, force_type, waveform;
+    float alpha, beta, time_step, total_time, area_x, area_y, moment, density;
+};
+
 #include "displ_calc.h"
 #include "write2file.h"
 #include "read_in.h"
@@ -60,9 +66,6 @@ int main(int argc, char* argv[])
     clock_t t1 = clock(); //beginning time
   
     // Declare all parameters and files
-    int n_x, n_y;
-    string model_name, force_type, waveform;
-    float alpha, beta, time_step, total_time, area_x, area_y, moment, density;
     
     ifstream infile;
     ofstream logfile, outfile;
