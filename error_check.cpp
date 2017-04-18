@@ -15,6 +15,7 @@
 #include <cmath>
 
 #include "read_in.h"
+#include "struct.h"
 
 using namespace std;
 
@@ -38,7 +39,7 @@ int check_file_num(int argc)
     else
     {
         cout << "Redunant inputfile(s) or Missing inputfile, please check\n" << endl;
-        return 1;
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -62,7 +63,7 @@ int check_file_open(ifstream &infile)
     else
     {
         cout << "Error opening input file\n" << endl;
-        return 1;
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -76,19 +77,19 @@ int check_file_open(ifstream &infile)
  * Return             1 on fail
  */
 
-int check_variables(float *alpha, float *beta, float *time_step, float *total_time,
-                    float *area_x, float *area_y, int *n_x, int *n_y, float *moment, float *density)
+int check_variables(Parameters *params)
 {
-    if( (*alpha > 0) && (*beta > 0) && (*alpha > *beta) && (*time_step >0) && (*total_time >0) &&
-       (*area_x > 0) && (*area_y > 0) && (*n_x > 0) && (*n_y > 0) && (*moment > 0) && (density > 0) )
+    if( (params->alpha > 0) && (params->beta > 0) && (params->alpha > params->beta) && (params->time_step >0)
+        && (params->total_time >0) && (params->length_x > 0) && (params->length_y > 0) && (params->n_x > 0)
+       && (params->n_y > 0) && (params->moment > 0) && (params->rho > 0) )
     {
-        cout << "Variables have been checked.\n" << endl;
+        cout << "Variables have been checked, parameters are good to use.\n" << endl;
         return 0;
     }
     else
     {
         cout << "Input file contains illegal variable(s), please check.\n" << endl;
-        return 1;
+        exit(EXIT_FAILURE);
     }
 }
 

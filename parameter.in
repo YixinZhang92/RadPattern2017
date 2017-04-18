@@ -5,10 +5,12 @@ beta           3.5
 time_step      0.01
 total_time     600
 waveform       wavelet.f
-area_x         20
-area_y         20
+length_x         20
+length_y         20
 n_x            101
 n_y            101
 moment         7.8
 density        2.7
 
+logfile_path     ./data/logfile.txt
+outputfile_path  ./data/output.txt

@@ -2,6 +2,8 @@ CC = g++
 
 CPPFLAGS = -Wall
 
+CPPFLAGS = -Wall
+
 all: myprogram
 
 error_check.o: error_check.cpp
@@ -28,12 +30,12 @@ cart2sph.o: cart2sph.cpp
 gaussian.o: gaussian.cpp
 	${CC} ${CPPFLAGS} -c gaussian.cpp
 
-myprogram: read_in.o mesh_gen_o.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o
+myprogram: read_in.o mesh_gen_o.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o 
 	${CC} ${CPPFLAGS} main.cpp mesh_gen_o.o read_in.o displ_calc.o write2file.o error_check.o radiation.o gaussian.o cart2sph.o -o myprogram
 
 clean:
-	rm myprogram *.o
+	rm -f myprogram *.o
 
 cleanall:
-	rm -f myprogram *.o login.txt outputfilename.txt output.txt
-	rm -rf html/ latex/
+	rm -f myprogram *.o login.txt outputfilename.txt output.txt parameter_outfile.txt
+	rm -rf html/ latex/ data/*
