@@ -1,6 +1,6 @@
 CC = g++
 
-CFLAGS = -Wall
+CPPFLAGS = -Wall
 
 CPPFLAGS = -Wall
 

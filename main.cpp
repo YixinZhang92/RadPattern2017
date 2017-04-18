@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
 {
     
     clock_t t1 = clock(); //beginning time
-    
+
     // Declare all parameters and files
     Parameters params;
 
