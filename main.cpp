@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
     clock_t t1 = clock(); //beginning time
   
     // Declare all parameters and files
-    
+    param parameters;
     ifstream infile;
     ofstream logfile, outfile;
 
