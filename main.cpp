@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
     
     clock_t t1 = clock(); //beginning time
 
-    // Declare all parameters and files
+    // Declare params as struct Parameters
     Parameters params;
 
     // Parameters will be read from input file, ckecked  for their reasonability, stored into memory,
@@ -72,11 +72,12 @@ int main(int argc, char* argv[])
     
     // /************************  ATTENTION  ***********************/
     // /*** An Example for Outputfile (will be deleted later)  *****/
-    const char *path = const_cast<char*>(params.outputfile_path.c_str());
+    const char *path = const_cast<char*>(params.outputfile_path.c_str());// convert type string to char
     
     //params.outputfile_path contains the information of where data should go and stored.
     
-    ofstream file(path);
+    ofstream file(path);// directly point to the path of file declared in input.in
+    
     // There is no need to open or close the file.
     
     float* X = new float[params.n_x];
