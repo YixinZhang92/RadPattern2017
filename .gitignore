@@ -17,6 +17,8 @@ outputfilename.txt
 output.txt
 data/logfile.txt
 data/outputfile.txt
+*.txt
+*.o
 html/
 latex/
 *~

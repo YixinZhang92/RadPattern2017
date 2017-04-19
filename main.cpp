@@ -78,20 +78,21 @@ int main(int argc, char* argv[])
     // Now we want to iterate over the grid centers and determine the radiation 
     // pattern and displacement based on the type of force specified
 
-    for (double xx=0; xx<=params.length_x; xx+= params.length_x/(params.n_x - 1))  
+    for (double xx=-(params.length_x / 2); xx<=(params.length_x / 2); xx+= params.length_x/(params.n_x - 1))  
     {   
-        for (double yy=0; yy<=params.length_y; yy+= params.length_y/(params.n_y - 1)) 
+        for (double yy=-(params.length_y / 2); yy<=(params.length_y / 2); yy+= params.length_y/(params.n_y - 1)) 
         {
             check_grid(xx, yy,&params);
 
             cart_2_sph (xx, yy, R, theta,phi); 
-      
-            rad_patt (4.0, 2.9, rad_P, rad_SH, rad_SV, len, params.force_type);  
-      
-            compute_displ (3.9, 3.5, 2.8, h, h_der, displ_P, displ_SH, displ_SV, len, &params);   
+              
+            rad_patt (theta[1], phi[1], rad_P, rad_SH, rad_SV, len, params.force_type);       
+
+            compute_displ (R[1], theta[1], phi[1] , h, h_der, displ_P, displ_SH, displ_SV, len, &params);   
      
             write_2_file (displ_P, displ_SH, displ_SV, rad_P, rad_SH, rad_SV, t, xx, yy, 
-                          "outputfilename.txt", len);
+                          "outputfilename", len);
+
         } // closing inner for loop
     } // outer for loop
 
