@@ -26,7 +26,7 @@ using namespace std;
  *
  * Return             0 on sucess
  *
- * Return             1 on fail
+ * Return             exit on fail
  */
 
 int check_file_num(int argc)
@@ -50,7 +50,7 @@ int check_file_num(int argc)
  *
  * Return             0 on sucess
  *
- * Return             1 on fail
+ * Return             exit on fail
  */
 
 int check_file_open(ifstream &infile)
@@ -74,7 +74,7 @@ int check_file_open(ifstream &infile)
  *
  * Return             0 on sucess
  *
- * Return             1 on fail
+ * Return             exit on fail
  */
 
 int check_variables(Parameters *params)
