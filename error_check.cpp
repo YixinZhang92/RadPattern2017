@@ -102,7 +102,8 @@ int check_variables(Parameters *params)
 
 void check_grid(double xx, double yy, Parameters *params)
 {
-    if (xx < 0 || xx > params->length_x + 1 || yy < 0 || yy > params->length_y + 1)
+    if (xx < -(params->length_x / 2) || xx > (params->length_x / 2) + 1 || 
+        yy < -(params->length_y / 2) || yy > (params->length_y / 2) + 1)
     {
         cout << "Invalid grid centers!" << endl;
         exit(EXIT_FAILURE);
