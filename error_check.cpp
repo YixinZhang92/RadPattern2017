@@ -81,7 +81,7 @@ int check_variables(Parameters *params)
 {
     if( (params->alpha > 0) && (params->beta > 0) && (params->alpha > params->beta) && (params->time_step >0)
         && (params->total_time >0) && (params->length_x > 0) && (params->length_y > 0) && (params->n_x > 0)
-       && (params->n_y > 0) && (params->moment > 0) && (params->rho > 0) )
+        && (params->n_y > 0) && (params->moment > 0) && (params->rho > 0) )
     {
         cout << "Variables have been checked, parameters are good to use.\n" << endl;
         return 0;
@@ -107,6 +107,4 @@ void check_grid(double xx, double yy, Parameters *params)
         cout << "Invalid grid centers!" << endl;
         exit(EXIT_FAILURE);
     }   
-}
-
-
+};
