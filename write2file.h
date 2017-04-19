@@ -17,7 +17,7 @@
 
 using namespace std;
 
-int wr_2_file (
+int write_2_file (
     double *displ_P, double *displ_SH, double *displ_SV, 
-    double rad_P, double rad_SH, double rad_SV, 
+    double *rad_P, double *rad_SH, double *rad_SV, 
     double *t, double xx, double yy, string outputfilename, int len);

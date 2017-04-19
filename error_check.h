@@ -26,4 +26,5 @@ int check_file_open(ifstream &infile);
 
 int check_variables(Parameters *params);
 
+void check_grid(double xx, double yy, Parameters *params);
 

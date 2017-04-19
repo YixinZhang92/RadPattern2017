@@ -42,7 +42,6 @@ double gauss_func (double total_time, double time_step, double *h, double *h_der
         {
 
 	    h[i] = (1/sqrt(PI * s))*(exp(-(pow(t-a,2))/s));
-cout << h[i] << endl;
             h_der[i] = -(t-a)/(pow(s,3)*sqrt(2.0*PI))*(exp(-(pow(t-a,2))/s));
         }
     }

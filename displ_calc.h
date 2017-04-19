@@ -19,7 +19,7 @@
 
 using namespace std;
 
-int displ (
+int compute_displ (
     double theta, double R, double phi, double moment, double alpha, double beta,
-    double rho, double *h, double *t, double *h_der, double *t_der,
+    double rho, double *h, double *h_der,
     double *displ_P, double *displ_SH, double *displ_SV, int len, string force_type);
