@@ -1,7 +1,7 @@
 /**
  * @short   write Headers
  * @file    write2file.h
- * @author  Oluwaseun Fadugba, Yixin Zhang and Eric Jambo
+ * @author  Oluwaseun Fadugba
  *
  * This function writes the all the P-, SH- and SV-wave displacements, radiation pattern,
  * and its location (x,y) into a file.

@@ -34,12 +34,11 @@
 #include "struct.h"
 #include "read_in.h"
 #include "error_check.h"
-#include "displ_calc.h"
+#include "compute_displ.h"
 #include "write2file.h"
 #include "gaussian.h"
 #include "radiation.h"
 #include "cart2sph.h"
-#include "init_time.h" 
 
 using namespace std;
 
@@ -58,7 +57,7 @@ int main(int argc, char* argv[])
 {  
     clock_t t1 = clock(); //beginning time
 
-    // Declare params as struct Parameters
+    // Declare all parameters and files
     Parameters params;
     
     // Parameters will be read from input file, ckecked  for their reasonability, 
@@ -66,7 +65,7 @@ int main(int argc, char* argv[])
     process_parameter(argc, argv, &params);
       
     int len = params.total_time/ params.time_step;
-    double *t = new double[len];
+    double *t = new double[len]; init_time (t, &params);
     double *h = new double[len]; double *h_der = new double[len];
     double *displ_P = new double[len]; double *displ_SH = new double[len];
     double *displ_SV = new double[len]; string outputfilename;
@@ -84,17 +83,15 @@ int main(int argc, char* argv[])
         for (double yy=0; yy<=params.length_y; yy+= params.length_y/(params.n_y - 1)) 
         {
             check_grid(xx, yy,&params);
+
             cart_2_sph (xx, yy, R, theta,phi); 
-            //cout << R[1] <<":"<< theta[1] << ":" << phi[1] <<endl;
-       
-            rad_patt (4.0, 2.9, rad_P, rad_SH, rad_SV, len, params.force_type);
-            //cout << rad_P[1] <<":"<< rad_SH[1] << ":" << rad_SV[1] <<endl;
-        
-            compute_displ (3.9, 3.5, 2.8, 3.5, 3.7,3.9, 3.5, h, h_der, displ_P, displ_SH, displ_SV,
-               len, params.force_type);     
-        
-            write_2_file (displ_P, displ_SH, displ_SV, rad_P, rad_SH, rad_SV, t, xx, yy,
-                   "outputfilename.txt", len);
+      
+            rad_patt (4.0, 2.9, rad_P, rad_SH, rad_SV, len, params.force_type);  
+      
+            compute_displ (3.9, 3.5, 2.8, h, h_der, displ_P, displ_SH, displ_SV, len, &params);   
+     
+            write_2_file (displ_P, displ_SH, displ_SV, rad_P, rad_SH, rad_SV, t, xx, yy, 
+                          "outputfilename.txt", len);
         } // closing inner for loop
     } // outer for loop
 
@@ -102,6 +99,5 @@ int main(int argc, char* argv[])
     "Good bye.\n"<< endl;
     std::cout << "Execution time : "<<float( clock () - t1 ) / CLOCKS_PER_SEC<< endl;
 
-    cout << endl;
     return 0;
 }

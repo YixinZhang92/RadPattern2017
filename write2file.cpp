@@ -1,9 +1,9 @@
 /**
  * @short   Write
  * @file    write2file.cpp
- * @author  Oluwaseun Fadugba, Yixin Zhang and Eric Jambo
+ * @author  Oluwaseun Fadugba
  *
- * This file contains the prototypes and a short description of all the functions used in the RadPattern101 program.
+ * This file contains write_2_file function
  */
 
 #include <iostream>
@@ -32,18 +32,12 @@ int write_2_file (
     double *rad_P, double *rad_SH, double *rad_SV, 
     double *t, double xx, double yy, string outputfilename, int len)
 {
-
-    //cout <<  "Running: write_results_to_file\n";
-    //cout << endl;
-
     ofstream fout(outputfilename.c_str(), ios::ios_base::app);
 
     if (!fout)
     {
-
         cout << "Cannot create output file!" << endl;
         return 1;
-
     }
 
     int width = 10; // allowable width of each field
@@ -54,26 +48,21 @@ int write_2_file (
     fout.width(width);
     fout << "x  = " << xx << "\t" << "y  = " << yy << "\n";
 
-    fout << "         rad_P  = " << rad_P[1] << "\t" << "rad_SH  = " << rad_SH[1] << "\t" 
+    fout << "rad_P  = " << rad_P[1] << "\t" << "rad_SH  = " << rad_SH[1] << "\t" 
          << "rad_SV  = " << rad_SV[1] << "\n";
 
     // writing displacement results
-
     fout << "         t   "  "\t" << " displ_P "  "\t" << " displ_SH "  "\t" 
          << " displ_SV " << "\n";
 
-    for (int i=0; i<len; i++)
-    {
-        
+    for (int i=1; i<=len; i++)
+    {      
         fout.width(width);
         fout << t[i] << "\t" << displ_P[i] << "\t" << displ_SH[i] << "\t" 
              << displ_SV[i] << "\n";
-
     }
 
-    fout << "\n";
-    fout << endl;
-    fout.close();
+    fout << "\n"; fout << endl; fout.close();
 
     return 0;
 }

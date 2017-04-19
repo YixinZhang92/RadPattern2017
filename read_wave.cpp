@@ -13,14 +13,12 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
-#include "prototypes.h"
 
 using namespace std;
 
 // defining the value of PI.
 
 #define PI 3.14159265
-
 
 /**
  * Author:            Yixin Zhang
@@ -33,7 +31,6 @@ using namespace std;
 
 int read_wave_file ()
 {
-
     cout << "Running: read_wave_file\n";
     cout << endl;
 
