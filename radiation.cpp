@@ -17,19 +17,23 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
-#include "radiation.h"       
+
+#include "read_in.h"
+#include "struct.h"       
+#include "radiation.h"
 
 using namespace std;
 
 // defining the value of PI.
 #define PI 3.14159265
 
-double rad_patt (double theta, double phi, double *rad_P, double *rad_SH, double *rad_SV, int len, string force_type)
+double rad_patt (double theta, double phi, double *rad_P, double *rad_SH, double *rad_SV, int len, Parameters *params)
 {
+
 
     //cout << "Running: radiation_pattern_P_wave_single_couple_force\n";
     //cout << endl;
-
+        string force_type = params->force_type;
     
         if (force_type == "point_force")
          
@@ -93,3 +97,5 @@ double rad_patt (double theta, double phi, double *rad_P, double *rad_SH, double
    }
    return 0;
 }
+
+

@@ -73,8 +73,8 @@ int main(int argc, char* argv[])
     double *R = new double[1]; double *theta = new double[1]; double *phi = new double[1]; 
 
     // This function generates a guassian function and its derivative
-    gauss_func (params.total_time, params.time_step, h, h_der, len);
- 
+    gauss_func (h, h_der, len, &params);
+    //cout<< h_der << endl;
     // Now we want to iterate over the grid centers and determine the radiation 
     // pattern and displacement based on the type of force specified
 
@@ -85,8 +85,8 @@ int main(int argc, char* argv[])
             check_grid(xx, yy,&params);
 
             cart_2_sph (xx, yy, R, theta,phi); 
-      
-            rad_patt (4.0, 2.9, rad_P, rad_SH, rad_SV, len, params.force_type);  
+            cout << R[1] << "::"<<theta[1]<< ":"<< phi[1]<<endl;
+            rad_patt (4.0, 2.9, rad_P, rad_SH, rad_SV, len, &params);  
       
             compute_displ (3.9, 3.5, 2.8, h, h_der, displ_P, displ_SH, displ_SV, len, &params);   
      

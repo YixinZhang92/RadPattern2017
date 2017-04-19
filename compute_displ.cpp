@@ -19,6 +19,7 @@
 
 #include "read_in.h"
 #include "struct.h"
+#include "compute_displ.h"
 
 using namespace std;
 
