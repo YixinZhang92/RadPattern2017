@@ -29,7 +29,7 @@ using namespace std;
  */
 
 int write_2_file (
-    double *displ_P, double *displ_SH, double *displ_SV, 
+     displacement *displ, 
     double *rad_P, double *rad_SH, double *rad_SV, 
     double *t, double xx, double yy, string outputfilename, int len)
 {
@@ -37,7 +37,7 @@ int write_2_file (
     write_rad_patt (rad_P, rad_SH, rad_SV, xx, yy, "outputfilename");
 
     // write radiation pattern
-    write_displ (displ_P, displ_SH, displ_SV, t, xx, yy, "outputfilename", len);
+    write_displ (displ, t, xx, yy, "outputfilename", len);
     
     return 0;
 }
@@ -53,7 +53,7 @@ int write_2_file (
  */
 
 int write_displ (
-    double *displ_P, double *displ_SH, double *displ_SV, 
+    displacement *displ, 
     double *t, double xx, double yy, string outputfilename, int len)
 {
     char str[80]; strcpy (str,outputfilename.c_str()); strcat (str,"_displ.txt"); 
@@ -81,8 +81,8 @@ int write_displ (
     for (int i=1; i<=len; i++)
     {      
         fout.width(width);
-        fout << t[i] << "\t" << displ_P[i] << "\t" << displ_SH[i] << "\t" 
-             << displ_SV[i] << "\n";
+        fout << t[i] << "\t" << displ->P[i] << "\t" << displ->SH[i] << "\t" 
+             << displ->SV[i] << "\n";
     }
 
     fout << "\n"; fout << endl; fout.close();

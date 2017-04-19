@@ -22,3 +22,5 @@ data/outputfile.txt
 html/
 latex/
 *~
+.gitignore.swo
+.gitignore.swp

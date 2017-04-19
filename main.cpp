@@ -58,19 +58,18 @@ int main(int argc, char* argv[])
     clock_t t1 = clock(); //beginning time
 
     // Declare all parameters and files
-    Parameters params;
+    Parameters params; displacement displ;
     
     // Parameters will be read from input file, ckecked  for their reasonability, 
     // stored into memory, and then written into login file
     process_parameter(argc, argv, &params);
       
     int len = params.total_time/ params.time_step;
-    double *t = new double[len]; init_time (t, &params);
-    double *h = new double[len]; double *h_der = new double[len];
-    double *displ_P = new double[len]; double *displ_SH = new double[len];
-    double *displ_SV = new double[len]; string outputfilename;
+
+    double *t = new double[len];   init_time (t, &params);
+    double *h = new double[len];   double *h_der = new double[len]; 
     double *rad_P = new double[1]; double *rad_SH = new double[1]; double *rad_SV = new double[1];
-    double *R = new double[1]; double *theta = new double[1]; double *phi = new double[1]; 
+    double *R = new double[1];     double *theta = new double[1];  double *phi = new double[1]; 
 
     // This function generates a guassian function and its derivative
     gauss_func (params.total_time, params.time_step, h, h_der, len);
@@ -82,15 +81,15 @@ int main(int argc, char* argv[])
     {   
         for (double yy=-(params.length_y / 2); yy<=(params.length_y / 2); yy+= params.length_y/(params.n_y - 1)) 
         {
-            check_grid(xx, yy,&params);
+            check_grid(xx, yy, &params);
 
-            cart_2_sph (xx, yy, R, theta,phi); 
-              
-            rad_patt (theta[1], phi[1], rad_P, rad_SH, rad_SV, len, params.force_type);       
+            cart_2_sph (xx, yy, R, theta, phi);     
 
-            compute_displ (R[1], theta[1], phi[1] , h, h_der, displ_P, displ_SH, displ_SV, len, &params);   
-     
-            write_2_file (displ_P, displ_SH, displ_SV, rad_P, rad_SH, rad_SV, t, xx, yy, 
+            compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params); 
+
+            rad_patt (theta[1], phi[1], rad_P, rad_SH, rad_SV, len, params.force_type); 
+
+            write_2_file (&displ, rad_P, rad_SH, rad_SV, t, xx, yy, 
                           "outputfilename", len);
 
         } // closing inner for loop

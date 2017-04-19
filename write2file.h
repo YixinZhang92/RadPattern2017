@@ -15,15 +15,17 @@
 #include <cstdlib>
 #include <cmath>
 
+#include "struct.h"
+
 using namespace std;
 
 int write_2_file (
-    double *displ_P, double *displ_SH, double *displ_SV, 
+    displacement *displ, 
     double *rad_P, double *rad_SH, double *rad_SV, 
     double *t, double xx, double yy, string outputfilename, int len);
 
 int write_displ (
-    double *displ_P, double *displ_SH, double *displ_SV, 
+    displacement *displ,
     double *t, double xx, double yy, string outputfilename, int len);
 
 int write_rad_patt (
