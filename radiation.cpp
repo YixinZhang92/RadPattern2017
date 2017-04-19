@@ -24,7 +24,7 @@ using namespace std;
 // defining the value of PI.
 #define PI 3.14159265
 
-double radp (double theta, double phi, double *rad_P, double *rad_SH, double *rad_SV, int len, string force_type)
+double rad_patt (double theta, double phi, double *rad_P, double *rad_SH, double *rad_SV, int len, string force_type)
 {
 
     //cout << "Running: radiation_pattern_P_wave_single_couple_force\n";

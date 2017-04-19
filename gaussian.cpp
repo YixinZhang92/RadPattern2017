@@ -25,7 +25,7 @@ using namespace std;
 
 #define PI 3.14159265
 
-double gauss_func (double total_time, double time_step, double value, double gauss_der)
+double gauss_func (double total_time, double time_step, double *h, double *h_der, int len)
 
 {
 
@@ -38,10 +38,13 @@ double gauss_func (double total_time, double time_step, double value, double gau
     for (double t = 0; t <= total_time; t = t + time_step) 
 	
     {
-	    value = (1/sqrt(PI * s))*(exp(-(pow(t-a,2))/s));
-            gauss_der = -(t-a)/(pow(s,3)*sqrt(2.0*PI))*(exp(-(pow(t-a,2))/s));
-    }
+        for (int i=0; i<len; i++)
+        {
 
+	    h[i] = (1/sqrt(PI * s))*(exp(-(pow(t-a,2))/s));
+            h_der[i] = -(t-a)/(pow(s,3)*sqrt(2.0*PI))*(exp(-(pow(t-a,2))/s));
+        }
+    }
  return 0;
 }
 

@@ -25,4 +25,4 @@ using namespace std;
 // coordinates using location(x,y)
 // ----------------------------------------------------------------------------------
 
-double cart_2_sph (double xx, double yy, double R, double theta, double phi);
+double cart_2_sph (double xx, double yy, double *R, double *theta, double *phi);

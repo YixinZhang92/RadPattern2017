@@ -93,4 +93,20 @@ int check_variables(Parameters *params)
     }
 }
 
+/**
+ * Author:            Oluwaseun Fadugba
+ *
+ * Short description: This function checks the reasonability of the grids.
+ *
+ */
+
+void check_grid(double xx, double yy, Parameters *params)
+{
+    if (xx < 0 || xx > params->length_x + 1 || yy < 0 || yy > params->length_y + 1)
+    {
+        cout << "Invalid grid centers!" << endl;
+        exit(EXIT_FAILURE);
+    }   
+}
+
 

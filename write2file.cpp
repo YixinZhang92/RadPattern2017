@@ -27,9 +27,9 @@ using namespace std;
  *
  */
 
-int wr_2_file (
+int write_2_file (
     double *displ_P, double *displ_SH, double *displ_SV, 
-    double rad_P, double rad_SH, double rad_SV, 
+    double *rad_P, double *rad_SH, double *rad_SV, 
     double *t, double xx, double yy, string outputfilename, int len)
 {
 
@@ -54,8 +54,8 @@ int wr_2_file (
     fout.width(width);
     fout << "x  = " << xx << "\t" << "y  = " << yy << "\n";
 
-    fout << "         rad_P  = " << rad_P << "\t" << "rad_SH  = " << rad_SH << "\t" 
-         << "rad_SV  = " << rad_SV << "\n";
+    fout << "         rad_P  = " << rad_P[1] << "\t" << "rad_SH  = " << rad_SH[1] << "\t" 
+         << "rad_SV  = " << rad_SV[1] << "\n";
 
     // writing displacement results
 
@@ -64,7 +64,7 @@ int wr_2_file (
 
     for (int i=0; i<len; i++)
     {
-
+        
         fout.width(width);
         fout << t[i] << "\t" << displ_P[i] << "\t" << displ_SH[i] << "\t" 
              << displ_SV[i] << "\n";
