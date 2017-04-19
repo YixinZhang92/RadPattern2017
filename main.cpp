@@ -112,22 +112,27 @@ int main(int argc, char* argv[])
     double *rad_SH;       rad_SH = new double[len];
     double *rad_SV;	  rad_SV = new double[len];
     
+    double *R;	          R  = new double[1];
+    double *theta;        theta = new double[1];
+    double *phi;	  phi = new double[1];
+ 
+    
     string outputfilename;
     
     
-    // These functions generates a guassian function and its derivative using
+    // This function generates a guassian function and its derivative using
     // total time and time steps
     // ------------------------------------------------------------------------
     
-    gauss_func (params.total_time, params.time_step, 6.0,3.5);
+    gauss_func (params.total_time, params.time_step, h, h_der, len);
  
 
 
     // Now we want to iterate over the grid centers and determine the radiation 
     // pattern and displacement based on the type of force specified
     
-    double xx;
-    double yy;
+    double xx = 0;
+    double yy = 0;
     
 
     // open the file containing the grid centers
@@ -138,9 +143,10 @@ int main(int argc, char* argv[])
 
     int tmp = 0;
 
-    while (grid_centers >> xx >> yy)
-    {
+    // while (grid_centers >> xx >> yy)
+    //{
         tmp += 1;
+
         //cout << "line number: " << tmp << endl; commented out. Taking too much space.
         //cout << xx << "\t" << yy << "\n";
 
@@ -154,13 +160,16 @@ int main(int argc, char* argv[])
         // using location(x,y)
         // ----------------------------------------------------------------------------------
         
-        cart_2_sph (xx, yy, 4.0, 5.6,3.0);
+        cart_2_sph (xx, yy, R, theta,phi);
+
+        cout << R[1] <<":"<< theta[1] << ":" << phi[1] <<endl;
         
         // This function generates P-, SH- and SV-wave radiation patterns for single couple force,
         // double couple, force dipole and point forces using the values of theta and phi.
         // --------------------------------------------------------------------------------------
         
         radp (4.0, 2.9, rad_P, rad_SH, rad_SV, len, params.force_type);
+        cout << rad_P[1] <<":"<< rad_SH[1] << ":" << rad_SV[1] <<endl;
         
         // Short description: This function calculates the P-, SH- and SH-wave Displacements for
         // single force, double couple, force dipole and point forces using the values of theta,
@@ -175,12 +184,12 @@ int main(int argc, char* argv[])
         // and its derivative and its location (x,y) into a file.
         // ----------------------------------------------------------------------------------
         
-        double rad_P = 9.; double rad_SH = 9.; double rad_SV = 9.;
+     //   double rad_P = 9.; double rad_SH = 9.; double rad_SV = 9.;
         
-        wr_2_file (displ_P, displ_SH, displ_SV, rad_P, rad_SH, rad_SV, t, xx, xx,
-                   "outputfilename.txt", len);
+        // wr_2_file (displ_P, displ_SH, displ_SV, rad_P, rad_SH, rad_SV, t, xx, xx,
+        //           "outputfilename.txt", len);
         
-    }
+   // }
     
     cout << "\n"
     "I have completed running all the functions.\n"
