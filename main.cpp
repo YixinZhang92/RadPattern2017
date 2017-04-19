@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 {  
     clock_t t1 = clock(); //beginning time
 
-    // Declare params as struct Parameters
+    // Declare all parameters and files
     Parameters params;
     
     // Parameters will be read from input file, ckecked  for their reasonability, 

@@ -33,6 +33,7 @@
 
 int process_parameter(int argc, char* argv[], Parameters *params)
 {
+    //Parameters *params
     string str[100];
     
     // Check the number of input files, exit program if check failed
@@ -179,7 +180,7 @@ int read_float(string str[], int i, float &float_value)
     string variable_name = str[i];
     cout << variable_name << "=\t" << endl;
 
-    c = const_cast<char*>(str[i+1].c_str());// convert type string to char
+    c = const_cast<char*>(str[i+1].c_str());
     sscanf(c, "%e", &float_value);
     cout << float_value << endl << "\n";
     return 0;
@@ -203,7 +204,7 @@ int read_int(string str[], int i, int &int_value)
     variable_name = str[i];
     cout << variable_name << "=\t" << endl;
     
-    c = const_cast<char*>(str[i+1].c_str());// convert type string to char
+    c = const_cast<char*>(str[i+1].c_str());
     sscanf(c,"%d", &int_value);
     cout << int_value << endl << "\n";
     
@@ -222,7 +223,7 @@ int read_int(string str[], int i, int &int_value)
 int out_logfile(Parameters *params)
 {
     
-    const char* path = const_cast<char*>(params->logfile_path.c_str());// convert type string to char
+    const char* path = const_cast<char*>(params->logfile_path.c_str());
     ofstream logfile(path);
     
     logfile << "model_name =\t" << params->model_name << endl;
