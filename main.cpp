@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
     clock_t t1 = clock(); //beginning time
 
     // Declare all parameters and files
-    Parameters params; displacement displ;
+    Parameters params; displacement displ; radiation_pattern radiation;
     
     // Parameters will be read from input file, checked  for their reasonability,
     // stored into memory, and then written into login file
@@ -69,12 +69,10 @@ int main(int argc, char* argv[])
         double *t = new double[len];   init_time (t, len, &params); //initializes time array
 
         double *h = new double[len];   double *h_der = new double[len]; 
-        double *rad_P = new double[1]; double *rad_SH = new double[1]; 
-        double *rad_SV = new double[1];double *R = new double[1];     
-        double *theta = new double[1]; double *phi = new double[1]; 
+        double *R = new double[1];     double *theta = new double[1];  double *phi = new double[1]; 
 
     // This function generates a guassian function and its derivative
-    gauss_func (params.total_time, params.time_step, h, h_der, len);
+    gauss_func (h, h_der, len, &params);
 
     // Now we want to iterate over the grid centers and determine the radiation
     // pattern and displacement based on the type of force specified
@@ -90,12 +88,11 @@ int main(int argc, char* argv[])
             cart_2_sph (xx, yy, R, theta, phi);
 
             compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
+          
+            rad_pattern (theta[1], phi[1], &radiation, len, &params);
 
-            rad_patt (theta[1], phi[1], rad_P, rad_SH, rad_SV, len, params.force_type);
-
-            write_2_file (&displ, rad_P, rad_SH, rad_SV, t, xx, yy,
-                          params.outputfile_path, len);
-
+            //write_2_file (&displ, rad_P, rad_SH, rad_SV, t, xx, yy, 
+                          //params.outputfile_path, len);
         } // closing inner for loop
     } // outer for loop
 

@@ -28,3 +28,18 @@ struct displacement
 };
 
 #endif
+
+#ifndef Radiation_pattern
+#define Radiation_pattern
+
+struct radiation_pattern
+{
+    double P_x[100000];  
+    double P_y[100000];
+    double SH_x[100000]; 
+    double SH_y[100000];
+    double SV_x[100000]; 
+    double SV_y[100000];
+};
+
+#endif
