@@ -89,8 +89,8 @@ int main(int argc, char* argv[])
             cart_2_sph (xx, yy, R, theta, phi);
 
             compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
-
-            rad_patt (theta[1], phi[1], rad_P, rad_SH, rad_SV, rad_P_x, rad_SH_x, rad_SV_x, rad_P_y, rad_SH_y, rad_SV_y, len, &params); 
+          
+            rad_patt (theta[1], phi[1], rad_P, rad_SH, rad_SV, rad_P_x, rad_SH_x, rad_SV_x, rad_P_y, rad_SH_y, rad_SV_y, len, &params);
 
             write_2_file (&displ, rad_P, rad_SH, rad_SV, t, xx, yy, 
                           params.outputfile_path, len);
