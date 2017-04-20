@@ -31,6 +31,7 @@
 #include <cmath>
 #include <time.h>
 
+#include "init_time.h"
 #include "struct.h"
 #include "read_in.h"
 #include "error_check.h"
@@ -60,27 +61,29 @@ int main(int argc, char* argv[])
     // Declare all parameters and files
     Parameters params; displacement displ;
     
-    // Parameters will be read from input file, ckecked  for their reasonability, 
+    // Parameters will be read from input file, checked  for their reasonability,
     // stored into memory, and then written into login file
     process_parameter(argc, argv, &params);
       
-    int len = params.total_time/ params.time_step;
+        int len = params.total_time/ params.time_step;
+        double *t = new double[len];   init_time (t, len, &params); //initializes time array
 
-    double *t = new double[len];   init_time (t, len, &params); // initializes time array
-
-    double *h = new double[len];   double *h_der = new double[len]; 
-    double *rad_P = new double[1]; double *rad_SH = new double[1]; double *rad_SV = new double[1];
-    double *R = new double[1];     double *theta = new double[1];  double *phi = new double[1]; 
+        double *h = new double[len];   double *h_der = new double[len]; 
+        double *rad_P = new double[1]; double *rad_SH = new double[1]; 
+        double *rad_SV = new double[1];double *R = new double[1];     
+        double *theta = new double[1]; double *phi = new double[1]; 
 
     // This function generates a guassian function and its derivative
     gauss_func (params.total_time, params.time_step, h, h_der, len);
- 
+
     // Now we want to iterate over the grid centers and determine the radiation
     // pattern and displacement based on the type of force specified
 
-    for (double xx=-(params.length_x / 2); xx<=(params.length_x / 2); xx+= params.length_x/(params.n_x - 1))
-    {   
-        for (double yy=-(params.length_y / 2); yy<=(params.length_y / 2); yy+= params.length_y/(params.n_y - 1))
+    for (double xx=-(params.length_x / 2); xx<=(params.length_x / 2);
+         xx+= params.length_x/(params.n_x - 1))
+    {
+        for (double yy=-(params.length_y / 2); yy<=(params.length_y / 2);
+             yy+= params.length_y/(params.n_y - 1))
         {
             check_grid(xx, yy, &params);
 
@@ -88,9 +91,9 @@ int main(int argc, char* argv[])
 
             compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
 
-            rad_patt (theta[1], phi[1], rad_P, rad_SH, rad_SV, len, params.force_type); 
+            rad_patt (theta[1], phi[1], rad_P, rad_SH, rad_SV, len, params.force_type);
 
-            write_2_file (&displ, rad_P, rad_SH, rad_SV, t, xx, yy, 
+            write_2_file (&displ, rad_P, rad_SH, rad_SV, t, xx, yy,
                           params.outputfile_path, len);
 
         } // closing inner for loop

@@ -40,11 +40,10 @@ double gauss_func (double total_time, double time_step, double *h, double *h_der
     {
         for (int i=0; i<len; i++)
         {
-
 	    h[i] = (1/sqrt(PI * s))*(exp(-(pow(t-a,2))/s));
             h_der[i] = -(t-a)/(pow(s,3)*sqrt(2.0*PI))*(exp(-(pow(t-a,2))/s));
         }
     }
- return 0;
+ 
+    return 0;
 }
-

@@ -129,6 +129,7 @@ int check_loc(double R, double theta, double phi)
     { 
         cout << "--------------------------Error! ------------------------------ \n";
         cout << "Invalid spherical location for displacement field calculations! \n";
+        cout << "--------Check the consistency of the domain geometry----------- \n";
         cout << "--------------------------------------------------------------- \n";
         cout << endl;
         exit(EXIT_FAILURE);
@@ -151,10 +152,51 @@ int check_t_len(double len, int i)
     { 
         cout << "--------------------------Error! ------------------------------ \n";
         cout << "-------------Error initializing time array--------------------- \n";
+        cout << "--Required total time should be divisible by time step--------- \n";
         cout << "--------------------------------------------------------------- \n";
         cout << endl;
         exit(EXIT_FAILURE);
     };  
+
+    return 0;
+};
+
+/**
+ * Author:            Oluwaseun Fadugba
+ *
+ * Short description: This function checks if the output files are successfully opened.
+ *
+ */
+
+int check_outfile(int index, int str)
+{
+    if (str == 1)
+    {
+        if (index != 0)
+        {
+            cout << "--------------------------Error! ------------------------------ \n";
+            cout << "---------Cannot create displacement output file!--------------- \n";
+            cout << "---Check output filename for spaces or special characters------ \n";
+            cout << "--------------------------------------------------------------- \n";
+            cout << endl;
+
+            exit(EXIT_FAILURE);
+        };
+    };
+
+    if (str == 2)
+    {
+        if (index != 0)
+        {
+            cout << "--------------------------Error! ------------------------------ \n";
+            cout << "---------Cannot create radiation pattern output file!---------- \n";
+            cout << "---Check output filename for spaces or special characters------ \n";
+            cout << "--------------------------------------------------------------- \n";
+            cout << endl;
+
+            exit(EXIT_FAILURE);
+        };
+    };
 
     return 0;
 };
