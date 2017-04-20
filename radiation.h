@@ -18,4 +18,4 @@
 
 using namespace std;
 
-double rad_patt (double theta, double phi, double *rad_P, double *rad_SH, double *rad_SV, int len, string force_type);
+double rad_patt (double theta, double phi, double *rad_P, double *rad_SH, double *rad_SV, double *rad_P_x, double *rad_SH_x, double *rad_SV_x,double *rad_P_y, double *rad_SH_y, double *rad_SV_y, int len, Parameters *params);
