@@ -18,7 +18,15 @@
 using namespace std;
 
 int compute_displ (
-    double theta, double R, double phi, double *h, double *h_der,
-    double *displ_P, double *displ_SH, double *displ_SV, int len, Parameters *params);
+    double RR, double theta, double phi, double *h, double *h_der,
+    displacement *displ, int len, Parameters *params);
 
-int init_time (double *t, Parameters *params);
+int init_time (double *t, double len, Parameters *params);
+
+int compute_displ_P (
+    double R, double theta, double phi, double *h, double *h_der,
+    displacement *displ, int len, Parameters *params);
+
+int compute_displ_SH_SV (
+    double R, double theta, double phi, double *h, double *h_der,
+    displacement *displ, int len, Parameters *params);

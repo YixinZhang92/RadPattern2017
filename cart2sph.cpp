@@ -16,10 +16,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
-
 #include "cart2sph.h"
-#include "read_in.h"
-#include "struct.h"
 
 using namespace std;
 

@@ -19,7 +19,7 @@
 #include <cmath>
 
 #include "read_in.h"
-#include "struct.h"       
+#include "struct.h"
 #include "gaussian.h"
 
 using namespace std;
@@ -31,7 +31,7 @@ using namespace std;
 double gauss_func (double *h, double *h_der, int len, Parameters *params)
 
 {
-
+    
     double total_time = params->total_time; 
     double time_step = params->time_step;
 
@@ -39,18 +39,16 @@ double gauss_func (double *h, double *h_der, int len, Parameters *params)
     // set standard deviation to 1.0
     double sigma = 0.45;
     double s = 2.0 * sigma * sigma;
- 
+    int i = 0;
+
     // generate gaussian time function and its derivative
-    for (double time = 0; time <= params->total_time; time = time + params->time_step) 
+    for (double time = 0; time <= total_time; time += time_step) 
 	
     {
-        for (int i=0; i<len; i++)
-        {
-
-	    h[i] = (1/sqrt(PI * s))*(exp(-(pow(time - a,2))/s));
-            
-            h_der[i] = -(time - a)/(pow(s,3)*sqrt(2.0*PI))*(exp(-(pow(time - a,2))/s));
-        }
+         i++;
+         
+         h[i] = (1/sqrt(PI * s))*(exp(-(pow(time - a,2))/s));
+         h_der[i] = -(time - a)/(pow(s,3)*sqrt(2.0*PI))*(exp(-(pow(time -a,2))/s));
     }
  return 0;
 }

@@ -3,7 +3,7 @@
  * @file    compute_displ.cpp
  * @author  Oluwaseun
  *
- * This file contains functions compute_displ.cpp and init_time.cpp
+ * This file contains functions compute_displ.cpp and its helper functions, and init_time.cpp
  * to calculate the dispalcement given necessary parameters and 
  * initialize the time vector.
  *
@@ -20,6 +20,7 @@
 #include "read_in.h"
 #include "struct.h"
 #include "compute_displ.h"
+#include "error_check.h"
 
 using namespace std;
 
@@ -27,77 +28,164 @@ using namespace std;
 #define PI 3.14159265
 
 int compute_displ (
-    double theta, double R, double phi, double *h, double *h_der,
-    double *displ_P, double *displ_SH, double *displ_SV, int len, Parameters *params)
+    double R, double theta, double phi, double *h, double *h_der,
+    displacement *displ, int len, Parameters *params)
 {
+    // Check variables
+    check_loc(R, theta, phi);
 
-    double moment = params->moment; double alpha = params->alpha; double beta = params->beta;
-    double rho = params->rho; string force_type = params->force_type;
+    // displacement for P and SH-SV waves. Time shift is included.
+    compute_displ_P (R, theta, phi , h, h_der, displ, len, params); 
 
-    // Perform operation either for Point Force, Single Couple, double_couple or force_dipole
-    if (force_type == "point_force")
-        for (int i=0; i<len; i++)
-        {
-            displ_P[i]  = (cos(theta * PI / 180.0) * h[i]) / 
-                          (4 * PI * rho * pow(alpha, 2) * R);
+    compute_displ_SH_SV (R, theta, phi , h, h_der, displ, len, params); 
 
-            displ_SH[i] = (-sin(theta * PI / 180.0) * h[i]) /
-                          (4 * PI * rho * pow(beta, 2) * R);
-
-            displ_SV[i] = displ_SH[i];
-        };
-
-    if (force_type == "single_couple")
-        for (int i=0; i<len; i++)
-        {
-            displ_P[i]  = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0), 2) *
-                          moment * h_der[i]) / (8.0 * PI * rho * pow(alpha, 3) * R);
-       
-            displ_SH[i] = (sin(theta * PI / 180.0)*pow(sin(phi * PI / 180.0), 2) * 
-                          moment * h_der[i]) / (8.0 * PI * rho * pow(beta, 3) * R);
-
-            displ_SV[i] = (-sin(2.0*theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
-                          moment * h_der[i]) / (16.0 * PI * rho * pow(beta, 3) * R);
-        }
-
-    if (force_type == "double_couple")
-        for (int i=0; i<len; i++)
-        {
-            displ_P[i]  = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0), 2) * 
-                          moment * h_der[i]) / (4.0 * PI * rho * pow(alpha, 3) * R);
-        
-            displ_SH[i] = (-sin(theta * PI / 180.0)*(cos(2.0*phi * PI / 180.0)) *
-                          moment * h_der[i]) / (4.0 * PI * rho * pow(beta, 3) * R);
-        
-            displ_SV[i] = (-sin(2.0*theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
-                          moment * h_der[i]) / (8.0 * PI * rho * pow(beta, 3) * R);
-        }
-
-    if (force_type == "force_dipole")
-        for (int i=0; i<len; i++)
-        {
-            displ_P[i]  = (pow(sin(theta * PI / 180.0),2)*pow(cos(phi * PI / 180.0), 2) *
-                          moment * h[i]) / (4.0 * PI * rho * pow(alpha, 3) * R);
-
-            displ_SH[i] = (-sin(theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
-                          moment * h[i]) / (8.0 * PI * rho * pow(beta, 3) * R);
-    
-            displ_SV[i] = (cos(theta * PI / 180.0)*(cos(phi * PI / 180.0)) *
-                          moment * h[i]) / (4.0 * PI * rho * pow(beta, 3) * R);
-        }
-
-return 0;
+    return 0;
 };
 
 
-int init_time (double *t, Parameters *params)
+/**
+ * Author:            Oluwaseun Fadugba
+ *
+ * Short description: This function determines the displacement for P-wave after 
+ * applying necessary time shift to the guassian function
+ *
+ * Return             0 on sucess
+ *
+ */
+
+int compute_displ_P (
+    double R, double theta, double phi, double *h, double *h_der,
+    displacement *displ, int len, Parameters *params)
 {
+    // making parameters local to avoid multiple "params->"
+    double moment = params->moment; double alpha = params->alpha; 
+    double rho = params->rho; double time_step = params->time_step; 
+    string force_type = params->force_type;
+
+    // determine time shift
+    int shift_P = int(round(R / (alpha * time_step)));
+
+    // leading zeros due to the time shift
+    for (int j=0; j<shift_P; j++)
+    {
+        displ->P[j] = 0.0; 
+    };
+
+    // Non-zero displacements 
+    for (int i=0; i<len; i++)
+    {
+        if (force_type == "point_force")
+        {
+            displ->P[i+shift_P]  = ((cos(theta) * PI / 180.0) * h[i]) / 
+                                   (4 * PI * rho * pow(alpha, 2) * R);
+        };
+
+        if (force_type == "single_couple")
+        {
+            displ->P[i+shift_P]  = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0), 2) *
+                                   moment * h_der[i]) / (8.0 * PI * rho * pow(alpha, 3) * R);
+        };
+
+        if (force_type == "double_couple")
+        {
+            displ->P[i+shift_P]  = (-sin(2.0*phi * PI / 180.0)*pow(sin(theta * PI / 180.0), 2) * 
+                                   moment * h_der[i]) / (4.0 * PI * rho * pow(alpha, 3) * R);
+        };
+
+        if (force_type == "force_dipole")
+        {
+            displ->P[i+shift_P]  = (pow(sin(theta * PI / 180.0),2)*pow(cos(phi * PI / 180.0), 2) *
+                                   moment * h[i]) / (4.0 * PI * rho * pow(alpha, 3) * R);
+        };
+    };
+
+    return 0;
+};
+
+/**
+ * Author:            Oluwaseun Fadugba
+ *
+ * Short description: This function determines the displacement for SH- and SV- waves after 
+ * applying necessary time shift to the guassian function
+ *
+ * Return             0 on sucess
+ *
+ */
+
+int compute_displ_SH_SV (
+    double R, double theta, double phi, double *h, double *h_der,
+    displacement *displ, int len, Parameters *params)
+{
+    // making parameters local to avoid multiple "params->"
+    double moment = params->moment; double beta = params->beta;
+    double rho = params->rho; double time_step = params->time_step; 
+    string force_type = params->force_type;
+
+    // determine time shift
+    int shift_S = int(round(R / (beta * time_step)));
+    
+    // leading zeros due to the time shift
+    for (int j=0; j<shift_S; j++)
+    {
+        displ->SH[j] = 0.0;
+        displ->SV[j] = 0.0; 
+    };
+
+    // Non-zero displacements
+    for (int i=0; i<len; i++)
+    {
+        if (force_type == "point_force")
+        {
+            displ->SH[i+shift_S] = (-sin(theta * PI / 180.0) * h[i]) /
+                                   (4 * PI * rho * pow(beta, 2) * R);
+            displ->SV[i+shift_S] = displ->SH[i+shift_S]; 
+        };
+        if (force_type == "single_couple")
+        {
+            displ->SH[i+shift_S] = (sin(theta * PI / 180.0)*pow(sin(phi * PI / 180.0), 2) * 
+                                   moment * h_der[i]) / (8.0 * PI * rho * pow(beta, 3) * R);
+            displ->SV[i+shift_S] = (-sin(2.0*theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
+                                   moment * h_der[i]) / (16.0 * PI * rho * pow(beta, 3) * R);       
+        };
+        if (force_type == "double_couple")
+        {
+            displ->SH[i+shift_S] = (-sin(theta * PI / 180.0)*(cos(2.0*phi * PI / 180.0)) *
+                                   moment * h_der[i]) / (4.0 * PI * rho * pow(beta, 3) * R);      
+            displ->SV[i+shift_S] = (-sin(2.0*theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
+                                   moment * h_der[i]) / (8.0 * PI * rho * pow(beta, 3) * R);
+        };
+        if (force_type == "force_dipole")
+        {
+            displ->SH[i+shift_S] = (-sin(theta * PI / 180.0)*(sin(2.0*phi * PI / 180.0)) *
+                                   moment * h[i]) / (8.0 * PI * rho * pow(beta, 3) * R);  
+            displ->SV[i+shift_S] = (cos(theta * PI / 180.0)*(cos(phi * PI / 180.0)) *
+                                   moment * h[i]) / (4.0 * PI * rho * pow(beta, 3) * R);
+        };
+    };
+    return 0;
+};
+
+/**
+ * Author:            Oluwaseun Fadugba
+ *
+ * Short description: This function initializes the time vector based on total time and time step
+ *
+ * Return             0 on sucess
+ *
+ */
+
+int init_time (double *t, double len, Parameters *params)
+{
+    
     int i = 0; 
     for (double tt=0; tt <= (params->total_time - params->time_step); tt+= params->time_step)
     {
         i++;
         t[i]  = tt;
     }
+
+    // Check the length of the time array
+    check_t_len(len, i);
 
 return 0;
 };

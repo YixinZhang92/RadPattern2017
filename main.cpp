@@ -58,40 +58,43 @@ int main(int argc, char* argv[])
     clock_t t1 = clock(); //beginning time
 
     // Declare all parameters and files
-    Parameters params;
+    Parameters params; displacement displ;
     
     // Parameters will be read from input file, ckecked  for their reasonability, 
     // stored into memory, and then written into login file
     process_parameter(argc, argv, &params);
       
     int len = params.total_time/ params.time_step;
-    double *t = new double[len]; init_time (t, &params);
-    double *h = new double[len]; double *h_der = new double[len];
-    double *displ_P = new double[len]; double *displ_SH = new double[len];
-    double *displ_SV = new double[len]; string outputfilename;
+
+    double *t = new double[len];   init_time (t, len, &params); // initializes time array
+
+    double *h = new double[len];   double *h_der = new double[len]; 
     double *rad_P = new double[1]; double *rad_SH = new double[1]; double *rad_SV = new double[1];
-    double *R = new double[1]; double *theta = new double[1]; double *phi = new double[1]; 
+    double *rad_P_x = new double[1]; double *rad_SH_x = new double[1]; double *rad_SV_x = new double[1];
+    double *rad_P_y = new double[1]; double *rad_SH_y = new double[1]; double *rad_SV_y = new double[1];
+    double *R = new double[1];     double *theta = new double[1];  double *phi = new double[1]; 
 
     // This function generates a guassian function and its derivative
     gauss_func (h, h_der, len, &params);
-    //cout<< h_der << endl;
-    // Now we want to iterate over the grid centers and determine the radiation 
+ 
+    // Now we want to iterate over the grid centers and determine the radiation
     // pattern and displacement based on the type of force specified
 
-    for (double xx=0; xx<=params.length_x; xx+= params.length_x/(params.n_x - 1))  
+    for (double xx=-(params.length_x / 2); xx<=(params.length_x / 2); xx+= params.length_x/(params.n_x - 1))
     {   
-        for (double yy=0; yy<=params.length_y; yy+= params.length_y/(params.n_y - 1)) 
+        for (double yy=-(params.length_y / 2); yy<=(params.length_y / 2); yy+= params.length_y/(params.n_y - 1))
         {
-            check_grid(xx, yy,&params);
+            check_grid(xx, yy, &params);
 
-            cart_2_sph (xx, yy, R, theta,phi); 
-            cout << R[1] << "::"<<theta[1]<< ":"<< phi[1]<<endl;
-            rad_patt (4.0, 2.9, rad_P, rad_SH, rad_SV, len, &params);  
-      
-            compute_displ (3.9, 3.5, 2.8, h, h_der, displ_P, displ_SH, displ_SV, len, &params);   
-     
-            write_2_file (displ_P, displ_SH, displ_SV, rad_P, rad_SH, rad_SV, t, xx, yy, 
-                          "outputfilename.txt", len);
+            cart_2_sph (xx, yy, R, theta, phi);
+
+            compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
+
+            rad_patt (theta[1], phi[1], rad_P, rad_SH, rad_SV, rad_P_x, rad_SH_x, rad_SV_x, rad_P_y, rad_SH_y, rad_SV_y, len, &params); 
+
+            write_2_file (&displ, rad_P, rad_SH, rad_SV, t, xx, yy, 
+                          params.outputfile_path, len);
+
         } // closing inner for loop
     } // outer for loop
 

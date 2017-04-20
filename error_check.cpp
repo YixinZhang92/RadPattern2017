@@ -100,11 +100,61 @@ int check_variables(Parameters *params)
  *
  */
 
-void check_grid(double xx, double yy, Parameters *params)
+int check_grid(double xx, double yy, Parameters *params)
 {
-    if (xx < 0 || xx > params->length_x + 1 || yy < 0 || yy > params->length_y + 1)
+    if (xx < -(params->length_x / 2) || xx > (params->length_x / 2) + 1 || 
+        yy < -(params->length_y / 2) || yy > (params->length_y / 2) + 1)
     {
-        cout << "Invalid grid centers!" << endl;
+        cout << "---------------------Error! ------------------------------------- \n";
+        cout << "----------------Invalid grid centers!---------------------------- \n";
+        cout << "----------------------------------------------------------------- \n";
+        cout << endl;
         exit(EXIT_FAILURE);
-    }   
+    }  
+
+    return 0;
+};
+
+/**
+ * Author:            Oluwaseun Fadugba
+ *
+ * Short description: 
+ * This function checks the reasonability of the locations inputs to compute_displ.cpp
+ *
+ */
+
+int check_loc(double R, double theta, double phi)
+{
+    if (R < 0.0 || abs(theta) > 91 || abs(phi) > 181 )
+    { 
+        cout << "--------------------------Error! ------------------------------ \n";
+        cout << "Invalid spherical location for displacement field calculations! \n";
+        cout << "--------------------------------------------------------------- \n";
+        cout << endl;
+        exit(EXIT_FAILURE);
+    };  
+
+    return 0;
+};
+
+/**
+ * Author:            Oluwaseun Fadugba
+ *
+ * Short description: 
+ * This function checks the length of the time array
+ *
+ */
+
+int check_t_len(double len, int i)
+{
+    if (len != i)
+    { 
+        cout << "--------------------------Error! ------------------------------ \n";
+        cout << "-------------Error initializing time array--------------------- \n";
+        cout << "--------------------------------------------------------------- \n";
+        cout << endl;
+        exit(EXIT_FAILURE);
+    };  
+
+    return 0;
 };
