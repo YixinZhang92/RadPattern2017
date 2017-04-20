@@ -56,6 +56,6 @@ double gauss_func (double *h, double *h_der, int len, Parameters *params)
               h_der[i] =0.0;
              }
     }
- return 0;
+ 
+    return 0;
 }
-

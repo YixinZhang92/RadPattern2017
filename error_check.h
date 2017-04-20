@@ -31,3 +31,5 @@ int check_grid(double xx, double yy, Parameters *params);
 int check_loc(double R, double theta, double phi);
 
 int check_t_len(double len, int i);
+
+int check_outfile(int index, int str);
