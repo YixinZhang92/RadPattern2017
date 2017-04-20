@@ -22,3 +22,11 @@ int compute_displ (
     displacement *displ, int len, Parameters *params);
 
 int init_time (double *t, Parameters *params);
+
+int compute_displ_P (
+    double R, double theta, double phi, double *h, double *h_der,
+    displacement *displ, int len, Parameters *params);
+
+int compute_displ_SH_SV (
+    double R, double theta, double phi, double *h, double *h_der,
+    displacement *displ, int len, Parameters *params);
