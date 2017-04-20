@@ -20,6 +20,7 @@
 #include "read_in.h"
 #include "struct.h"
 #include "compute_displ.h"
+#include "error_check.h"
 
 using namespace std;
 
@@ -30,8 +31,10 @@ int compute_displ (
     double R, double theta, double phi, double *h, double *h_der,
     displacement *displ, int len, Parameters *params)
 {
+    // Check variables
+    check_loc(R, theta, phi);
+
     // displacement for P and SH-SV waves. Time shift is included.
-   
     compute_displ_P (R, theta, phi , h, h_der, displ, len, params); 
 
     compute_displ_SH_SV (R, theta, phi , h, h_der, displ, len, params); 
@@ -54,6 +57,7 @@ int compute_displ_P (
     double R, double theta, double phi, double *h, double *h_der,
     displacement *displ, int len, Parameters *params)
 {
+    // making parameters local to avoid multiple "params->"
     double moment = params->moment; double alpha = params->alpha; 
     double rho = params->rho; double time_step = params->time_step; 
     string force_type = params->force_type;
@@ -94,6 +98,7 @@ int compute_displ_P (
                                    moment * h[i]) / (4.0 * PI * rho * pow(alpha, 3) * R);
         };
     };
+
     return 0;
 };
 
@@ -111,6 +116,7 @@ int compute_displ_SH_SV (
     double R, double theta, double phi, double *h, double *h_der,
     displacement *displ, int len, Parameters *params)
 {
+    // making parameters local to avoid multiple "params->"
     double moment = params->moment; double beta = params->beta;
     double rho = params->rho; double time_step = params->time_step; 
     string force_type = params->force_type;
@@ -168,14 +174,18 @@ int compute_displ_SH_SV (
  *
  */
 
-int init_time (double *t, Parameters *params)
+int init_time (double *t, double len, Parameters *params)
 {
+    
     int i = 0; 
     for (double tt=0; tt <= (params->total_time - params->time_step); tt+= params->time_step)
     {
         i++;
         t[i]  = tt;
     }
+
+    // Check the length of the time array
+    check_t_len(len, i);
 
 return 0;
 };

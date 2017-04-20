@@ -66,7 +66,8 @@ int main(int argc, char* argv[])
       
     int len = params.total_time/ params.time_step;
 
-    double *t = new double[len];   init_time (t, &params);
+    double *t = new double[len];   init_time (t, len, &params); // initializes time array
+
     double *h = new double[len];   double *h_der = new double[len]; 
     double *rad_P = new double[1]; double *rad_SH = new double[1]; double *rad_SV = new double[1];
     double *R = new double[1];     double *theta = new double[1];  double *phi = new double[1]; 
@@ -74,23 +75,23 @@ int main(int argc, char* argv[])
     // This function generates a guassian function and its derivative
     gauss_func (params.total_time, params.time_step, h, h_der, len);
  
-    // Now we want to iterate over the grid centers and determine the radiation 
+    // Now we want to iterate over the grid centers and determine the radiation
     // pattern and displacement based on the type of force specified
 
-    for (double xx=-(params.length_x / 2); xx<=(params.length_x / 2); xx+= params.length_x/(params.n_x - 1))  
+    for (double xx=-(params.length_x / 2); xx<=(params.length_x / 2); xx+= params.length_x/(params.n_x - 1))
     {   
-        for (double yy=-(params.length_y / 2); yy<=(params.length_y / 2); yy+= params.length_y/(params.n_y - 1)) 
+        for (double yy=-(params.length_y / 2); yy<=(params.length_y / 2); yy+= params.length_y/(params.n_y - 1))
         {
             check_grid(xx, yy, &params);
 
-            cart_2_sph (xx, yy, R, theta, phi);     
+            cart_2_sph (xx, yy, R, theta, phi);
 
-            compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params); 
+            compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
 
             rad_patt (theta[1], phi[1], rad_P, rad_SH, rad_SV, len, params.force_type); 
 
             write_2_file (&displ, rad_P, rad_SH, rad_SV, t, xx, yy, 
-                          "outputfilename", len);
+                          params.outputfile_path, len);
 
         } // closing inner for loop
     } // outer for loop

@@ -34,10 +34,10 @@ int write_2_file (
     double *t, double xx, double yy, string outputfilename, int len)
 {
     // write displacement
-    write_rad_patt (rad_P, rad_SH, rad_SV, xx, yy, "outputfilename");
+    write_rad_patt (rad_P, rad_SH, rad_SV, xx, yy, outputfilename);
 
     // write radiation pattern
-    write_displ (displ, t, xx, yy, "outputfilename", len);
+    write_displ (displ, t, xx, yy, outputfilename, len);
     
     return 0;
 }
@@ -102,7 +102,7 @@ int write_rad_patt (
     double *rad_P, double *rad_SH, double *rad_SV, 
     double xx, double yy, string outputfilename)
 {
-    char str[80]; strcpy (str,outputfilename.c_str()); strcat (str,"_rad_patt.txt");
+    char str[80]; strcpy (str, outputfilename.c_str()); strcat (str,"_rad_patt.txt"); 
 
     ofstream fout(str, ios::ios_base::app);
 
