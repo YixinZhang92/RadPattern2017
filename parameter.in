@@ -1,7 +1,7 @@
 model_name     model1
 force_type     point_force
-alpha          5.7
-beta           3.5
+alpha          3
+beta           1.5
 time_step      1
 total_time     10
 waveform       wavelet.f
