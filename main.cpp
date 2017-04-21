@@ -59,17 +59,23 @@ int main(int argc, char* argv[])
     clock_t t1 = clock(); //beginning time
 
     // Declare all parameters and files
-    Parameters params; displacement displ; radiation_pattern radiation;
+    Parameters params;
+    displacement displ; 
+    radiation_pattern radiation;
     
     // Parameters will be read from input file, checked  for their reasonability,
     // stored into memory, and then written into login file
     process_parameter(argc, argv, &params);
       
-        int len = params.total_time/ params.time_step;
-        double *t = new double[len];   init_time (t, len, &params); //initializes time array
+    int len = params.total_time/ params.time_step;
+    double *t = new double[len];   
+    init_time (t, len, &params); //initializes time array
 
-        double *h = new double[len];   double *h_der = new double[len]; 
-        double *R = new double[1];     double *theta = new double[1];  double *phi = new double[1]; 
+    double *h = new double[len];
+    double *h_der = new double[len]; 
+    double *R = new double[1];
+    double *theta = new double[1];
+    double *phi = new double[1]; 
 
     // This function generates a guassian function and its derivative
     gauss_func (h, h_der, len, &params);
@@ -77,23 +83,22 @@ int main(int argc, char* argv[])
     // Now we want to iterate over the grid centers and determine the radiation
     // pattern and displacement based on the type of force specified
 
-    for (double xx=-(params.length_x / 2); xx<=(params.length_x / 2);
-         xx+= params.length_x/(params.n_x - 1))
-    {
-        for (double yy=-(params.length_y / 2); yy<=(params.length_y / 2);
-             yy+= params.length_y/(params.n_y - 1))
-        {
+    int ni = (params.n_x - 1)/ 2;
+    int nj = (params.n_y - 1)/ 2;
+
+    for (int i= -ni; i <= ni; i++){
+        for (int j= -nj; j <= nj; j++){
+
+            double xx = 4 * i / params.length_x;
+            double yy = 4 * j / params.length_y;
+
             check_grid(xx, yy, &params);
-
             cart_2_sph (xx, yy, R, theta, phi);
-
             compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
-          
             rad_pattern (theta[1], phi[1], &radiation, &params);
-
             write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len);
-        } // closing inner for loop
-    } // outer for loop
+        };
+    };
 
     cout << "I have completed running all the functions.\n"
     "Good bye.\n"<< endl;
