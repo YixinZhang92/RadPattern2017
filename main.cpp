@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
 
             compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
           
-            rad_pattern (theta[1], phi[1], &radiation, len, &params);
+            rad_pattern (theta[1], phi[1], &radiation, &params);
 
             write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len);
         } // closing inner for loop
