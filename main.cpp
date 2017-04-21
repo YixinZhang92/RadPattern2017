@@ -105,4 +105,4 @@ int main(int argc, char* argv[])
     std::cout << "Execution time : "<<float( clock () - t1 ) / CLOCKS_PER_SEC<< endl;
 
     return 0;
-}
+};
