@@ -33,14 +33,13 @@ using namespace std;
  */
 
 int write_2_file (
-     displacement *displ,
-    double *rad_P, double *rad_SH, double *rad_SV,
+    displacement *displ, radiation_pattern *radiation,
     double *t, double xx, double yy, string outputfilename, int len)
 {
-    // write displacement
-    write_rad_patt (rad_P, rad_SH, rad_SV, xx, yy, outputfilename);
-
     // write radiation pattern
+    write_rad_patt (radiation, xx, yy, outputfilename);
+
+    // write displacement
     write_displ (displ, t, xx, yy, outputfilename, len);
 
     return 0;
@@ -59,8 +58,7 @@ int write_2_file (
  */
 
 int write_displ (
-    displacement *displ,
-    double *t, double xx, double yy, string outputfilename, int len)
+    displacement *displ, double *t, double xx, double yy, string outputfilename, int len)
 {
     char str[80]; strcpy (str,outputfilename.c_str()); strcat (str,"_displ.txt");
 
@@ -104,8 +102,7 @@ int write_displ (
  */
 
 int write_rad_patt (
-    double *rad_P, double *rad_SH, double *rad_SV,
-    double xx, double yy, string outputfilename)
+    radiation_pattern *radiation, double xx, double yy, string outputfilename)
 {
     char str[80]; strcpy (str, outputfilename.c_str()); strcat (str,"_rad_patt.txt");
 
@@ -117,8 +114,9 @@ int write_rad_patt (
 
     // writing xx and yy
     fout.width(width);
-    fout << xx << "\t" << yy << "\t" << rad_P[1] << "\t" << rad_SH[1] << "\t"
-         << rad_SV[1] << endl;
+    fout << xx << "\t" << yy << "\t" << radiation->P_x << "\t" << radiation->P_y <<  "\t" 
+         << radiation-> SH_x << "\t"<< radiation-> SH_y << "\t"
+         << radiation-> SV_x << "\t"<< radiation-> SV_y << "\n";
 
     fout.close();
 

@@ -34,12 +34,12 @@ struct displacement
 
 struct radiation_pattern
 {
-    double P_x[100000];  
-    double P_y[100000];
-    double SH_x[100000]; 
-    double SH_y[100000];
-    double SV_x[100000]; 
-    double SV_y[100000];
+    double P_x;  
+    double P_y;
+    double SH_x; 
+    double SH_y;
+    double SV_x; 
+    double SV_y;
 };
 
 #endif
