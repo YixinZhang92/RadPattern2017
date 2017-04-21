@@ -18,10 +18,10 @@
 
 using namespace std;
 
-int rad_pattern (double theta, double phi, radiation_pattern *radiation, int len, Parameters *params);
+int rad_pattern (double theta, double phi, radiation_pattern *radiation, Parameters *params);
 
-int rad_pattern_x (double theta, double phi, radiation_pattern *radiation, int len, Parameters *params);
+int rad_pattern_x (double theta, double phi, radiation_pattern *radiation, Parameters *params);
 
-int rad_pattern_y (double theta, double phi, radiation_pattern *radiation, int len, Parameters *params);
+int rad_pattern_y (double theta, double phi, radiation_pattern *radiation, Parameters *params);
 
 
