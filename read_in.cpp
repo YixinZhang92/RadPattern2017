@@ -242,5 +242,6 @@ int out_logfile(Parameters *params)
 
     cout << "login file has been written.\n" <<endl;
 
+    logfile.close();
     return 0;
 }
