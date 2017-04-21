@@ -91,8 +91,7 @@ int main(int argc, char* argv[])
           
             rad_pattern (theta[1], phi[1], &radiation, len, &params);
 
-            //write_2_file (&displ, rad_P, rad_SH, rad_SV, t, xx, yy, 
-                          //params.outputfile_path, len);
+            write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len);
         } // closing inner for loop
     } // outer for loop
 

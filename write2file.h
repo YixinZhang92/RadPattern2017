@@ -20,8 +20,7 @@
 using namespace std;
 
 int write_2_file (
-    displacement *displ, 
-    double *rad_P, double *rad_SH, double *rad_SV, 
+    displacement *displ, radiation_pattern *radiation, 
     double *t, double xx, double yy, string outputfilename, int len);
 
 int write_displ (
@@ -29,5 +28,4 @@ int write_displ (
     double *t, double xx, double yy, string outputfilename, int len);
 
 int write_rad_patt (
-    double *rad_P, double *rad_SH, double *rad_SV, 
-    double xx, double yy, string outputfilename);
+    radiation_pattern *radiation, double xx, double yy, string outputfilename);
