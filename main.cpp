@@ -86,24 +86,18 @@ int main(int argc, char* argv[])
         
     }; 
 
-
     // Create a barrier here
     MPI_Barrier(MPI_COMM_WORLD);
 
     // Introduction by each processors
     cout << "I am processor " << rank << " out of " << size << endl;
   
-    // Create a barrier here
-    MPI_Barrier(MPI_COMM_WORLD);
-
-
-    
     // Declare all parameters and files
     Parameters params;
     displacement displ; 
     radiation_pattern radiation;
     
-   // if ( rank == 1 ) 
+    // if ( rank == 1 ) 
     //{
         // Parameters will be read from input file, checked  for their reasonability,
         // stored into memory, and then written into login file
@@ -120,14 +114,11 @@ int main(int argc, char* argv[])
     double *theta = new double[1];
     double *phi = new double[1]; 
 
-    // Create a barrier here
-    MPI_Barrier(MPI_COMM_WORLD);
-
-    if (rank == 1 ) 
-    {
+    // if (rank == 1 ) 
+    //{
         // This function generates a guassian function and its derivative
         gauss_func (h, h_der, len, &params);
-    };
+    //};
 
     // Create a barrier here
     MPI_Barrier(MPI_COMM_WORLD);
@@ -138,53 +129,47 @@ int main(int argc, char* argv[])
     int ni = (params.n_x - 1)/ 2;
     int nj = (params.n_y - 1)/ 2;
 
-if ((rank == 0) || (rank == 1) || (rank == 2) || (rank ==3))
-{
-    for (int i= -ni; i <= ni; i++){
-        for (int j= -nj; j <= nj; j++){
+    if ((rank == 2) )
+    {
+        for (int i= -ni; i <= ni; i++){
+            for (int j= -nj; j <= nj; j++){
 
-            double xx = 4 * i / params.length_x;
-            double yy = 4 * j / params.length_y;
+                double xx = 4 * i / params.length_x;
+                double yy = 4 * j / params.length_y;
 
-            check_grid(xx, yy, &params);
-            cart_2_sph (xx, yy, R, theta, phi);
+                check_grid(xx, yy, &params);
+                cart_2_sph (xx, yy, R, theta, phi);
 
-            if ((xx < 0) & (yy > 0) & (rank == 0))
-            {
-                compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
-                rad_pattern (theta[1], phi[1], &radiation, &params);
-                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len, rank);
+                if ((xx < 0) & (yy > 0) & (rank == 0))
+                {
+                    compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
+                    rad_pattern (theta[1], phi[1], &radiation, &params);
+                    write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len);
+                };
+
+                if ((xx >= 0) & (yy >= 0) & (rank == 1))
+                {
+                    compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
+                    rad_pattern (theta[1], phi[1], &radiation, &params);
+                    write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len);
+                };
+
+                if ((xx > 0) & (yy < 0) & (rank == 2))
+                {
+                    compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
+                    rad_pattern (theta[1], phi[1], &radiation, &params);
+                    write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len);
+                };
+
+                if ((xx <= 0) & (yy <= 0) & (rank == 3))
+                {
+                    compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
+                    rad_pattern (theta[1], phi[1], &radiation, &params);
+                    write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len);
+                };
             };
-
-            if ((xx >= 0) & (yy >= 0) & (rank == 1))
-            {
-                compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
-                rad_pattern (theta[1], phi[1], &radiation, &params);
-                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len, rank);
-            };
-
-            if ((xx > 0) & (yy < 0) & (rank == 2))
-            {
-                compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
-                rad_pattern (theta[1], phi[1], &radiation, &params);
-                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len, rank);
-            };
-
-            if ((xx <= 0) & (yy <= 0) & (rank == 3))
-            {
-                compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
-                rad_pattern (theta[1], phi[1], &radiation, &params);
-                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len, rank);
-            };
-
-         };
-     };
-};
-
-            // Create a barrier here
-            MPI_Barrier(MPI_COMM_WORLD);
-
-
+        };
+    };
 
     if ( rank == 0 ) 
     {    
