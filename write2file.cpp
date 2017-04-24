@@ -34,13 +34,13 @@ using namespace std;
 
 int write_2_file (
     displacement *displ, radiation_pattern *radiation,
-    double *t, double xx, double yy, string outputfilename, int len)
+    double *t, double xx, double yy, string outputfilename, int len, int rank)
 {
     // write radiation pattern
-    write_rad_patt (radiation, xx, yy, outputfilename);
+    write_rad_patt (radiation, xx, yy, outputfilename, rank);
 
     // write displacement
-    write_displ (displ, t, xx, yy, outputfilename, len);
+    write_displ (displ, t, xx, yy, outputfilename, len, rank);
 
     return 0;
 }
@@ -58,9 +58,9 @@ int write_2_file (
  */
 
 int write_displ (
-    displacement *displ, double *t, double xx, double yy, string outputfilename, int len)
+    displacement *displ, double *t, double xx, double yy, string outputfilename, int len, int rank)
 {
-    char str[80]; strcpy (str,outputfilename.c_str()); strcat (str,"_displ.txt");
+    char str[80]; strcpy (str,outputfilename.c_str());  strcat (str,"_displ.txt"); //strcat (str,rank));
 
     ofstream fout(str, ios::ios_base::app);
 
@@ -102,9 +102,9 @@ int write_displ (
  */
 
 int write_rad_patt (
-    radiation_pattern *radiation, double xx, double yy, string outputfilename)
+    radiation_pattern *radiation, double xx, double yy, string outputfilename, int rank)
 {
-    char str[80]; strcpy (str, outputfilename.c_str()); strcat (str,"_rad_patt.txt");
+    char str[80]; strcpy (str, outputfilename.c_str()); strcat (str,"_rad_patt.txt"); //strcat (str,rank); 
 
     ofstream fout(str, ios::ios_base::app);
 

@@ -56,9 +56,9 @@ using namespace std;
  */
 
 int main(int argc, char* argv[])
-{  
+{
     clock_t t1 = clock(); //beginning time
-
+  
     int rank;
     int size;
 
@@ -129,12 +129,17 @@ int main(int argc, char* argv[])
         gauss_func (h, h_der, len, &params);
     };
 
+    // Create a barrier here
+    MPI_Barrier(MPI_COMM_WORLD);
+
     // Now we want to iterate over the grid centers and determine the radiation
     // pattern and displacement based on the type of force specified
 
     int ni = (params.n_x - 1)/ 2;
     int nj = (params.n_y - 1)/ 2;
 
+if ((rank == 0) || (rank == 1) || (rank == 2) || (rank ==3))
+{
     for (int i= -ni; i <= ni; i++){
         for (int j= -nj; j <= nj; j++){
 
@@ -148,35 +153,38 @@ int main(int argc, char* argv[])
             {
                 compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
                 rad_pattern (theta[1], phi[1], &radiation, &params);
-                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len);
+                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len, rank);
             };
 
             if ((xx >= 0) & (yy >= 0) & (rank == 1))
             {
                 compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
                 rad_pattern (theta[1], phi[1], &radiation, &params);
-                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len);
+                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len, rank);
             };
 
             if ((xx > 0) & (yy < 0) & (rank == 2))
             {
                 compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
                 rad_pattern (theta[1], phi[1], &radiation, &params);
-                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len);
+                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len, rank);
             };
 
             if ((xx <= 0) & (yy <= 0) & (rank == 3))
             {
                 compute_displ (R[1], theta[1], phi[1] , h, h_der, &displ, len, &params);
                 rad_pattern (theta[1], phi[1], &radiation, &params);
-                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len);
+                write_2_file (&displ, &radiation, t, xx, yy, params.outputfile_path, len, rank);
             };
+
+         };
+     };
+};
 
             // Create a barrier here
             MPI_Barrier(MPI_COMM_WORLD);
 
-        };
-    };
+
 
     if ( rank == 0 ) 
     {    
