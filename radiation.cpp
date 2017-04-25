@@ -1,5 +1,5 @@
 /**
- * @short   radiation
+ * @short   radiation pattern
  * @file    radiation.cpp
  * @author  Eric Jambo
  *
@@ -17,79 +17,96 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cmath>
-#include "radiation.h"       
 
+#include "struct.h"
+#include "radiation.h"       
+#include "error_check.h"
 using namespace std;
 
 // defining the value of PI.
 #define PI 3.14159265
 
-double radp (double theta, double phi, double *rad_P, double *rad_SH, double *rad_SV, int len, string force_type)
+int rad_pattern (double theta, double phi, radiation_pattern *radiation, Parameters *params)
 {
+    // Check variables
+    double R = 1;
+    check_loc(R, theta, phi);
 
-    //cout << "Running: radiation_pattern_P_wave_single_couple_force\n";
-    //cout << endl;
+    // displacement for P and SH-SV waves. Time shift is included.
+    rad_pattern_x (theta, phi, radiation, params); 
+    rad_pattern_y (theta, phi, radiation, params); 
 
-    
-        if (force_type == "point_force")
-         
-        {
-
-        // Perform operation for Point Force.
-
-        for (int i=0; i<len; i++)
-        {
-
-            rad_P[i]  = cos(theta);
-
-            rad_SV[i] = -sin(theta);
-        }
+    return 0;
+}
 
 
-        if (force_type == "single_couple")
+int rad_pattern_x (double theta, double phi, radiation_pattern *radiation, Parameters *params)
+{
+    string force_type = params->force_type;
 
-        // Perform operation for Point Force.
+    if (force_type == "point_force") 
+    {
+        radiation->P_x  = abs(cos(theta))*sin(theta)*cos(phi);    
+        radiation->SH_x = pow(sin(theta),2)*cos(phi);
+        radiation->SV_x = pow(sin(theta),2)*cos(phi);
+   
+    }
 
-        for (int i=0; i<len; i++)
-        {
+    if (force_type == "single_couple")
+    {
+        radiation->P_x  = sin(2.0*phi)*(pow(sin(theta),3))*cos(phi);
+        radiation->SH_x = abs(sin(theta)*(pow(sin(phi),2)))*sin(theta)*cos(phi);            
+        radiation->SV_x = sin(2.0*theta)*sin(2.0*phi)*sin(theta)*cos(phi);
+    }
 
-            rad_P[i]  = -sin(2.0*phi)*(pow(sin(theta),2));
+    if (force_type == "double_couple")
+    {
+        radiation->P_x  = sin(2.0*phi)*(pow(sin(theta),3))*cos(phi);
+        radiation->SH_x = pow(sin(theta),2)*cos(2.0*phi)*cos(phi);            
+        radiation->SV_x = sin(2.0*theta)*sin(2.0*phi)*sin(theta)*cos(phi);
+    }
 
-            rad_SH[i] = sin(theta)*(pow(sin(phi),2));
-            
-            rad_SV[i] = -sin(2.0*theta)*sin(2.0*phi);
-        }
-
-
-        if (force_type == "double_couple")
-
-        // Perform operation for Point Force.
-
-        for (int i=0; i<len; i++)
-        {
-
-            rad_P[i]  = -sin(2.0*phi)*(pow(sin(theta),2));
-
-            rad_SH[i] = -sin(theta)*cos(2.0*phi);
-            
-            rad_SV[i] = -sin(2.0*theta)*sin(2.0*phi);
-        }
+    if (force_type == "force_dipole")
+    {
+        radiation->P_x  = -(pow(sin(theta),3))*(pow(cos(phi),3));
+        radiation->SH_x = pow(sin(theta),2)*sin(2.0*phi)*cos(phi);            
+        radiation->SV_x = -cos(theta)*pow(cos(phi),2)*sin(theta);
+    }
+return 0;
+}
 
 
-        if (force_type == "force_dipole")
+int rad_pattern_y (double theta, double phi, radiation_pattern *radiation, Parameters *params)
+{
+    string force_type = params->force_type;
 
-        // Perform operation for Point Force.
+    if (force_type == "point_force") 
+    {
+        radiation->P_y  = abs(cos(theta))*sin(theta)*sin(phi);            
+        radiation->SH_y = pow(sin(theta),2)*sin(phi);
+        radiation->SV_y = pow(sin(theta),2)*sin(phi);
+   
+    }
 
-        for (int i=0; i<len; i++)
-        {
+    if (force_type == "single_couple")
+    {
+        radiation->P_y  = sin(2.0*phi)*(pow(sin(theta),3))*sin(phi);
+        radiation->SH_y = -(pow(sin(theta),2)*(pow(sin(phi),3)));           
+        radiation->SV_y = sin(2.0*theta)*sin(2.0*phi)*sin(theta)*sin(phi);
+    }
 
-            rad_P[i]  = (pow(sin(theta),2))*(pow(cos(phi),2));
+    if (force_type == "double_couple")
+    {
+        radiation->P_y  = sin(2.0*phi)*(pow(sin(theta),3))*sin(phi);
+        radiation->SH_y = pow(sin(theta),2)*cos(2.0*phi)*sin(phi);           
+        radiation->SV_y = sin(2.0*theta)*sin(2.0*phi)*sin(theta)*sin(phi);
+    }
 
-            rad_SH[i] = -sin(theta)*sin(2.0*phi);
-            
-            rad_SV[i] = cos(theta)*cos(phi);
-        }
-    
-   }
-   return 0;
+    if (force_type == "force_dipole")
+    {
+        radiation->P_y  = -(pow(sin(theta),3))*(pow(cos(phi),2))*sin(phi);
+        radiation->SH_y = pow(sin(theta),2)*sin(2.0*phi)*sin(phi);            
+        radiation->SV_y = abs(cos(theta)*cos(phi))*sin(theta)*sin(phi);
+    }
+return 0;
 }

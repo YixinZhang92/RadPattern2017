@@ -1,10 +1,11 @@
 /**
- * @short   Prototype Headers
- * @file    prototypes.h
- * @author  Oluwaseun Fadugba, Yixin Zhang and Eric Jambo
+ * @short   Convert cartesian coordinates to spherical
+ * @file    cart2sph.h
+ *@author  Eric Jambo
  *
- * This file contains the prototypes and a short description of all the functions used
- * in the RadPattern101 program.
+ * This file contains the function to convert the cartesian coordinates into spherical coordinates
+ * using location(x,y) from the generated mesh grid
+ *
  */
  
 #include <iostream>
@@ -25,4 +26,4 @@ using namespace std;
 // coordinates using location(x,y)
 // ----------------------------------------------------------------------------------
 
-double cart_2_sph (double xx, double yy, double R, double theta, double phi);
+double cart_2_sph (double xx, double yy, double *R, double *theta, double *phi);

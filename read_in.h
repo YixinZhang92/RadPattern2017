@@ -20,7 +20,7 @@
 using namespace std;
 
 // Short description: These functions read the input parameters in the program
-// -------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 int process_parameter(int argc, char* argv[], Parameters *params);
 
