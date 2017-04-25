@@ -61,7 +61,6 @@ int write_displ (
     displacement *displ, double *t, double xx, double yy, string outputfilename, int len)
 {
     char str[80]; strcpy (str,outputfilename.c_str()); strcat (str,"_displ.txt");
-
     ofstream fout(str, ios::ios_base::app);
 
     check_outfile(!fout, 1);
@@ -105,7 +104,6 @@ int write_rad_patt (
     radiation_pattern *radiation, double xx, double yy, string outputfilename)
 {
     char str[80]; strcpy (str, outputfilename.c_str()); strcat (str,"_rad_patt.txt");
-
     ofstream fout(str, ios::ios_base::app);
 
     check_outfile(!fout, 2);
